@@ -4,6 +4,7 @@ import numpy.testing as npt
 import pandas as pd
 import pandas.util.testing as pdt
 
+
 class TestModalityEstimator(object):
     @pytest.fixture
     def step(self):
@@ -64,7 +65,7 @@ class TestModalityEstimator(object):
                                  for k, v in ONE_PARAMETER_MODELS.items()}
 
         true_two_param_models = {k: ModalityModel(**v)
-                             for k, v in TWO_PARAMETER_MODELS.items()}
+                                 for k, v in TWO_PARAMETER_MODELS.items()}
 
         npt.assert_equal(estimator.logbf_thresh, logbf_thresh)
         pdt.assert_dict_equal(estimator.model_palettes, MODEL_PALETTES)
@@ -94,4 +95,3 @@ class TestModalityEstimator(object):
         test = estimator.assign_modalities(log2bf)
 
         pdt.assert_almost_equal(test.values, test.index)
-

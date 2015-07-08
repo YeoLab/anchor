@@ -11,6 +11,7 @@ from scipy import stats
 from scipy.misc import logsumexp
 import seaborn as sns
 
+
 class ModalityModel(object):
     """Object to model modalities from beta distributions"""
 
@@ -119,7 +120,6 @@ class ModalityModel(object):
         kwargs.setdefault('inner', 'quantile')
         kwargs.setdefault('scale', 'width')
         kwargs.setdefault('palette', 'Purples')
-
 
         dfs = []
 

@@ -100,4 +100,3 @@ class TestModalityModel(object):
         model1 = ModalityModel(alphas, betas)
         model2 = ModalityModel(betas, alphas)
         assert model1 != model2
-

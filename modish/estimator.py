@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 
 from .model import ModalityModel
-from scipy.misc import logsumexp
 
 TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./np.arange(2, 20),
                                     'betas': 1./np.arange(2, 20)},
@@ -17,6 +16,7 @@ MODEL_PALETTES = {'bimodal': 'Purples',
                   'middle': 'Greens',
                   '~0': 'Blues',
                   '~1': 'Reds'}
+
 
 class ModalityEstimator(object):
     """Use Bayesian methods to estimate modalities of splicing events"""
