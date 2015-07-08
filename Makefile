@@ -7,7 +7,7 @@ test:
 	py.test
 
 coverage:
-	coverage run --source modish --omit=test --module py.test
+	coverage run --source modish --omit=tests --module py.test
 
 lint:
 	flake8 modish
