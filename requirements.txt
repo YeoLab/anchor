@@ -1,0 +1,5 @@
+wheel==0.23.0
+pytest
+flake8
+coverage
+python-coveralls
