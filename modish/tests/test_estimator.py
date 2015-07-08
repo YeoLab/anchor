@@ -47,30 +47,23 @@ class TestModalityEstimator(object):
         return df
 
     def test_init(self, step, vmax, logbf_thresh):
-        from modish import ModalityEstimator, \
-            ModalityModel
+        from modish import ModalityEstimator, ModalityModel
+        from modish.estimator import ONE_PARAMETER_MODELS, \
+            TWO_PARAMETER_MODELS, MODEL_PALETTES
 
-        estimator = ModalityEstimator(step, vmax, logbf_thresh)
+        estimator = ModalityEstimator(
+            one_parameter_models=ONE_PARAMETER_MODELS,
+            two_parameter_models=TWO_PARAMETER_MODELS,
+            logbf_thresh=logbf_thresh, model_palettes=MODEL_PALETTES)
 
-        true_parameters = np.arange(2, vmax + step, step).astype(float)
-        true_exclusion = ModalityModel(1, true_parameters)
-        true_inclusion = ModalityModel(true_parameters, 1)
-        true_middle = ModalityModel(true_parameters+3, true_parameters+3)
-        true_bimodal = ModalityModel(1 / (true_parameters+3),
-                                     1 / (true_parameters+3))
-        true_one_param_models = {'Psi~1': true_inclusion,
-                                 'Psi~0': true_exclusion}
-        true_two_param_models = {'bimodal': true_bimodal,
-                                 'middle': true_middle}
+        true_one_param_models = {k: ModalityModel(**v)
+                                 for k, v in ONE_PARAMETER_MODELS.items()}
 
-        npt.assert_equal(estimator.step, step)
-        npt.assert_equal(estimator.vmax, vmax)
+        true_two_param_models = {k: ModalityModel(**v)
+                             for k, v in TWO_PARAMETER_MODELS.items()}
+
         npt.assert_equal(estimator.logbf_thresh, logbf_thresh)
-        npt.assert_equal(estimator.parameters, true_parameters)
-        npt.assert_equal(estimator.exclusion_model, true_exclusion)
-        npt.assert_equal(estimator.inclusion_model, true_inclusion)
-        npt.assert_equal(estimator.middle_model, true_middle)
-        npt.assert_equal(estimator.bimodal_model, true_bimodal)
+        pdt.assert_dict_equal(estimator.model_palettes, MODEL_PALETTES)
         pdt.assert_dict_equal(estimator.one_param_models,
                               true_one_param_models)
         pdt.assert_dict_equal(estimator.two_param_models,
