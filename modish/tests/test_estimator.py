@@ -19,7 +19,7 @@ class TestModalityEstimator(object):
 
     @pytest.fixture
     def estimator(self, step, vmax):
-        from flotilla.compute.splicing import ModalityEstimator
+        from modish import ModalityEstimator
 
         return ModalityEstimator(step, vmax)
 
@@ -47,7 +47,7 @@ class TestModalityEstimator(object):
         return df
 
     def test_init(self, step, vmax, logbf_thresh):
-        from flotilla.compute.splicing import ModalityEstimator, \
+        from modish import ModalityEstimator, \
             ModalityModel
 
         estimator = ModalityEstimator(step, vmax, logbf_thresh)

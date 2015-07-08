@@ -30,12 +30,12 @@ class TestModalityModel(object):
 
     @pytest.fixture()
     def model(self, alpha, beta):
-        from flotilla.compute.splicing import ModalityModel
+        from modish import ModalityModel
 
         return ModalityModel(alpha, beta)
 
     def test_init(self, alphas, betas):
-        from flotilla.compute.splicing import ModalityModel
+        from modish import ModalityModel
 
         model = ModalityModel(alphas, betas)
 
@@ -84,14 +84,14 @@ class TestModalityModel(object):
                                logsumexp(model.logliks(x)))
 
     def test_eq(self, alphas, betas):
-        from flotilla.compute.splicing import ModalityModel
+        from modish import ModalityModel
 
         model1 = ModalityModel(alphas, betas)
         model2 = ModalityModel(alphas, betas)
         assert model1 == model2
 
     def test_ne(self, alphas, betas):
-        from flotilla.compute.splicing import ModalityModel
+        from modish import ModalityModel
 
         if np.all(alphas == betas):
             assert 1
