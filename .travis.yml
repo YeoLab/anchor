@@ -1,6 +1,5 @@
 language: python
 python:
-- '2.6'
 - '2.7'
 - '3.3'
 - '3.4'
@@ -17,7 +16,7 @@ install:
 - conda create -n testenv --yes python=$TRAVIS_PYTHON_VERSION pip
 - source activate testenv
 - conda install --yes pytest
-- conda install --file conda_requirements.txt
+- conda install --yes --file conda_requirements.txt
 - pip install -r requirements.txt
 - pip install .
 before_script:
