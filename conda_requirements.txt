@@ -4,4 +4,3 @@ coverage
 pandas
 matplotlib
 seaborn
-python-coveralls
