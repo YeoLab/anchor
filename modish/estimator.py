@@ -175,7 +175,7 @@ class ModalityEstimator(object):
             Figure object with violins plotted
         """
         nrows = len(self.models)
-        width = len(max(len(m.rvs) for name, m in self.models.items()))
+        width = max(len(m.rvs) for name, m in self.models.items())
         height = nrows*4
         fig, axes = plt.subplots(nrows=nrows, figsize=(width, height))
 
