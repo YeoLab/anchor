@@ -95,7 +95,7 @@ class ModalityEstimator(object):
         else:
             return data_non_na.apply(lambda x: pd.Series(
                 {k: v.logsumexp_logliks(x)
-                 for k, v in models.iteritems()}), axis=0)
+                 for k, v in models.items()}), axis=0)
 
     def fit_transform(self, data):
         """Get the modality assignments of each splicing event in the data
