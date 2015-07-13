@@ -30,6 +30,9 @@ after_script:
 - coveralls
 deploy:
   provider: pypi
+  user: obot
+  password:
+    secure: KLIIx6HQkgj3wkhLrcX06Ry9jztDl/mz5SV5xo1ZMmqRkNbME3UxVIF1SwlCLhdZvycVh6MvLBLn/8Uq8xGGxtFqBYGf3y1+Coalmmvv4X/fGUby0F8PkmegULwh6h65tqt5KtGIh9M0eknUYnx/Ib/r3ontd1yCrvul14LGyAcKOR9oP6nmrLOwIqMPXeD5s5zlrGvEKnTulxowOgKOGavnyxaFfBqmdRlGokbhXxUGGMmW3PNRx2jlSFTPozZwzp2mfCkKg/7hslwIYln4ovkTNXiFIiOMm4WRH9/Nzae3nSxTcMw7SB53lrgcL3HoA2sBS/sjh623VdWbuzUX9FQw3We9lb2AfJglsZgkW4xQ1wfKS9WwrgTwHN1Q7490//J4xk39SnTvm8sdNQYIKviNJLhmqPTEFJoxRZnbtmuLMrc5qi14663RLYhL/veTqHGi3J3iNwlK1tZax15CayXUeasuRjHlUcBvOnfpK6YYSuNvlFUGmzFNkAYPaX/BJ/J9il39LNTByregWzJThuct+hl2nG2V0VBFOSlzJgIVphQchcl5JMTF8dboR3BuuvxTMbb7LyU1mwQBO85jaT7ikJqZpG9o+cG2uJ5KYE4gt+LWaMReHVN9xWaWA+HsJginyP5WrnjSnivIetyw0f/oR5C1sCaVmb8DY80Ap0Q=
   on:
     tags: true
-    repo: olgabot/sj2psi
+    repo: olgabot/modish
