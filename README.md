@@ -4,7 +4,7 @@
 
 ## What is `modish`: Modality Estimator?
 
-Modish is a python package to estimate modality of splicing, percent methylated, any data that is normalized between 0 and 1
+Modish is a bioinformatics python package to estimate modality of splicing, percent methylated, any data that is normalized between 0 and 1
 
 * Free software: BSD license
 * Documentation: https://olgabot.github.io/modish
