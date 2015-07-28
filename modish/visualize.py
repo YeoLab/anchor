@@ -47,3 +47,102 @@ class _ModalityEstimatorPlotter(object):
                       fontsize=10, ha='center', va='bottom')
         sns.despine()
         return self
+
+
+class ModalitiesViz(object):
+    """Visualize results of modality assignments"""
+    modality_colors = {'bimodal': seaborn_colors[3],
+                       'Psi~0': seaborn_colors[0],
+                       'Psi~1': seaborn_colors[2],
+                       'middle': seaborn_colors[1],
+                       'ambiguous': seaborn_colors[4]}
+
+    modality_order = ['Psi~0', 'middle', 'Psi~1', 'bimodal', 'ambiguous']
+
+    colors = [modality_colors[modality] for modality in
+              modality_order]
+
+    def plot_reduced_space(self, binned_reduced, modality_assignments,
+                           ax=None, title=None, xlabel='', ylabel=''):
+        if ax is None:
+            fig, ax = plt.subplots(figsize=(8, 8))
+
+        # For easy aliasing
+        X = binned_reduced
+
+        for modality, df in X.groupby(modality_assignments, axis=0):
+            color = self.modality_colors[modality]
+            ax.plot(df.ix[:, 0], df.ix[:, 1], 'o', color=color, alpha=0.7,
+                    label=modality)
+
+        sns.despine()
+        xmax, ymax = X.max()
+        ax.set_xlim(0, 1.05 * xmax)
+        ax.set_ylim(0, 1.05 * ymax)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.legend()
+        if title is not None:
+            ax.set_title(title)
+
+    def bar(self, counts, phenotype_to_color=None, ax=None, percentages=True):
+        """Draw barplots grouped by modality of modality percentage per group
+
+        Parameters
+        ----------
+
+
+        Returns
+        -------
+
+
+        Raises
+        ------
+
+        """
+        if percentages:
+            counts = 100 * (counts.T / counts.T.sum()).T
+
+        # with sns.set(style='whitegrid'):
+        if ax is None:
+            ax = plt.gca()
+
+        full_width = 0.8
+        width = full_width / counts.shape[0]
+        for i, (group, series) in enumerate(counts.iterrows()):
+            left = np.arange(len(self.modality_order)) + i * width
+            height = [series[i] if i in series else 0
+                      for i in self.modality_order]
+            color = phenotype_to_color[group]
+            ax.bar(left, height, width=width, color=color, label=group,
+                   linewidth=.5, edgecolor='k')
+        ylabel = 'Percentage of events' if percentages else 'Number of events'
+        ax.set_ylabel(ylabel)
+        ax.set_xticks(np.arange(len(self.modality_order)) + full_width / 2)
+        ax.set_xticklabels(self.modality_order)
+        ax.set_xlabel('Splicing modality')
+        ax.set_xlim(0, len(self.modality_order))
+        ax.legend(loc='best')
+        ax.grid(axis='y', linestyle='-', linewidth=0.5)
+        sns.despine()
+
+    def event_estimation(self, event, logliks, logsumexps, renamed=''):
+        """Show the values underlying bayesian modality estimations of an event
+
+        Parameters
+        ----------
+
+
+        Returns
+        -------
+
+
+        Raises
+        ------
+        """
+        plotter = _ModalityEstimatorPlotter()
+        plotter.plot(event, logliks, logsumexps, self.modality_colors,
+                     renamed=renamed)
+        return plotter
