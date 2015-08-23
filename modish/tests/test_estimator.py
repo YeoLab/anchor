@@ -46,8 +46,8 @@ class TestModalityEstimator(object):
         middle = pd.Series(np.random.uniform(0.45, 0.55, size=size),
                            name='middle')
         bimodal = pd.Series(np.concatenate([
-            np.random.uniform(0, 0.1, size=size / 2),
-            np.random.uniform(0.9, 1, size=size / 2)]), name='bimodal')
+            np.random.uniform(0, 0.05, size=size / 2),
+            np.random.uniform(0.95, 1, size=size / 2)]), name='bimodal')
         df = pd.concat([psi0, psi1, middle, bimodal], axis=1)
         return df
 
