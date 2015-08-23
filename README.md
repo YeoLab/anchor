@@ -1,6 +1,6 @@
 # modish: Modality Estimator
 
-[![](https://img.shields.io/travis/olgabot/modish.svg)](https://travis-ci.org/olgabot/modish)[![](https://img.shields.io/pypi/v/modish.svg)](https://pypi.python.org/pypi/modish)
+[![](https://img.shields.io/travis/olgabot/modish.svg)](https://travis-ci.org/olgabot/modish)[![](https://img.shields.io/pypi/v/modish.svg)](https://pypi.python.org/pypi/modish)[![Coverage Status](https://coveralls.io/repos/olgabot/modish/badge.svg?branch=master&service=github)](https://coveralls.io/github/olgabot/modish?branch=master)
 
 ## What is `modish`: Modality Estimator?
 
