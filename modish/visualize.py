@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'ambiguous']
-MODALITY_COLORS = dict(zip(MODALITY_ORDER, sns.color_palette('deep')))
+MODALITY_COLORS = {'~0': lightblue, 'middle': green, '~1': red,
+                   'bimodal': purple, 'ambiguous': yellow}
 
 
 class _ModalityEstimatorPlotter(object):
@@ -55,10 +57,9 @@ class _ModalityEstimatorPlotter(object):
 
 class ModalitiesViz(object):
     """Visualize results of modality assignments"""
-    darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
-    modality_order = ['~0', 'middle', '~1', 'bimodal', 'ambiguous']
-    modality_colors = {'~0': lightblue, 'middle': green, '~1': red,
-                       'bimodal': purple, 'ambiguous': yellow}
+
+    modality_order = MODALITY_ORDER
+    modality_colors = MODALITY_COLORS
 
     colors = [modality_colors[modality] for modality in
               modality_order]
