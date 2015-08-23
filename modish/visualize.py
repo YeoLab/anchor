@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Command line program which estimates modalities on a single file"""
+"""See log bayes factors which led to modality categorization"""
+
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'ambiguous']
 MODALITY_COLORS = dict(zip(MODALITY_ORDER, sns.color_palette('deep')))
+
 
 class _ModalityEstimatorPlotter(object):
     def __init__(self):
@@ -51,13 +55,10 @@ class _ModalityEstimatorPlotter(object):
 
 class ModalitiesViz(object):
     """Visualize results of modality assignments"""
-    modality_colors = {'bimodal': seaborn_colors[3],
-                       'Psi~0': seaborn_colors[0],
-                       'Psi~1': seaborn_colors[2],
-                       'middle': seaborn_colors[1],
-                       'ambiguous': seaborn_colors[4]}
-
-    modality_order = ['Psi~0', 'middle', 'Psi~1', 'bimodal', 'ambiguous']
+    darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
+    modality_order = ['~0', 'middle', '~1', 'bimodal', 'ambiguous']
+    modality_colors = {'~0': lightblue, 'middle': green, '~1': red,
+                       'bimodal': purple, 'ambiguous': yellow}
 
     colors = [modality_colors[modality] for modality in
               modality_order]
