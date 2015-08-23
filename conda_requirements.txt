@@ -3,4 +3,4 @@ flake8
 coverage
 pandas
 matplotlib
-seaborn
+seaborn>=0.6
