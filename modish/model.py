@@ -117,7 +117,7 @@ class ModalityModel(object):
             Axes object with violins plotted
         """
         kwargs.setdefault('bw', 0.2)
-        kwargs.setdefault('inner', 'quantile')
+        kwargs.setdefault('inner', 'quartile')
         kwargs.setdefault('scale', 'width')
         kwargs.setdefault('palette', 'Purples')
 
