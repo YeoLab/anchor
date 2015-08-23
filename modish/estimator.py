@@ -4,13 +4,15 @@ import pandas as pd
 
 from .model import ModalityModel
 
-TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./np.arange(2, 20),
-                                    'betas': 1./np.arange(2, 20)},
-                        'middle': {'alphas': np.arange(2, 20),
-                                   'betas': np.arange(2, 20)}}
+CHANGING_PARAMETERS = np.arange(5, 20)
+
+TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./CHANGING_PARAMETERS,
+                                    'betas': 1./CHANGING_PARAMETERS},
+                        'middle': {'alphas': CHANGING_PARAMETERS,
+                                   'betas': CHANGING_PARAMETERS}}
 ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
-                               'betas': np.arange(2, 20)},
-                        '~1': {'alphas': np.arange(2, 20),
+                               'betas': CHANGING_PARAMETERS},
+                        '~1': {'alphas': CHANGING_PARAMETERS,
                                'betas': 1}}
 MODEL_PALETTES = {'bimodal': 'Purples',
                   'middle': 'Greens',
