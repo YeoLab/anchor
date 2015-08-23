@@ -146,23 +146,14 @@ class ModalityEstimator(object):
         log2_bayes_factors = pd.concat([log2_bayes_factors, empty_df], axis=1)
         return log2_bayes_factors
 
-    def violinplot(self, n=1000, **kwargs):
+    def violinplot(self, n=1000, figsize=None, **kwargs):
         r"""Visualize all modality family members with parameters
 
-        Use violinplots to visualize
+        Use violinplots to visualize distributions of modality family members
 
         Parameters
         ----------
-        var1 : array_like
-            Array_like means all those objects -- lists, nested lists, etc. --
-            that can be converted to an array.  We can also refer to
-            variables like `var1`.
-        var2 : int
-            The type above can either refer to an actual Python type
-            (e.g. ``int``), or describe the type of the variable in more
-            detail, e.g. ``(N,) ndarray`` or ``array_like``.
-        Long_variable_name : {'hi', 'ho'}, optional
-            Choices in brackets, default first when optional.
+
 
         Parameters
         ----------
@@ -176,10 +167,12 @@ class ModalityEstimator(object):
         fig : matplotlib.Figure object
             Figure object with violins plotted
         """
-        nrows = len(self.models)
-        width = max(len(m.rvs) for name, m in self.models.items())
-        height = nrows*4
-        fig, axes = plt.subplots(nrows=nrows, figsize=(width, height))
+        if figsize is None:
+            nrows = len(self.models)
+            width = max(len(m.rvs) for name, m in self.models.items())
+            height = nrows*3
+            figsize = width, height
+        fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
 
         for ax, (model_name, model) in zip(axes, self.models.items()):
             palette = self.model_palettes[model_name]
