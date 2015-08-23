@@ -1,8 +1,9 @@
 from collections import Iterable
 
-import pytest
+import matplotlib.pyplot as plt
 import numpy as np
 import numpy.testing as npt
+import pytest
 from scipy import stats
 from scipy.misc import logsumexp
 
@@ -100,3 +101,9 @@ class TestModalityModel(object):
         model1 = ModalityModel(alphas, betas)
         model2 = ModalityModel(betas, alphas)
         assert model1 != model2
+
+    def test_violinplot(self, model):
+        model.violinplot(n=100)
+        ax = plt.gca()
+        assert len(ax.collections) == len(model.rvs)
+        plt.close('all')

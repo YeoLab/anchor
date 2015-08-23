@@ -1,8 +1,9 @@
-import pytest
+import matplotlib.pyplot as plt
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pandas.util.testing as pdt
+import pytest
 
 
 class TestModalityEstimator(object):
@@ -91,7 +92,14 @@ class TestModalityEstimator(object):
         estimator.fit_transform(data)
 
     def test_positive_control(self, estimator, positive_control):
+        """Make sure estimator correctly assigns modalities to known events"""
         log2bf = estimator.fit_transform(positive_control)
         test = estimator.assign_modalities(log2bf)
 
         pdt.assert_almost_equal(test.values, test.index)
+
+    def test_violinplot(self, estimator):
+        estimator.violinplot(n=100)
+        fig = plt.gcf()
+        assert len(fig.axes) == len(estimator.models)
+        plt.close('all')
