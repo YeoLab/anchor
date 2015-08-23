@@ -138,4 +138,5 @@ class ModalityModel(object):
         ax = sns.violinplot(x='parameters', y=self.value_name, data=bimodal_df,
                             ax=ax, **kwargs)
         ax.set_ylim(0, 1)
+        sns.despine(ax=ax)
         return ax
