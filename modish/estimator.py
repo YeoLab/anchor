@@ -4,7 +4,7 @@ import pandas as pd
 
 from .model import ModalityModel
 
-CHANGING_PARAMETERS = np.arange(5, 20)
+CHANGING_PARAMETERS = np.arange(2, 20)
 
 TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./CHANGING_PARAMETERS,
                                     'betas': 1./CHANGING_PARAMETERS},
