@@ -8,4 +8,5 @@ __email__ = 'olga.botvinnik@gmail.com'
 __version__ = '0.1.0'
 
 
-__all__ = ['ModalityModel', 'ModalityEstimator']
+__all__ = ['ModalityModel', 'ModalityEstimator', 'MODALITY_ORDER',
+           'MODALITY_COLORS', 'ModalitiesViz']
