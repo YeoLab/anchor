@@ -57,7 +57,7 @@ class ModalityEstimator(object):
 
         For each event that has at least one non-NA value, if no modalilites
         have logsumexp'd logliks greater than the log Bayes factor threshold,
-        then they are assigned the 'ambiguous' modality, because we cannot
+        then they are assigned the 'multimodal' modality, because we cannot
         reject the null hypothesis that these did not come from the uniform
         distribution.
 
@@ -85,7 +85,7 @@ class ModalityEstimator(object):
             x = log2_bayes_factors
         not_na = (x.notnull() > 0).any()
         not_na_columns = not_na[not_na].index
-        x.ix['ambiguous', not_na_columns] = self.logbf_thresh
+        x.ix['multimodal', not_na_columns] = self.logbf_thresh
         return x.idxmax()
 
     def _fit_transform_one_step(self, data, models):
@@ -131,8 +131,8 @@ class ModalityEstimator(object):
         # and estimate bimodal and middle (two parameters change in each
         # parameterization
         ind = (logbf_one_param < self.logbf_thresh).all()
-        ambiguous_columns = ind[ind].index
-        data2 = data.ix[:, ambiguous_columns]
+        multimodal_columns = ind[ind].index
+        data2 = data.ix[:, multimodal_columns]
         logbf_two_param = self._fit_transform_one_step(data2,
                                                        self.two_param_models)
         log2_bayes_factors = pd.concat([logbf_one_param, logbf_two_param],

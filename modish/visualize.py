@@ -7,9 +7,9 @@ import seaborn as sns
 
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
-MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'ambiguous']
-MODALITY_COLORS = {'~0': lightblue, 'middle': green, '~1': red,
-                   'bimodal': purple, 'ambiguous': yellow}
+MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'multimodal']
+MODALITY_COLORS = {'~0': lightblue, 'middle': yellow, '~1': red,
+                   'bimodal': purple, 'multimodal': 'lightgrey'}
 
 
 class _ModalityEstimatorPlotter(object):
