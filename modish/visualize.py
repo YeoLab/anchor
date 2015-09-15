@@ -8,9 +8,9 @@ import seaborn as sns
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'multimodal']
-MODALITY_COLORS = {'~0': lightblue, 'middle': yellow, '~1': red,
+MODALITY_TO_COLOR = {'~0': lightblue, 'middle': yellow, '~1': red,
                    'bimodal': purple, 'multimodal': 'lightgrey'}
-
+MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
 
 class _ModalityEstimatorPlotter(object):
     def __init__(self):
@@ -20,12 +20,12 @@ class _ModalityEstimatorPlotter(object):
         self.ax_bayesfactor = plt.subplot2grid((3, 5), (0, 4), rowspan=3,
                                                colspan=1)
 
-    def plot(self, event, logliks, logsumexps, modality_colors,
+    def plot(self, event, logliks, logsumexps, modality_to_color,
              renamed=''):
         modality = logsumexps.idxmax()
 
         sns.violinplot(event.dropna(), bw=0.2, ax=self.ax_violin,
-                       color=modality_colors[modality])
+                       color=modality_to_color[modality])
 
         self.ax_violin.set_ylim(0, 1)
         self.ax_violin.set_title('Guess: {}'.format(modality))
@@ -35,7 +35,7 @@ class _ModalityEstimatorPlotter(object):
         for name, loglik in logliks.iteritems():
             # print name,
             self.ax_loglik.plot(loglik, 'o-', label=name,
-                                color=modality_colors[name])
+                                color=modality_to_color[name])
             self.ax_loglik.legend(loc='best')
         self.ax_loglik.set_title('Log likelihoods at different '
                                  'parameterizations')
@@ -44,7 +44,7 @@ class _ModalityEstimatorPlotter(object):
 
         for i, (name, height) in enumerate(logsumexps.iteritems()):
             self.ax_bayesfactor.bar(i, height, label=name,
-                                    color=modality_colors[name])
+                                    color=modality_to_color[name])
         self.ax_bayesfactor.set_title('$\log$ Bayes factors')
         self.ax_bayesfactor.set_xticks([])
         self.ax_bayesfactor.grid()
@@ -59,11 +59,8 @@ class ModalitiesViz(object):
     """Visualize results of modality assignments"""
 
     modality_order = MODALITY_ORDER
-    modality_colors = MODALITY_COLORS
-
-    colors = [modality_colors[modality] for modality in
-              modality_order]
-
+    modality_to_color = MODALITY_TO_COLOR
+    modality_palette = MODALITY_PALETTE
     def plot_reduced_space(self, binned_reduced, modality_assignments,
                            ax=None, title=None, xlabel='', ylabel=''):
         if ax is None:
@@ -73,7 +70,7 @@ class ModalitiesViz(object):
         X = binned_reduced
 
         for modality, df in X.groupby(modality_assignments, axis=0):
-            color = self.modality_colors[modality]
+            color = self.modality_to_color[modality]
             ax.plot(df.ix[:, 0], df.ix[:, 1], 'o', color=color, alpha=0.7,
                     label=modality)
 
@@ -145,6 +142,6 @@ class ModalitiesViz(object):
         ------
         """
         plotter = _ModalityEstimatorPlotter()
-        plotter.plot(event, logliks, logsumexps, self.modality_colors,
+        plotter.plot(event, logliks, logsumexps, self.modality_to_color,
                      renamed=renamed)
         return plotter

@@ -23,7 +23,7 @@ MODEL_PALETTES = {'bimodal': 'Purples',
 class ModalityEstimator(object):
     """Use Bayesian methods to estimate modalities of splicing events"""
 
-    # colors = dict(
+    # palette = dict(
     # zip(['excluded', 'middle', 'included', 'bimodal', 'uniform'],
     #         sns.color_palette('deep', n_colors=5)))
 
