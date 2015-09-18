@@ -9,8 +9,9 @@ import seaborn as sns
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'multimodal']
 MODALITY_TO_COLOR = {'~0': lightblue, 'middle': yellow, '~1': red,
-                   'bimodal': purple, 'multimodal': 'lightgrey'}
+                     'bimodal': purple, 'multimodal': 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
+
 
 class _ModalityEstimatorPlotter(object):
     def __init__(self):
@@ -61,6 +62,7 @@ class ModalitiesViz(object):
     modality_order = MODALITY_ORDER
     modality_to_color = MODALITY_TO_COLOR
     modality_palette = MODALITY_PALETTE
+
     def plot_reduced_space(self, binned_reduced, modality_assignments,
                            ax=None, title=None, xlabel='', ylabel=''):
         if ax is None:
