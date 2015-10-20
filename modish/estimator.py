@@ -4,7 +4,7 @@ import pandas as pd
 
 from .model import ModalityModel
 
-CHANGING_PARAMETERS = np.arange(2, 20)
+CHANGING_PARAMETERS = np.arange(2, 21)
 
 TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./CHANGING_PARAMETERS,
                                     'betas': 1./CHANGING_PARAMETERS},
@@ -29,7 +29,7 @@ class ModalityEstimator(object):
 
     def __init__(self, one_parameter_models=ONE_PARAMETER_MODELS,
                  two_parameter_models=TWO_PARAMETER_MODELS,
-                 logbf_thresh=3, model_palettes=MODEL_PALETTES):
+                 logbf_thresh=10, model_palettes=MODEL_PALETTES):
         """Initialize an object with models to estimate splicing modality
 
         Parameters
