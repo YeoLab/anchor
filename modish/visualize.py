@@ -14,7 +14,7 @@ MODALITY_TO_COLOR = {'~0': lightblue, 'middle': yellow, '~1': red,
                      'bimodal': purple, 'multimodal': 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
 MODALITY_TO_CMAP = {'~0': sns.light_palette(lightblue, as_cmap=True),
-                    'middle': sns.light_palette(yellow, as_cmap=True)
+                    'middle': sns.light_palette(yellow, as_cmap=True),
                     '~1': sns.light_palette(red, as_cmap=True),
                     'bimodal': sns.light_palette(purple, as_cmap=True),
                     'multimodal': mpl.cm.Greys}
