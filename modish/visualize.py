@@ -2,7 +2,9 @@
 """See log bayes factors which led to modality categorization"""
 
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 
 
@@ -11,6 +13,11 @@ MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'multimodal']
 MODALITY_TO_COLOR = {'~0': lightblue, 'middle': yellow, '~1': red,
                      'bimodal': purple, 'multimodal': 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
+MODALITY_TO_CMAP = {'~0': sns.light_palette(lightblue, as_cmap=True),
+                    'middle': sns.light_palette(yellow, as_cmap=True)
+                    '~1': sns.light_palette(red, as_cmap=True),
+                    'bimodal': sns.light_palette(purple, as_cmap=True),
+                    'multimodal': mpl.cm.Greys}
 
 
 class _ModalityEstimatorPlotter(object):
@@ -155,21 +162,30 @@ def annotate_bars(x, y, **kwargs):
 
 modality_factorplot_kws = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE)
 
-def modalities_barplot(modalities_tidy, modality_order, phenotype_order, factorplot_kws=None):
+def modalities_barplot(modalities_tidy, x_order=None, group_col=None, factorplot_kws=None):
     factorplot_kws = {} if factorplot_kws == None else factorplot_kws
 
-    modality_counts = modalities_tidy.groupby(['phenotype', 'modality']).size().reset_index()
-    modality_counts = modality_counts.rename(columns={0:'n_events'})
-    modality_counts['Percentage of events'] = modality_counts.groupby('phenotype').n_events.apply(
-        lambda x: 100*x/x.astype(float).sum())
+    if group_col is None:
+        modality_counts = modalities_tidy.groupby(
+            [group_col, 'modality']).size().reset_index()
+        modality_counts = modality_counts.rename(columns={0: 'n_events'})
+        modality_counts['Percentage of events'] = modality_counts.groupby(
+            group_col).n_events.apply(
+            lambda x: 100 * x / x.astype(float).sum())
+    else:
+        modality_counts = modalities_tidy.groupby(
+            'modality').size().reset_index()
+        modality_counts = modality_counts.rename(columns={0: 'n_events'})
+        modality_counts['Percentage of events'] = \
+            100 * modality_counts.n_events/modality_counts.n_events.sum()
 
-    modality_counts.modality = pd.Categorical(modality_counts.modality, categories=modality_order, ordered=True)
-    modality_counts.phenotype = pd.Categorical(modality_counts.phenotype, categories=phenotype_order, ordered=True)
+    modality_counts.modality = pd.Categorical(modality_counts.modality, categories=MODALITY_ORDER, ordered=True)
+    modality_counts.phenotype = pd.Categorical(modality_counts.phenotype, categories=x_order, ordered=True)
     g = sns.factorplot(y='Percentage of events', x='phenotype', hue='modality',
                        kind='bar', data=modality_counts, aspect=3,
                        legend=False, linewidth=1, size=3, **factorplot_kws)
     g.map_dataframe(annotate_bars, 'phenotype', 'Percentage of events')
-    g.add_legend(label_order=modality_order, title='Modalities')
+    g.add_legend(label_order=MODALITY_ORDER, title='Modalities')
     for ax in g.axes.flat:
     #     ax.set_ylim(0, 50)
         ax.locator_params('y', nbins=5)
