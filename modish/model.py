@@ -12,7 +12,7 @@ from scipy.misc import logsumexp
 import seaborn as sns
 
 
-MACHINE_EPSILON = np.finfo(float).eps
+VERY_SMALL_NUMBER = np.finfo(float).eps
 
 
 class ModalityModel(object):
@@ -82,8 +82,12 @@ class ModalityModel(object):
             Log-likelihood of these data in each member of the model's family
         """
         x = x.copy()
-        x[x == 0] = MACHINE_EPSILON
-        x[x == 1] = 1 - MACHINE_EPSILON
+
+        # Replace exactly 0 and exactly 1 values with a very small number
+        # (machine epsilon, the smallest number that this computer is capable
+        # of storing) because 0 and 1 are not in the Beta distribution.
+        x[x == 0] = VERY_SMALL_NUMBER
+        x[x == 1] = 1 - VERY_SMALL_NUMBER
 
         return np.array([np.log(prob) + rv.logpdf(x[np.isfinite(x)]).sum()
                          for prob, rv in
