@@ -122,3 +122,55 @@ class ModalitiesViz(object):
         plotter.plot(event, logliks, logsumexps, self.modality_to_color,
                      renamed=renamed)
         return plotter
+
+
+from modish.visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE
+
+import locale
+
+
+locale.setlocale(locale.LC_ALL, 'en_US')
+
+
+def annotate_bars(x, y, **kwargs):
+    data = kwargs.pop('data')
+    ax = plt.gca()
+    width = 0.8/5.
+    x_base = -.49 - width/2.5
+    for phenotype, phenotype_df in data.groupby('phenotype'):
+        i = 0
+        for modality, modality_df in phenotype_df.groupby('modality'):
+            i += 1
+            x_position = x_base + width*i + width/2
+            y_position = modality_df["Percentage of events"]
+            try:
+                value = modality_df.n_events.values[0]
+                formatted = locale.format('%d', value, grouping=True)
+                ax.annotate(formatted, (x_position, y_position),
+                            textcoords='offset points', xytext=(0, 2),
+                            ha='center', va='bottom', fontsize=12)
+            except IndexError:
+                continue
+        x_base += 1
+
+modality_factorplot_kws = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE)
+
+def modalities_barplot(modalities_tidy, modality_order, phenotype_order, factorplot_kws=None):
+    factorplot_kws = {} if factorplot_kws == None else factorplot_kws
+
+    modality_counts = modalities_tidy.groupby(['phenotype', 'modality']).size().reset_index()
+    modality_counts = modality_counts.rename(columns={0:'n_events'})
+    modality_counts['Percentage of events'] = modality_counts.groupby('phenotype').n_events.apply(
+        lambda x: 100*x/x.astype(float).sum())
+
+    modality_counts.modality = pd.Categorical(modality_counts.modality, categories=modality_order, ordered=True)
+    modality_counts.phenotype = pd.Categorical(modality_counts.phenotype, categories=phenotype_order, ordered=True)
+    g = sns.factorplot(y='Percentage of events', x='phenotype', hue='modality',
+                       kind='bar', data=modality_counts, aspect=3,
+                       legend=False, linewidth=1, size=3, **factorplot_kws)
+    g.map_dataframe(annotate_bars, 'phenotype', 'Percentage of events')
+    g.add_legend(label_order=modality_order, title='Modalities')
+    for ax in g.axes.flat:
+    #     ax.set_ylim(0, 50)
+        ax.locator_params('y', nbins=5)
+    return g

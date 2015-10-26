@@ -12,6 +12,9 @@ from scipy.misc import logsumexp
 import seaborn as sns
 
 
+MACHINE_EPSILON = np.finfo(float).eps
+
+
 class ModalityModel(object):
     """Object to model modalities from beta distributions"""
 
@@ -79,8 +82,8 @@ class ModalityModel(object):
             Log-likelihood of these data in each member of the model's family
         """
         x = x.copy()
-        x[x == 0] = 0.001
-        x[x == 1] = 0.999
+        x[x == 0] = MACHINE_EPSILON
+        x[x == 1] = 1 - MACHINE_EPSILON
 
         return np.array([np.log(prob) + rv.logpdf(x[np.isfinite(x)]).sum()
                          for prob, rv in
