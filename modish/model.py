@@ -108,6 +108,18 @@ class ModalityModel(object):
         """
         return logsumexp(self.logliks(x))
 
+    @staticmethod
+    def nice_number_string(number, decimal_places=2):
+        if number == np.round(number):
+            return str(int(number))
+        elif number < 1 and number > 0:
+            inverse = 1 / number
+            if int(inverse) == np.round(inverse):
+                return r'\frac{{1}}{{{}}}'.format(int(inverse))
+        else:
+            template = '{{:.{0}}}'.format(decimal_places)
+            return template.format(number)
+
     def violinplot(self, n=1000, **kwargs):
         """Plot violins of each distribution in the model family
 
@@ -133,17 +145,21 @@ class ModalityModel(object):
         for rv in self.rvs:
             psi = rv.rvs(n)
             df = pd.Series(psi, name=self.value_name).to_frame()
-            df['parameters'] = '$\\alpha$ = {:.2f}\n$\\beta$ = {:.2f}'.format(
-                *rv.args)
+            alpha, beta = rv.args
+            alpha = self.nice_number_string(alpha, decimal_places=2)
+            beta = self.nice_number_string(beta, decimal_places=2)
+
+            df['parameters'] = '$\\alpha = {0}$\n$\\beta = {1}$'.format(
+                alpha, beta)
             dfs.append(df)
-        bimodal_df = pd.concat(dfs)
+        data = pd.concat(dfs)
 
         if 'ax' not in kwargs:
             fig, ax = plt.subplots(figsize=(len(self.alphas) / 1.25, 4))
         else:
             ax = kwargs.pop('ax')
-        ax = sns.violinplot(x='parameters', y=self.value_name, data=bimodal_df,
+        ax = sns.violinplot(x='parameters', y=self.value_name, data=data,
                             ax=ax, **kwargs)
-        ax.set_ylim(0, 1)
+        ax.set(ylim=(0, 1))
         sns.despine(ax=ax)
         return ax
