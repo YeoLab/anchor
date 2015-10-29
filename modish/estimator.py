@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 
 from .model import ModalityModel
+from .visualize import MODALITY_TO_CMAP
 
 CHANGING_PARAMETERS = np.arange(2, 21)
 
@@ -14,10 +15,6 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
                                'betas': CHANGING_PARAMETERS},
                         '~1': {'alphas': CHANGING_PARAMETERS,
                                'betas': 1}}
-MODEL_PALETTES = {'bimodal': 'Purples',
-                  'middle': 'Greens',
-                  '~0': 'Blues',
-                  '~1': 'Reds'}
 
 
 class ModalityEstimator(object):
@@ -29,7 +26,7 @@ class ModalityEstimator(object):
 
     def __init__(self, one_parameter_models=ONE_PARAMETER_MODELS,
                  two_parameter_models=TWO_PARAMETER_MODELS,
-                 logbf_thresh=10, model_palettes=MODEL_PALETTES):
+                 logbf_thresh=10, modality_to_cmap=MODALITY_TO_CMAP):
         """Initialize an object with models to estimate splicing modality
 
         Parameters
@@ -43,7 +40,7 @@ class ModalityEstimator(object):
             to be significant
         """
         self.logbf_thresh = logbf_thresh
-        self.model_palettes = model_palettes
+        self.modality_to_cmap = MODALITY_TO_CMAP
 
         self.one_param_models = {k: ModalityModel(**v)
                                  for k, v in one_parameter_models.items()}
@@ -175,7 +172,8 @@ class ModalityEstimator(object):
         fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
 
         for ax, (model_name, model) in zip(axes, self.models.items()):
-            palette = self.model_palettes[model_name]
+            cmap = self.modality_to_cmap[model_name]
+            palette = cmap(np.linspace(0, 1, len(model.rvs)))
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
             ax.set(title=model_name)
         return fig

@@ -22,12 +22,13 @@ class TestModalityEstimator(object):
     @pytest.fixture
     def estimator(self, logbf_thresh):
         from modish.estimator import ModalityEstimator, ONE_PARAMETER_MODELS, \
-            TWO_PARAMETER_MODELS, MODEL_PALETTES
+            TWO_PARAMETER_MODELS
+        from modish.visualize import MODALITY_TO_CMAP
 
         return ModalityEstimator(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
-            logbf_thresh=logbf_thresh, model_palettes=MODEL_PALETTES)
+            logbf_thresh=logbf_thresh, model_palettes=MODALITY_TO_CMAP)
 
     @pytest.fixture(params=['no_na', 'with_na'])
     def event(self, request):
@@ -53,14 +54,14 @@ class TestModalityEstimator(object):
         return df
 
     def test_init(self, logbf_thresh):
-        from modish import ModalityEstimator, ModalityModel
+        from modish import ModalityEstimator, ModalityModel, MODALITY_TO_CMAP
         from modish.estimator import ONE_PARAMETER_MODELS, \
-            TWO_PARAMETER_MODELS, MODEL_PALETTES
+            TWO_PARAMETER_MODELS
 
         estimator = ModalityEstimator(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
-            logbf_thresh=logbf_thresh, model_palettes=MODEL_PALETTES)
+            logbf_thresh=logbf_thresh, modality_to_cmap=MODALITY_TO_CMAP)
 
         true_one_param_models = {k: ModalityModel(**v)
                                  for k, v in ONE_PARAMETER_MODELS.items()}
@@ -69,7 +70,7 @@ class TestModalityEstimator(object):
                                  for k, v in TWO_PARAMETER_MODELS.items()}
 
         npt.assert_equal(estimator.logbf_thresh, logbf_thresh)
-        pdt.assert_dict_equal(estimator.model_palettes, MODEL_PALETTES)
+        pdt.assert_dict_equal(estimator.modality_to_cmap, MODALITY_TO_CMAP)
         pdt.assert_dict_equal(estimator.one_param_models,
                               true_one_param_models)
         pdt.assert_dict_equal(estimator.two_param_models,

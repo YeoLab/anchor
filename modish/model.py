@@ -11,6 +11,7 @@ from scipy import stats
 from scipy.misc import logsumexp
 import seaborn as sns
 
+from .visualize import violinplot
 
 VERY_SMALL_NUMBER = np.finfo(float).eps
 
@@ -135,9 +136,6 @@ class ModalityModel(object):
         ax : matplotlib.Axes object
             Axes object with violins plotted
         """
-        kwargs.setdefault('bw', 0.2)
-        kwargs.setdefault('inner', None)
-        kwargs.setdefault('scale', 'width')
         kwargs.setdefault('palette', 'Purples')
 
         dfs = []
@@ -155,11 +153,10 @@ class ModalityModel(object):
         data = pd.concat(dfs)
 
         if 'ax' not in kwargs:
-            fig, ax = plt.subplots(figsize=(len(self.alphas) / 1.25, 4))
+            fig, ax = plt.subplots(figsize=(len(self.alphas)*0.625, 4))
         else:
             ax = kwargs.pop('ax')
-        ax = sns.violinplot(x='parameters', y=self.value_name, data=data,
-                            ax=ax, **kwargs)
-        ax.set(ylim=(0, 1))
+        ax = violinplot(x='parameters', y=self.value_name, data=data,
+                        ax=ax, **kwargs)
         sns.despine(ax=ax)
         return ax
