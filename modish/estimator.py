@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP
+from .visualize import MODALITY_TO_CMAP, MODALITY_ORDER, MODALITY_PALETTE, \
+    violinplot
 
 CHANGING_PARAMETERS = np.arange(2, 21)
 
@@ -177,3 +179,178 @@ class ModalityEstimator(object):
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
             ax.set(title=model_name)
         return fig
+
+    def add_noise_and_assign_modality(self, data,
+                                      iteration_per_noise=100,
+                                      noise_percentages=np.arange(0, 101,
+                                                                  step=10),
+                                      figure_prefix='modish_simulation'):
+        """Randomly replace data with uniform data and categorize to modality
+
+        A one-line summary that does not use variable names or the
+        function name.
+
+        Several sentences providing an extended description. Refer to
+        variables using back-ticks, e.g. `var`.
+
+        Parameters
+        ----------
+        var1 : array_like
+            Array_like means all those objects -- lists, nested lists, etc. --
+            that can be converted to an array.  We can also refer to
+            variables like `var1`.
+        var2 : int
+            The type above can either refer to an actual Python type
+            (e.g. ``int``), or describe the type of the variable in more
+            detail, e.g. ``(N,) ndarray`` or ``array_like``.
+        Long_variable_name : {'hi', 'ho'}, optional
+            Choices in brackets, default first when optional.
+
+        Returns
+        -------
+        type
+            Explanation of anonymous return value of type ``type``.
+        describe : type
+            Explanation of return value named `describe`.
+        out : type
+            Explanation of `out`.
+
+        Other Parameters
+        ----------------
+        only_seldom_used_keywords : type
+            Explanation
+        common_parameters_listed_above : type
+            Explanation
+
+        Raises
+        ------
+        BadException
+            Because you shouldn't have done that.
+
+        See Also
+        --------
+        otherfunc : relationship (optional)
+        newfunc : Relationship (optional), which could be fairly long, in which
+                  case the line wraps here.
+        thirdfunc, fourthfunc, fifthfunc
+
+        Notes
+        -----
+        Notes about the implementation algorithm (if needed).
+
+        This can have multiple paragraphs.
+
+        You may include some math:
+
+        .. math:: X(e^{j\omega } ) = x(n)e^{ - j\omega n}
+
+        And even use a greek symbol like :math:`omega` inline.
+
+        References
+        ----------
+        Cite the relevant literature, e.g. [1]_.  You may also cite these
+        references in the notes section above.
+
+        .. [1] O. McNoleg, "The integration of GIS, remote sensing,
+           expert systems and adaptive co-kriging for environmental habitat
+           modelling of the Highland Haggis using object-oriented, fuzzy-logic
+           and neural-network techniques," Computers & Geosciences, vol. 22,
+           pp. 585-588, 1996.
+
+        Examples
+        --------
+        These are written in doctest format, and should illustrate how to
+        use the function.
+
+        >>> a=[1,2,3]
+        >>> print [x + 3 for x in a]
+        [4, 5, 6]
+        >>> print "a\n\nb"
+        a
+        b
+        """
+        log2bf_dfs = []
+        modalities_dfs = []
+        psi_dfs = []
+
+        for noise_percentage in noise_percentages:
+            fig, ax = plt.subplots(figsize=(4, 3))
+            for iteration in range(iteration_per_noise):
+                if iteration > 0 and noise_percentage == 0:
+                    continue
+                noisy_data = data.copy()
+                shape = (noise_percentage, noisy_data.shape[1])
+                size = np.product(shape)
+                noise_ind = np.random.choice(noisy_data.index,
+                                             size=noise_percentage,
+                                             replace=False)
+                noisy_data.iloc[noise_ind] = np.random.uniform(
+                    low=0., high=1., size=size).reshape(shape)
+
+                modality_renamer = dict(
+                    (col, '{}_noise{}_iter{}'.format(
+                        col, noise_percentage, iteration))
+                    for col in noisy_data.columns)
+
+                renamed = noisy_data.rename(columns=modality_renamer)
+                psi_dfs.append(renamed)
+
+                noisy_data_tidy = noisy_data.unstack()
+                noisy_data_tidy = noisy_data_tidy.reset_index()
+                noisy_data_tidy = noisy_data_tidy.rename(
+                    columns={'level_0': 'Modality', 'level_1': 'sample_id',
+                             0: '$\Psi$'})
+                noisy_data_tidy.Modality = pd.Categorical(
+                    noisy_data_tidy.modality,
+                    categories=['~0', 'middle', '~1', 'bimodal'],
+                    ordered=True)
+
+                violinplot(x='Modality', y='$\Psi$', data=noisy_data_tidy,
+                               order=MODALITY_ORDER[:-1],
+                               palette=MODALITY_PALETTE)
+
+                log2bf = self.fit_transform(noisy_data)
+                modalities = self.assign_modalities(log2bf)
+
+                log2bf_df = log2bf.unstack().reset_index()
+                log2bf_df = log2bf_df.rename(
+                    columns={'level_0': 'Original Modality',
+                             'level_1': 'Assigned Modality',
+                             0: '$\log_2 K$'})
+                log2bf_df['Noise Percentage'] = noise_percentage
+                log2bf_df['Noise Iteration'] = iteration
+                log2bf_df['event_id'] = log2bf_df['Original Modality'].map(
+                    lambda x: modality_renamer[x])
+                log2bf_dfs.append(log2bf_df)
+
+                modalities_df = modalities.reset_index()
+                modalities_df = modalities_df.rename(
+                    columns={'index': 'Original Modality',
+                             0: 'Guessed modality'})
+                modalities_df['Noise Percentage'] = noise_percentage
+                modalities_df['Noise Iteration'] = iteration
+                modalities_df['event_id'] = modalities_df['Original Modality'].map(
+                    lambda x: modality_renamer[x])
+                modalities_dfs.append(modalities_df)
+            if noise_percentage > 0:
+                for c in ax.collections:
+                    c.set_alpha(0.05)
+            ax.set(ylim=(0, 1), title='{}% Uniform Noise'.format(
+                noise_percentage), yticks=(0, 0.5, 1), ylabel='$\Psi$')
+            sns.despine()
+            fig.savefig('{}_noise_percentage_{}.pdf'.format(figure_prefix,
+                                                            noise_percentage))
+
+        modalities = pd.concat(modalities_dfs, ignore_index=True)
+        modalities['Is assigned modality different from original?'] \
+            = modalities['Original Modality'] == modalities['Assigned Modality']
+
+        modalities['Assigned modality different from original'] = \
+            modalities['Assigned Modality'][
+                ~modalities['Is assigned modality different from original?']]
+
+        log2bf = pd.concat(log2bf_dfs, ignore_index=True)
+
+        simulated_psi = pd.concat(psi_dfs, axis=1)
+
+        return modalities, log2bf, simulated_psi
