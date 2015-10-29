@@ -42,7 +42,7 @@ class ModalityEstimator(object):
             to be significant
         """
         self.logbf_thresh = logbf_thresh
-        self.modality_to_cmap = MODALITY_TO_CMAP
+        self.modality_to_cmap = modality_to_cmap
 
         self.one_param_models = {k: ModalityModel(**v)
                                  for k, v in one_parameter_models.items()}
