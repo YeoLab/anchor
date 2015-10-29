@@ -169,7 +169,7 @@ class ModalityEstimator(object):
         """
         if figsize is None:
             nrows = len(self.models)
-            width = max(len(m.rvs) for name, m in self.models.items())
+            width = max(len(m.rvs) for name, m in self.models.items())*0.625
             height = nrows*3
             figsize = width, height
         fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
@@ -177,4 +177,5 @@ class ModalityEstimator(object):
         for ax, (model_name, model) in zip(axes, self.models.items()):
             palette = self.model_palettes[model_name]
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
+            ax.set(title=model_name)
         return fig
