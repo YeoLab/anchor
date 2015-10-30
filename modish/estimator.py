@@ -291,12 +291,12 @@ class ModalityEstimator(object):
                 noisy_data.iloc[noise_ind] = np.random.uniform(
                     low=0., high=1., size=size).reshape(shape)
 
-                modality_renamer = dict(
+                renamer = dict(
                     (col, '{}_noise{}_iter{}'.format(
                         col, noise_percentage, iteration))
                     for col in noisy_data.columns)
 
-                renamed = noisy_data.rename(columns=modality_renamer)
+                renamed = noisy_data.rename(columns=renamer)
                 data_dfs.append(renamed)
 
                 noisy_data_tidy = noisy_data.unstack()
@@ -318,23 +318,23 @@ class ModalityEstimator(object):
 
                 log2bf_df = log2bf.unstack().reset_index()
                 log2bf_df = log2bf_df.rename(
-                    columns={'level_0': 'Feature ID',
+                    columns={'level_0': 'Original Feature ID',
                              'level_1': 'Assigned Modality',
                              0: '$\log_2 K$'})
                 log2bf_df['Noise Percentage'] = noise_percentage
                 log2bf_df['Noise Iteration'] = iteration
-                # log2bf_df['event_id'] = log2bf_df['Original Modality'].map(
-                #     lambda x: modality_renamer[x])
+                log2bf_df['Feature ID'] = log2bf_df['Original Feature ID'].map(
+                    lambda x: renamer[x])
                 log2bf_dfs.append(log2bf_df)
 
                 modalities_df = modalities.reset_index()
                 modalities_df = modalities_df.rename(
-                    columns={'index': 'Feature ID',
+                    columns={'index': 'Original Feature ID',
                              0: 'Assigned Modality'})
                 modalities_df['Noise Percentage'] = noise_percentage
                 modalities_df['Noise Iteration'] = iteration
-                # modalities_df['event_id'] = modalities_df['Original Modality'].map(
-                #     lambda x: modality_renamer[x])
+                modalities_df['Feature ID'] = modalities_df['Original Feature ID'].map(
+                    lambda x: renamer[x])
                 modalities_dfs.append(modalities_df)
             if noise_percentage > 0:
                 for c in ax.collections:
