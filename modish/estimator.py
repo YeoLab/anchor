@@ -169,7 +169,7 @@ class ModalityEstimator(object):
         if figsize is None:
             nrows = len(self.models)
             width = max(len(m.rvs) for name, m in self.models.items())*0.625
-            height = nrows*3
+            height = nrows*2.5
             figsize = width, height
         fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
 
@@ -178,13 +178,13 @@ class ModalityEstimator(object):
             palette = cmap(np.linspace(0, 1, len(model.rvs)))
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
             ax.set(title=model_name)
-        return fig
 
     def add_noise_and_assign_modality(self, data,
                                       iteration_per_noise=100,
                                       noise_percentages=np.arange(0, 101,
                                                                   step=10),
-                                      figure_prefix='modish_simulation'):
+                                      figure_prefix='modish_simulation',
+                                      violinplot_kws=None):
         """Randomly replace data with uniform data and categorize to modality
 
         A one-line summary that does not use variable names or the
@@ -271,7 +271,9 @@ class ModalityEstimator(object):
         """
         log2bf_dfs = []
         modalities_dfs = []
-        psi_dfs = []
+        data_dfs = []
+
+        violinplot_kws = {} if violinplot_kws is None else violinplot_kws
 
         for noise_percentage in noise_percentages:
             fig, ax = plt.subplots(figsize=(4, 3))
@@ -293,44 +295,43 @@ class ModalityEstimator(object):
                     for col in noisy_data.columns)
 
                 renamed = noisy_data.rename(columns=modality_renamer)
-                psi_dfs.append(renamed)
+                data_dfs.append(renamed)
 
                 noisy_data_tidy = noisy_data.unstack()
                 noisy_data_tidy = noisy_data_tidy.reset_index()
                 noisy_data_tidy = noisy_data_tidy.rename(
-                    columns={'level_0': 'Modality', 'level_1': 'sample_id',
+                    columns={'level_0': 'original_feature_id', 'level_1': 'sample_id',
                              0: '$\Psi$'})
-                noisy_data_tidy.Modality = pd.Categorical(
-                    noisy_data_tidy.modality,
-                    categories=['~0', 'middle', '~1', 'bimodal'],
-                    ordered=True)
+                # noisy_data_tidy.Modality = pd.Categorical(
+                #     noisy_data_tidy['Modality'],
+                #     categories=['~0', 'middle', '~1', 'bimodal'],
+                #     ordered=True)
 
-                violinplot(x='Modality', y='$\Psi$', data=noisy_data_tidy,
-                               order=MODALITY_ORDER[:-1],
-                               palette=MODALITY_PALETTE)
+                violinplot(x='original_feature_id', y='$\Psi$', data=noisy_data_tidy,
+                           **violinplot_kws)
 
                 log2bf = self.fit_transform(noisy_data)
                 modalities = self.assign_modalities(log2bf)
 
                 log2bf_df = log2bf.unstack().reset_index()
                 log2bf_df = log2bf_df.rename(
-                    columns={'level_0': 'Original Modality',
+                    columns={'level_0': 'original_feature_id',
                              'level_1': 'Assigned Modality',
                              0: '$\log_2 K$'})
                 log2bf_df['Noise Percentage'] = noise_percentage
                 log2bf_df['Noise Iteration'] = iteration
-                log2bf_df['event_id'] = log2bf_df['Original Modality'].map(
-                    lambda x: modality_renamer[x])
+                # log2bf_df['event_id'] = log2bf_df['Original Modality'].map(
+                #     lambda x: modality_renamer[x])
                 log2bf_dfs.append(log2bf_df)
 
                 modalities_df = modalities.reset_index()
                 modalities_df = modalities_df.rename(
-                    columns={'index': 'Original Modality',
-                             0: 'Guessed modality'})
+                    columns={'index': 'original_feature_id',
+                             0: 'Assigned Modality'})
                 modalities_df['Noise Percentage'] = noise_percentage
                 modalities_df['Noise Iteration'] = iteration
-                modalities_df['event_id'] = modalities_df['Original Modality'].map(
-                    lambda x: modality_renamer[x])
+                # modalities_df['event_id'] = modalities_df['Original Modality'].map(
+                #     lambda x: modality_renamer[x])
                 modalities_dfs.append(modalities_df)
             if noise_percentage > 0:
                 for c in ax.collections:
@@ -342,15 +343,15 @@ class ModalityEstimator(object):
                                                             noise_percentage))
 
         modalities = pd.concat(modalities_dfs, ignore_index=True)
-        modalities['Is assigned modality different from original?'] \
-            = modalities['Original Modality'] == modalities['Assigned Modality']
-
-        modalities['Assigned modality different from original'] = \
-            modalities['Assigned Modality'][
-                ~modalities['Is assigned modality different from original?']]
+        # modalities['Is assigned modality different from original?'] \
+        #     = modalities['Original Modality'] == modalities['Assigned Modality']
+        #
+        # modalities['Assigned modality different from original'] = \
+        #     modalities['Assigned Modality'][
+        #         ~modalities['Is assigned modality different from original?']]
 
         log2bf = pd.concat(log2bf_dfs, ignore_index=True)
 
-        simulated_psi = pd.concat(psi_dfs, axis=1)
+        simulated_data = pd.concat(data_dfs, axis=1)
 
-        return modalities, log2bf, simulated_psi
+        return modalities, log2bf, simulated_data
