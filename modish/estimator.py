@@ -275,8 +275,10 @@ class ModalityEstimator(object):
 
         violinplot_kws = {} if violinplot_kws is None else violinplot_kws
 
+        width = len(data.columns)*0.75
+
         for noise_percentage in noise_percentages:
-            fig, ax = plt.subplots(figsize=(4, 3))
+            fig, ax = plt.subplots(figsize=(width, 3))
             for iteration in range(iteration_per_noise):
                 if iteration > 0 and noise_percentage == 0:
                     continue
@@ -300,14 +302,15 @@ class ModalityEstimator(object):
                 noisy_data_tidy = noisy_data.unstack()
                 noisy_data_tidy = noisy_data_tidy.reset_index()
                 noisy_data_tidy = noisy_data_tidy.rename(
-                    columns={'level_0': 'original_feature_id', 'level_1': 'sample_id',
+                    columns={'level_0': 'Feature ID',
+                             'level_1': 'Sample ID',
                              0: '$\Psi$'})
                 # noisy_data_tidy.Modality = pd.Categorical(
                 #     noisy_data_tidy['Modality'],
                 #     categories=['~0', 'middle', '~1', 'bimodal'],
                 #     ordered=True)
 
-                violinplot(x='original_feature_id', y='$\Psi$', data=noisy_data_tidy,
+                violinplot(x='Feature ID', y='$\Psi$', data=noisy_data_tidy,
                            **violinplot_kws)
 
                 log2bf = self.fit_transform(noisy_data)
@@ -315,7 +318,7 @@ class ModalityEstimator(object):
 
                 log2bf_df = log2bf.unstack().reset_index()
                 log2bf_df = log2bf_df.rename(
-                    columns={'level_0': 'original_feature_id',
+                    columns={'level_0': 'Feature ID',
                              'level_1': 'Assigned Modality',
                              0: '$\log_2 K$'})
                 log2bf_df['Noise Percentage'] = noise_percentage
@@ -326,7 +329,7 @@ class ModalityEstimator(object):
 
                 modalities_df = modalities.reset_index()
                 modalities_df = modalities_df.rename(
-                    columns={'index': 'original_feature_id',
+                    columns={'index': 'Feature ID',
                              0: 'Assigned Modality'})
                 modalities_df['Noise Percentage'] = noise_percentage
                 modalities_df['Noise Iteration'] = iteration
@@ -339,6 +342,7 @@ class ModalityEstimator(object):
             ax.set(ylim=(0, 1), title='{}% Uniform Noise'.format(
                 noise_percentage), yticks=(0, 0.5, 1), ylabel='$\Psi$')
             sns.despine()
+            fig.tight_layout()
             fig.savefig('{}_noise_percentage_{}.pdf'.format(figure_prefix,
                                                             noise_percentage))
 
