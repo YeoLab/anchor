@@ -246,8 +246,8 @@ class ModalityEstimator(object):
         logsumexps = self.logliks_to_logsumexp(logliks)
 
         plotter = _ModelLoglikPlotter()
-        plotter.plot(feature, logliks, logsumexps, self.logbf_thresh,
-                     renamed=renamed)
+        return plotter.plot(feature, logliks, logsumexps, self.logbf_thresh,
+                            renamed=renamed)
 
     def violinplot(self, n=1000, figsize=None, **kwargs):
         r"""Visualize all modality family members with parameters

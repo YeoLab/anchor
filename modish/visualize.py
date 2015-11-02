@@ -40,7 +40,7 @@ def violinplot(x=None, y=None, data=None, bw=0.2, scale='width',
 
 class _ModelLoglikPlotter(object):
     def __init__(self):
-        self.fig = plt.figure(figsize=(5 * 2, 3 * 2))
+        self.fig = plt.figure(figsize=(5 * 2, 4))
         self.ax_violin = plt.subplot2grid((3, 5), (0, 0), rowspan=3, colspan=1)
         self.ax_loglik = plt.subplot2grid((3, 5), (0, 1), rowspan=3, colspan=3)
         self.ax_bayesfactor = plt.subplot2grid((3, 5), (0, 4), rowspan=3,
@@ -49,24 +49,31 @@ class _ModelLoglikPlotter(object):
     def plot(self, feature, logliks, logsumexps, log2bf_thresh, renamed=''):
         modality = logsumexps.idxmax()
 
-        x = feature.to_frame()
+        self.logliks = logliks
+        self.logsumexps = logsumexps
 
-        sns.violinplot(feature.dropna(), bw=0.2, ax=self.ax_violin,
+        x = feature.to_frame()
+        if feature.name is None:
+            feature.name = 'Feature'
+        x['sample_id'] = feature.name
+
+        violinplot(x='sample_id', y=feature.name, data=x, ax=self.ax_violin,
                        color=MODALITY_TO_COLOR[modality])
 
-        self.ax_violin.set_ylim(0, 1)
-        self.ax_violin.set_title('Guess: {}'.format(modality))
-        self.ax_violin.set_xticks([])
-        self.ax_violin.set_yticks([0, 0.5, 1])
+        self.ax_violin.set(xticks=[], #xlabel=feature.name,
+                           ylabel='')
+        # self.ax_violin.set_xticks([])
+        # self.ax_violin.set_yticks([0, 0.5, 1])
 
-        for name, loglik in logliks.iteritems():
+        for name, loglik in logliks.groupby('Modality')[r'$\log$ Likelihood']:
             # print name,
-            self.ax_loglik.plot(loglik, 'o-', label=name,
+            self.ax_loglik.plot(loglik, 'o-', label=name, alpha=0.75,
                                 color=MODALITY_TO_COLOR[name])
             self.ax_loglik.legend(loc='best')
-        self.ax_loglik.set_title('Log likelihoods at different '
-                                 'parameterizations')
-        self.ax_loglik.grid()
+        self.ax_loglik.set(ylabel=r'$\log$ Likelihood',
+                           xlabel='Parameterizations',
+                           title='Assignment: {}'.format(modality))
+        # self.ax_loglik.grid()
         self.ax_loglik.set_xlabel('phantom', color='white')
 
         for i, (name, height) in enumerate(logsumexps.iteritems()):
@@ -75,12 +82,16 @@ class _ModelLoglikPlotter(object):
         xmin, xmax = self.ax_bayesfactor.get_xlim()
         self.ax_bayesfactor.hlines(log2bf_thresh, xmin, xmax,
                                    linestyle='dashed')
-        self.ax_bayesfactor.set(title='$\log$ Bayes factors', xticks=[])
-        self.ax_bayesfactor.grid()
-        self.fig.tight_layout()
-        self.fig.text(0.5, .025, '{} ({})'.format(feature.name, renamed),
-                      fontsize=10, ha='center', va='bottom')
+        self.ax_bayesfactor.set(ylabel='$\log K$', xticks=[])
+        # self.ax_bayesfactor.grid()
+        if renamed:
+            text = '{} ({})'.format(feature.name, renamed)
+        else:
+            text = feature.name
+        self.fig.text(0.5, .025, text, fontsize=10, ha='center',
+                      va='bottom')
         sns.despine()
+        self.fig.tight_layout()
         return self
 
 
