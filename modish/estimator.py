@@ -333,8 +333,9 @@ class ModalityEstimator(object):
                              0: 'Assigned Modality'})
                 modalities_df['Noise Percentage'] = noise_percentage
                 modalities_df['Noise Iteration'] = iteration
-                modalities_df['Feature ID'] = modalities_df['Original Feature ID'].map(
-                    lambda x: renamer[x])
+                modalities_df['Feature ID'] = \
+                    modalities_df['Original Feature ID'].map(
+                        lambda x: renamer[x])
                 modalities_dfs.append(modalities_df)
             if noise_percentage > 0:
                 for c in ax.collections:
@@ -347,12 +348,6 @@ class ModalityEstimator(object):
                                                             noise_percentage))
 
         modalities = pd.concat(modalities_dfs, ignore_index=True)
-        # modalities['Is assigned modality different from original?'] \
-        #     = modalities['Original Modality'] == modalities['Assigned Modality']
-        #
-        # modalities['Assigned modality different from original'] = \
-        #     modalities['Assigned Modality'][
-        #         ~modalities['Is assigned modality different from original?']]
 
         log2bf = pd.concat(log2bf_dfs, ignore_index=True)
 
