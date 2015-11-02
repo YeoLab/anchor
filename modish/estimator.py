@@ -5,7 +5,7 @@ from scipy.misc import logsumexp
 import seaborn as sns
 
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP, violinplot
+from .visualize import MODALITY_TO_CMAP, violinplot, _ModelLoglikPlotter
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=2)
 
@@ -227,24 +227,32 @@ class ModalityEstimator(object):
         logliks = self._single_feature_logliks_one_step(
             feature, self.one_param_models)
 
-        grouped = logliks.groupby('Modality')
+        logsumexps = self.logliks_to_logsumexp(logliks)
 
-        logsumexps = grouped['$\log$ Likelihood'].apply(logsumexp)
+        # If none of the one-parameter models passed, try the two-param models
         if (logsumexps <= self.logbf_thresh).all():
             logliks_two_params = self._single_feature_logliks_one_step(
                 feature, self.two_param_models)
             logliks = pd.concat([logliks, logliks_two_params])
         return logliks
 
+    @staticmethod
+    def logliks_to_logsumexp(logliks):
+        return logliks.groupby('Modality')[r'$\log$ Likelihood'].apply(
+            logsumexp)
+
+    def plot_single_feature_calculation(self, feature, renamed=''):
+        logliks = self.single_feature_logliks(feature)
+        logsumexps = self.logliks_to_logsumexp(logliks)
+
+        plotter = _ModelLoglikPlotter()
+        plotter.plot(feature, logliks, logsumexps, self.logbf_thresh,
+                     renamed=renamed)
 
     def violinplot(self, n=1000, figsize=None, **kwargs):
         r"""Visualize all modality family members with parameters
 
         Use violinplots to visualize distributions of modality family members
-
-        Parameters
-        ----------
-
 
         Parameters
         ----------
