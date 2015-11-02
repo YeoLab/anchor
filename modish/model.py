@@ -111,6 +111,7 @@ class ModalityModel(object):
 
     @staticmethod
     def nice_number_string(number, decimal_places=2):
+        """Convert floats to either integers or a nice looking fraction"""
         if number == np.round(number):
             return str(int(number))
         elif number < 1 and number > 0:
