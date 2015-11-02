@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.misc import logsumexp
 import seaborn as sns
 
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP, MODALITY_ORDER, MODALITY_PALETTE, \
-    violinplot
+from .visualize import MODALITY_TO_CMAP, violinplot
 
-CHANGING_PARAMETERS = np.arange(2, 21)
+CHANGING_PARAMETERS = np.arange(2, 21, step=2)
 
 TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./CHANGING_PARAMETERS,
                                     'betas': 1./CHANGING_PARAMETERS},
@@ -98,6 +98,63 @@ class ModalityEstimator(object):
                 {k: v.logsumexp_logliks(x)
                  for k, v in models.items()}), axis=0)
 
+    def _single_feature_logliks_one_step(self, feature, models):
+        """Get log-likelihood of models at each parameterization for given data
+
+        Parameters
+        ----------
+        feature : pandas.Series
+            Percent-based values of a single feature. May contain NAs, but only
+            non-NA values are used.
+
+        Returns
+        -------
+        logliks : pandas.DataFrame
+
+        """
+        x_non_na = feature[~feature.isnull()]
+        if x_non_na.empty:
+            return pd.DataFrame()
+        else:
+            dfs = []
+            for name, model in models.items():
+                df = model.single_feature_logliks(feature)
+                df['Modality'] = name
+                dfs.append(df)
+            return pd.concat(dfs, ignore_index=True)
+
+    @staticmethod
+    def assert_non_negative(x):
+        """Ensure all values are greater than zero
+
+        Parameters
+        ----------
+        x : array_like
+            A numpy array
+
+        Raises
+        ------
+        AssertionError
+            If any value in ``x`` is less than 0
+        """
+        assert np.all(x[np.isfinite(x)] >= 0)
+
+    @staticmethod
+    def assert_less_than_or_equal_1(x):
+        """Ensure all values are less than 1
+
+        Parameters
+        ----------
+        x : array_like
+            A numpy array
+
+        Raises
+        ------
+        AssertionError
+            If any value in ``x`` are greater than 1
+        """
+        assert np.all(x[np.isfinite(x)] <= 1)
+
     def fit_transform(self, data):
         """Get the modality assignments of each splicing event in the data
 
@@ -116,10 +173,10 @@ class ModalityEstimator(object):
         Raises
         ------
         AssertionError
-            If ``data`` does not fall only between 0 and 1.
+            If any value in ``data`` does not fall only between 0 and 1.
         """
-        assert np.all(data.values.flat[np.isfinite(data.values.flat)] <= 1)
-        assert np.all(data.values.flat[np.isfinite(data.values.flat)] >= 0)
+        self.assert_less_than_or_equal_1(data.values.flat)
+        self.assert_non_negative(data.values.flat)
 
         # Estimate Psi~0/Psi~1 first (only one parameter change with each
         # paramterization)
@@ -144,6 +201,41 @@ class ModalityEstimator(object):
                                 columns=empty_columns)
         log2_bayes_factors = pd.concat([log2_bayes_factors, empty_df], axis=1)
         return log2_bayes_factors
+
+    def single_feature_logliks(self, feature):
+        """Calculate log-likelihoods of each modality for a single feature
+
+        Parameters
+        ----------
+        featre : pandas.Series
+            A single feature's values. All values must range from 0 to 1.
+
+        Returns
+        -------
+        logliks : pandas.DataFrame
+            The log-likelihood the data, for each model, for each
+            parameterization
+
+        Raises
+        ------
+        AssertionError
+            If any value in ``x`` does not fall only between 0 and 1.
+        """
+        self.assert_less_than_or_equal_1(feature.values)
+        self.assert_non_negative(feature.values)
+
+        logliks = self._single_feature_logliks_one_step(
+            feature, self.one_param_models)
+
+        grouped = logliks.groupby('Modality')
+
+        logsumexps = grouped['$\log$ Likelihood'].apply(logsumexp)
+        if (logsumexps <= self.logbf_thresh).all():
+            logliks_two_params = self._single_feature_logliks_one_step(
+                feature, self.two_param_models)
+            logliks = pd.concat([logliks, logliks_two_params])
+        return logliks
+
 
     def violinplot(self, n=1000, figsize=None, **kwargs):
         r"""Visualize all modality family members with parameters

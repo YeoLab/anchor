@@ -14,12 +14,13 @@ import seaborn as sns
 from .visualize import violinplot
 
 VERY_SMALL_NUMBER = np.finfo(float).eps
+SINGLE_FEATURE_COLUMNS = ['$\log$ Likelihood', '$\alpha$', '$\beta$']
 
 
 class ModalityModel(object):
     """Object to model modalities from beta distributions"""
 
-    def __init__(self, alphas, betas, value_name='$\Psi$'):
+    def __init__(self, alphas, betas, ylabel='$\Psi$'):
         """Model a family of beta distributions
 
         Parameters
@@ -34,7 +35,7 @@ class ModalityModel(object):
             this is a single value (not a list), it will be assumed that this
             value is constant, and will be propagated through to have as many
             values as the "alphas" parameter
-        value_name : str, optional
+        ylabel : str, optional
             Name of the value you're estimating. Originally developed for
             alternative splicing "percent spliced in"/"Psi" scores, the default
             is the Greek letter Psi
@@ -44,7 +45,7 @@ class ModalityModel(object):
             alphas = [alphas]
             betas = [betas]
 
-        self.value_name = value_name
+        self.ylabel = ylabel
 
         self.alphas = np.array(alphas) if isinstance(alphas, Iterable) \
             else np.ones(len(betas)) * alphas
@@ -93,6 +94,10 @@ class ModalityModel(object):
         return np.array([np.log(prob) + rv.logpdf(x[np.isfinite(x)]).sum()
                          for prob, rv in
                          zip(self.prob_parameters, self.rvs)])
+
+    def single_feature_logliks(self, feature):
+        data = zip(self.logliks(feature), self.alphas, self.betas)
+        return pd.DataFrame(data, columns=SINGLE_FEATURE_COLUMNS)
 
     def logsumexp_logliks(self, x):
         """Calculate how well this model fits these data
@@ -143,7 +148,7 @@ class ModalityModel(object):
 
         for rv in self.rvs:
             psi = rv.rvs(n)
-            df = pd.Series(psi, name=self.value_name).to_frame()
+            df = pd.Series(psi, name=self.ylabel).to_frame()
             alpha, beta = rv.args
             alpha = self.nice_number_string(alpha, decimal_places=2)
             beta = self.nice_number_string(beta, decimal_places=2)
@@ -157,7 +162,7 @@ class ModalityModel(object):
             fig, ax = plt.subplots(figsize=(len(self.alphas)*0.625, 4))
         else:
             ax = kwargs.pop('ax')
-        ax = violinplot(x='parameters', y=self.value_name, data=data,
+        ax = violinplot(x='parameters', y=self.ylabel, data=data,
                         ax=ax, **kwargs)
         sns.despine(ax=ax)
         return ax
