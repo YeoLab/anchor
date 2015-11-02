@@ -319,7 +319,7 @@ class ModalityEstimator(object):
                 log2bf_df = log2bf.unstack().reset_index()
                 log2bf_df = log2bf_df.rename(
                     columns={'level_0': 'Original Feature ID',
-                             'level_1': 'Assigned Modality',
+                             'level_1': 'Modality',
                              0: '$\log_2 K$'})
                 log2bf_df['Noise Percentage'] = noise_percentage
                 log2bf_df['Noise Iteration'] = iteration
