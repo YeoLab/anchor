@@ -9,8 +9,8 @@ from .visualize import MODALITY_TO_CMAP, violinplot, _ModelLoglikPlotter
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=2)
 
-TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./CHANGING_PARAMETERS,
-                                    'betas': 1./CHANGING_PARAMETERS},
+TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./(CHANGING_PARAMETERS+10),
+                                    'betas': 1./(CHANGING_PARAMETERS+10)},
                         'middle': {'alphas': CHANGING_PARAMETERS,
                                    'betas': CHANGING_PARAMETERS}}
 ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
@@ -205,6 +205,8 @@ class ModalityEstimator(object):
     def single_feature_logliks(self, feature):
         """Calculate log-likelihoods of each modality for a single feature
 
+        Used for plotting the estimates of a single feature
+
         Parameters
         ----------
         featre : pandas.Series
@@ -240,6 +242,20 @@ class ModalityEstimator(object):
     def logliks_to_logsumexp(logliks):
         return logliks.groupby('Modality')[r'$\log$ Likelihood'].apply(
             logsumexp)
+
+    def single_feature_fit_transform(self, x):
+        logbf_one_param = pd.Series({k: v.logsumexp_logliks(x)
+             for k, v in self.one_param_models.items()})
+        if (logbf_one_param < self.logbf_thresh).all():
+            logbf_two_param = pd.Series(
+                {k: v.logsumexp_logliks(x)
+                 for k, v in self.two_param_models.items()})
+            series = pd.concat([logbf_one_param, logbf_two_param])
+        else:
+            series = logbf_one_param
+        series.index.name = 'Modality'
+        series.name = '$\log_2 K$'
+        return series
 
     def plot_single_feature_calculation(self, feature, renamed=''):
         logliks = self.single_feature_logliks(feature)

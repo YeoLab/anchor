@@ -18,7 +18,7 @@ MODALITY_TO_CMAP = {'~0': sns.light_palette(lightblue, as_cmap=True),
                     '~1': sns.light_palette(red, as_cmap=True),
                     'bimodal': sns.light_palette(purple, as_cmap=True),
                     'multimodal': mpl.cm.Greys}
-
+MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE)
 
 def violinplot(x=None, y=None, data=None, bw=0.2, scale='width',
                inner=None, ax=None, **kwargs):
@@ -192,9 +192,10 @@ def annotate_bars(x, group_col, percentage_col, **kwargs):
                 continue
         x_base += 1
 
-modality_factorplot_kws = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE)
 
-def modalities_barplot(modalities_tidy, group_order=None, group_col=None, factorplot_kws=None):
+
+def modalities_barplot(modalities_tidy, group_order=None, group_col=None,
+                       factorplot_kws=None):
     factorplot_kws = {} if factorplot_kws == None else factorplot_kws
 
     if group_order is not None and group_col is None:
