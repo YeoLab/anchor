@@ -7,7 +7,7 @@ import seaborn as sns
 from .model import ModalityModel
 from .visualize import MODALITY_TO_CMAP, violinplot, _ModelLoglikPlotter
 
-CHANGING_PARAMETERS = np.arange(2, 21, step=2)
+CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
 TWO_PARAMETER_MODELS = {'bimodal': {'alphas': 1./(CHANGING_PARAMETERS+10),
                                     'betas': 1./(CHANGING_PARAMETERS+10)},
