@@ -215,7 +215,7 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
         groupby = [x] + groupby
     if 'row' in factorplot_kws:
         groupby = groupby + [factorplot_kws['row']]
-    if 'col' in factorplot_kws
+    if 'col' in factorplot_kws:
         groupby = groupby + [factorplot_kws['col']]
 
     # if x is not None:
