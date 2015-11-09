@@ -210,27 +210,36 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
         raise ValueError('If specifying "x_order", "x" must also '
                          'be specified.')
     # y = 'Percentage of features'
+    groupby = [hue]
     if x is not None:
-        modality_counts = modalities_tidy.groupby(
-            [x, hue]).size().reset_index()
-        modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts[y] = modality_counts.groupby(
-            x).n_events.apply(
-            lambda x: 100 * x / x.astype(float).sum())
-        if x_order is not None:
-            modality_counts[x] = pd.Categorical(
-                modality_counts[x], categories=x_order,
-                ordered=True)
-        else:
-            modality_counts[x] = pd.Categorical(
-                modality_counts[x], categories=x_order,
-                ordered=True)
+        groupby = [x] + groupby
+    if 'row' in factorplot_kws:
+        groupby = groupby + [factorplot_kws['row']]
+    if 'col' in factorplot_kws
+        groupby = groupby + [factorplot_kws['col']]
+
+    # if x is not None:
+    modality_counts = modalities_tidy.groupby(
+        groupby).size().reset_index()
+    modality_counts = modality_counts.rename(columns={0: 'Features'})
+    modality_counts[y] = modality_counts.groupby(
+        x).n_events.apply(
+        lambda x: 100 * x / x.astype(float).sum())
+    if x_order is not None:
+        modality_counts[x] = pd.Categorical(
+            modality_counts[x], categories=x_order,
+            ordered=True)
     else:
-        modality_counts = modalities_tidy.groupby(
-            hue).size().reset_index()
-        modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts[y] = \
-            100 * modality_counts.n_events/modality_counts.n_events.sum()
+        modality_counts[x] = pd.Categorical(
+            modality_counts[x], categories=x_order,
+            ordered=True)
+    # else:
+    #     modality_counts = modalities_tidy.groupby(
+    #         hue).size().reset_index()
+    #     modality_counts = modality_counts.rename(columns={0: 'Features'})
+    #     modality_counts[y] = \
+    #         100 * modality_counts.n_events/modality_counts.n_events.sum()
+    if x is None:
         x = ''
         modality_counts[x] = x
 
