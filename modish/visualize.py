@@ -200,52 +200,52 @@ def annotate_bars(x, group_col, percentage_col, modality_col, **kwargs):
 
 
 
-def modalities_barplot(modalities_tidy, group_order=None, group_col=None,
-                       modality_col='Modality', factorplot_kws=None,
-                       percentage_col='Percentage of Features'):
-    factorplot_kws = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE) \
-        if factorplot_kws == None else factorplot_kws
+def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
+                       x_order=None, hue='Modality',
+                        **factorplot_kws):
+    factorplot_kws.setdefault('hue_order', MODALITY_ORDER)
+    factorplot_kws.setdefault('palette', MODALITY_PALETTE)
 
-    if group_order is not None and group_col is None:
-        raise ValueError('If specifying "group_order", "group_col" must also '
+    if x_order is not None and x is None:
+        raise ValueError('If specifying "x_order", "x" must also '
                          'be specified.')
-    # percentage_col = 'Percentage of features'
-    if group_col is not None:
+    # y = 'Percentage of features'
+    if x is not None:
         modality_counts = modalities_tidy.groupby(
-            [group_col, modality_col]).size().reset_index()
+            [x, hue]).size().reset_index()
         modality_counts = modality_counts.rename(columns={0: 'n_events'})
         modality_counts['Percentage of features'] = modality_counts.groupby(
-            group_col).n_events.apply(
+            x).n_events.apply(
             lambda x: 100 * x / x.astype(float).sum())
-        if group_order is not None:
-            modality_counts[group_col] = pd.Categorical(
-                modality_counts[group_col], categories=group_order,
+        if x_order is not None:
+            modality_counts[x] = pd.Categorical(
+                modality_counts[x], categories=x_order,
                 ordered=True)
         else:
-            modality_counts[group_col] = pd.Categorical(
-                modality_counts[group_col], categories=group_order,
+            modality_counts[x] = pd.Categorical(
+                modality_counts[x], categories=x_order,
                 ordered=True)
     else:
         modality_counts = modalities_tidy.groupby(
-            modality_col).size().reset_index()
+            hue).size().reset_index()
         modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts[percentage_col] = \
+        modality_counts[y] = \
             100 * modality_counts.n_events/modality_counts.n_events.sum()
-        group_col = ''
-        modality_counts[group_col] = group_col
+        x = ''
+        modality_counts[x] = x
 
-    g = sns.factorplot(y=percentage_col, x=group_col,
-                       hue=modality_col, kind='bar', data=modality_counts,
+    g = sns.factorplot(y=y, x=x,
+                       hue=hue, kind='bar', data=modality_counts,
                        aspect=3, legend=False, linewidth=1,
                        size=3, **factorplot_kws)
 
     # Hacky workaround to add numeric annotations to the plot
-    g.map_dataframe(annotate_bars, group_col, group_col=group_col,
-                    modality_col=modality_col,
-                    percentage_col=percentage_col)
+    g.map_dataframe(annotate_bars, x, group_col=x,
+                    modality_col=hue,
+                    percentage_col=y)
     g.add_legend(label_order=MODALITY_ORDER, title='Modalities')
     for ax in g.axes.flat:
         ax.locator_params('y', nbins=5)
         if ax.is_first_col():
-            ax.set(ylabel=percentage_col)
+            ax.set(ylabel=y)
     return g
