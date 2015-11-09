@@ -201,7 +201,7 @@ def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwarg
 
 
 def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
-                       x_order=None, hue='Modality',
+                       x_order=None, hue='Assigned Modality',
                         **factorplot_kws):
     factorplot_kws.setdefault('hue_order', MODALITY_ORDER)
     factorplot_kws.setdefault('palette', MODALITY_PALETTE)
@@ -211,20 +211,27 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
                          'be specified.')
     # y = 'Percentage of features'
     groupby = [hue]
+    groupby_minus_hue = []
     if x is not None:
         groupby = [x] + groupby
+        groupby_minus_hue.append(x)
     if 'row' in factorplot_kws:
         groupby = groupby + [factorplot_kws['row']]
+        groupby_minus_hue.append(factorplot_kws['row'])
     if 'col' in factorplot_kws:
         groupby = groupby + [factorplot_kws['col']]
+        groupby_minus_hue.append(factorplot_kws['col'])
 
     # if x is not None:
     modality_counts = modalities_tidy.groupby(
         groupby).size().reset_index()
     modality_counts = modality_counts.rename(columns={0: 'Features'})
-    modality_counts[y] = modality_counts.groupby(
-        x)['Features'].apply(
-        lambda x: 100 * x / x.astype(float).sum())
+    if groupby_minus_hue:
+        modality_counts[y] = modality_counts.groupby(
+            groupby_minus_hue)['Features'].apply(
+            lambda x: 100 * x / x.astype(float).sum())
+    else:
+        groupby_minus_hue[y] = 100*modality_counts['Features']/modality_counts['Features'].sum()
     if x_order is not None:
         modality_counts[x] = pd.Categorical(
             modality_counts[x], categories=x_order,
