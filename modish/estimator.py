@@ -251,7 +251,7 @@ class ModalityEstimator(object):
                 {k: v.logsumexp_logliks(x)
                  for k, v in self.two_param_models.items()})
             series = pd.concat([logbf_one_param, logbf_two_param])
-            series['Multimodal'] = self.logbf_thresh
+            series['multimodal'] = self.logbf_thresh
         else:
             series = logbf_one_param
         series.index.name = 'Modality'
