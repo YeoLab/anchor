@@ -171,15 +171,21 @@ import locale
 locale.setlocale(locale.LC_ALL, 'en_US')
 
 
-def annotate_bars(x, group_col, percentage_col, **kwargs):
+def annotate_bars(x, group_col, percentage_col, modality_col, **kwargs):
     data = kwargs.pop('data')
+    # print kwargs
     ax = plt.gca()
     width = 0.8/5.
     x_base = -.49 - width/2.5
     for group, group_df in data.groupby(group_col):
         i = 0
-        for modality, modality_df in group_df.groupby('modality'):
+        modality_grouped = group_df.groupby(modality_col)
+        for modality in MODALITY_ORDER:
             i += 1
+            try:
+                modality_df = modality_grouped.get_group(modality)
+            except KeyError:
+                continue
             x_position = x_base + width*i + width/2
             y_position = modality_df[percentage_col]
             try:
@@ -195,18 +201,20 @@ def annotate_bars(x, group_col, percentage_col, **kwargs):
 
 
 def modalities_barplot(modalities_tidy, group_order=None, group_col=None,
-                       factorplot_kws=None):
-    factorplot_kws = {} if factorplot_kws == None else factorplot_kws
+                       modality_col='Modality', factorplot_kws=None,
+                       percentage_col='Percentage of Features'):
+    factorplot_kws = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE) \
+        if factorplot_kws == None else factorplot_kws
 
     if group_order is not None and group_col is None:
         raise ValueError('If specifying "group_order", "group_col" must also '
                          'be specified.')
-
-    if group_col is None:
+    # percentage_col = 'Percentage of features'
+    if group_col is not None:
         modality_counts = modalities_tidy.groupby(
-            [group_col, 'modality']).size().reset_index()
+            [group_col, modality_col]).size().reset_index()
         modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts['Percentage of events'] = modality_counts.groupby(
+        modality_counts['Percentage of features'] = modality_counts.groupby(
             group_col).n_events.apply(
             lambda x: 100 * x / x.astype(float).sum())
         if group_order is not None:
@@ -219,23 +227,27 @@ def modalities_barplot(modalities_tidy, group_order=None, group_col=None,
                 ordered=True)
     else:
         modality_counts = modalities_tidy.groupby(
-            'modality').size().reset_index()
+            modality_col).size().reset_index()
         modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts['Percentage of events'] = \
+        modality_counts[percentage_col] = \
             100 * modality_counts.n_events/modality_counts.n_events.sum()
-        group_col = 'group'
+        group_col = ''
         modality_counts[group_col] = group_col
 
-    modality_counts.modality = pd.Categorical(
-        modality_counts.modality, categories=MODALITY_ORDER, ordered=True)
-    g = sns.factorplot(y='Percentage of events', x='phenotype', hue='modality',
-                       kind='bar', data=modality_counts, aspect=3,
-                       legend=False, linewidth=1, size=3, **factorplot_kws)
+    # modality_counts.modality = pd.Categorical(
+    #     modality_counts[modality_col], categories=MODALITY_ORDER, ordered=True)
+    g = sns.factorplot(y=percentage_col, x=group_col,
+                       hue=modality_col, kind='bar', data=modality_counts,
+                       aspect=3, legend=False, linewidth=1,
+                       size=3, **factorplot_kws)
 
     # Hacky workaround to add numeric annotations to the
     g.map_dataframe(annotate_bars, group_col, group_col=group_col,
-                    percentage_col='Percentage of events')
+                    modality_col=modality_col,
+                    percentage_col=percentage_col)
     g.add_legend(label_order=MODALITY_ORDER, title='Modalities')
     for ax in g.axes.flat:
         ax.locator_params('y', nbins=5)
+        if ax.is_first_col():
+            ax.set(ylabel=percentage_col)
     return g
