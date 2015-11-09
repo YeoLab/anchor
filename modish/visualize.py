@@ -171,7 +171,7 @@ import locale
 locale.setlocale(locale.LC_ALL, 'en_US')
 
 
-def annotate_bars(x, group_col, percentage_col, modality_col, **kwargs):
+def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwargs):
     data = kwargs.pop('data')
     # print kwargs
     ax = plt.gca()
@@ -189,7 +189,7 @@ def annotate_bars(x, group_col, percentage_col, modality_col, **kwargs):
             x_position = x_base + width*i + width/2
             y_position = modality_df[percentage_col]
             try:
-                value = modality_df.n_events.values[0]
+                value = modality_df[count_col].values[0]
                 formatted = locale.format('%d', value, grouping=True)
                 ax.annotate(formatted, (x_position, y_position),
                             textcoords='offset points', xytext=(0, 2),
@@ -223,7 +223,7 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
         groupby).size().reset_index()
     modality_counts = modality_counts.rename(columns={0: 'Features'})
     modality_counts[y] = modality_counts.groupby(
-        x).n_events.apply(
+        x)['Features'].apply(
         lambda x: 100 * x / x.astype(float).sum())
     if x_order is not None:
         modality_counts[x] = pd.Categorical(
@@ -250,7 +250,7 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
 
     # Hacky workaround to add numeric annotations to the plot
     g.map_dataframe(annotate_bars, x, group_col=x,
-                    modality_col=hue,
+                    modality_col=hue, count_col='Features',
                     percentage_col=y)
     g.add_legend(label_order=MODALITY_ORDER, title='Modalities')
     for ax in g.axes.flat:
