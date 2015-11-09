@@ -28,7 +28,7 @@ class ModalityEstimator(object):
 
     def __init__(self, one_parameter_models=ONE_PARAMETER_MODELS,
                  two_parameter_models=TWO_PARAMETER_MODELS,
-                 logbf_thresh=10, modality_to_cmap=MODALITY_TO_CMAP):
+                 logbf_thresh=10):
         """Initialize an object with models to estimate splicing modality
 
         Parameters
@@ -42,7 +42,7 @@ class ModalityEstimator(object):
             to be significant
         """
         self.logbf_thresh = logbf_thresh
-        self.modality_to_cmap = modality_to_cmap
+        # self.modality_to_cmap = modality_to_cmap
 
         self.one_param_models = {k: ModalityModel(**v)
                                  for k, v in one_parameter_models.items()}
@@ -291,7 +291,7 @@ class ModalityEstimator(object):
         fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
 
         for ax, (model_name, model) in zip(axes, self.models.items()):
-            cmap = self.modality_to_cmap[model_name]
+            cmap = MODALITY_TO_CMAP[model_name]
             palette = cmap(np.linspace(0, 1, len(model.rvs)))
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
             ax.set(title=model_name)
