@@ -214,7 +214,7 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
         modality_counts = modalities_tidy.groupby(
             [x, hue]).size().reset_index()
         modality_counts = modality_counts.rename(columns={0: 'n_events'})
-        modality_counts['Percentage of features'] = modality_counts.groupby(
+        modality_counts[y] = modality_counts.groupby(
             x).n_events.apply(
             lambda x: 100 * x / x.astype(float).sum())
         if x_order is not None:
