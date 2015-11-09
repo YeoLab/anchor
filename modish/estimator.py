@@ -246,11 +246,12 @@ class ModalityEstimator(object):
     def single_feature_fit_transform(self, x):
         logbf_one_param = pd.Series({k: v.logsumexp_logliks(x)
              for k, v in self.one_param_models.items()})
-        if (logbf_one_param < self.logbf_thresh).all():
+        if (logbf_one_param <= self.logbf_thresh).all():
             logbf_two_param = pd.Series(
                 {k: v.logsumexp_logliks(x)
                  for k, v in self.two_param_models.items()})
             series = pd.concat([logbf_one_param, logbf_two_param])
+            series['Multimodal'] = self.logbf_thresh
         else:
             series = logbf_one_param
         series.index.name = 'Modality'
