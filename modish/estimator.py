@@ -392,6 +392,7 @@ class ModalityEstimator(object):
         violinplot_kws = {} if violinplot_kws is None else violinplot_kws
 
         width = len(data.columns)*0.75
+        alpha = max(0.05, 1./iteration_per_noise)
 
         for noise_percentage in noise_percentages:
             fig, ax = plt.subplots(figsize=(width, 3))
@@ -455,7 +456,7 @@ class ModalityEstimator(object):
                 modalities_dfs.append(modalities_df)
             if noise_percentage > 0:
                 for c in ax.collections:
-                    c.set_alpha(0.05)
+                    c.set_alpha(alpha)
             ax.set(ylim=(0, 1), title='{}% Uniform Noise'.format(
                 noise_percentage), yticks=(0, 0.5, 1), ylabel='$\Psi$')
             sns.despine()

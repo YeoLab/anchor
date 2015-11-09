@@ -234,14 +234,12 @@ def modalities_barplot(modalities_tidy, group_order=None, group_col=None,
         group_col = ''
         modality_counts[group_col] = group_col
 
-    # modality_counts.modality = pd.Categorical(
-    #     modality_counts[modality_col], categories=MODALITY_ORDER, ordered=True)
     g = sns.factorplot(y=percentage_col, x=group_col,
                        hue=modality_col, kind='bar', data=modality_counts,
                        aspect=3, legend=False, linewidth=1,
                        size=3, **factorplot_kws)
 
-    # Hacky workaround to add numeric annotations to the
+    # Hacky workaround to add numeric annotations to the plot
     g.map_dataframe(annotate_bars, group_col, group_col=group_col,
                     modality_col=modality_col,
                     percentage_col=percentage_col)
