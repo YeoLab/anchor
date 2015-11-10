@@ -406,7 +406,7 @@ class ModalityEstimator(object):
                 noise_ind = np.random.choice(noisy_data.index,
                                              size=noise_percentage,
                                              replace=False)
-                noisy_data.iloc[noise_ind] = np.random.uniform(
+                noisy_data.loc[noise_ind] = np.random.uniform(
                     low=0., high=1., size=size).reshape(shape)
 
                 renamer = dict(
