@@ -401,7 +401,8 @@ class ModalityEstimator(object):
                 if iteration > 0 and noise_percentage == 0:
                     continue
                 noisy_data = data.copy()
-                shape = (noise_percentage, noisy_data.shape[1])
+                shape = (noisy_data.shape[0]*noise_percentage/100,
+                         noisy_data.shape[1])
                 size = np.product(shape)
                 noise_ind = np.random.choice(noisy_data.index,
                                              size=noise_percentage,
