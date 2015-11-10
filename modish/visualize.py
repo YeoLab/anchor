@@ -199,7 +199,7 @@ def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwarg
 
 
 
-def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
+def barplot(modalities_tidy, x=None, y='Percentage of Features',
                        x_order=None, hue='Assigned Modality',
                         **factorplot_kws):
     factorplot_kws.setdefault('hue_order', MODALITY_ORDER)
