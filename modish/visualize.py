@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 """See log bayes factors which led to modality categorization"""
+import locale
 
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+
+
+locale.setlocale(locale.LC_ALL, 'en_US')
+
 
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
@@ -163,12 +168,6 @@ class ModalitiesViz(object):
         return plotter
 
 
-from modish.visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE
-
-import locale
-
-
-locale.setlocale(locale.LC_ALL, 'en_US')
 
 
 def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwargs):
