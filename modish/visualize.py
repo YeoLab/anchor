@@ -231,15 +231,16 @@ def modalities_barplot(modalities_tidy, x=None, y='Percentage of Features',
             groupby_minus_hue)['Features'].apply(
             lambda x: 100 * x / x.astype(float).sum())
     else:
-        groupby_minus_hue[y] = 100*modality_counts['Features']/modality_counts['Features'].sum()
+        modality_counts[y] = 100*modality_counts['Features']\
+            /modality_counts['Features'].sum()
     if x_order is not None:
-        modality_counts[x] = pd.Categorical(
+        modality_counts[y] = pd.Categorical(
             modality_counts[x], categories=x_order,
             ordered=True)
-    else:
-        modality_counts[x] = pd.Categorical(
-            modality_counts[x], categories=x_order,
-            ordered=True)
+    # else:
+    #     modality_counts[y] = pd.Categorical(
+    #         modality_counts[x], categories=x_order,
+    #         ordered=True)
     # else:
     #     modality_counts = modalities_tidy.groupby(
     #         hue).size().reset_index()
