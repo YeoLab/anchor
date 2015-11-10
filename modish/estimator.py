@@ -294,7 +294,8 @@ class ModalityEstimator(object):
             cmap = MODALITY_TO_CMAP[model_name]
             palette = cmap(np.linspace(0, 1, len(model.rvs)))
             model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
-            ax.set(title=model_name)
+            ax.set(title=model_name, xlabel='')
+        fig.tight_layout()
 
     def add_noise_and_assign_modality(self, data,
                                       iteration_per_noise=100,
@@ -466,9 +467,13 @@ class ModalityEstimator(object):
             fig.savefig('{}_noise_percentage_{}.pdf'.format(figure_prefix,
                                                             noise_percentage))
 
-        modalities = pd.concat(modalities_dfs, ignore_index=True)
+            modalities = pd.concat(modalities_dfs, ignore_index=True)
 
-        log2bf = pd.concat(log2bf_dfs, ignore_index=True)
+            log2bf = pd.concat(log2bf_dfs, ignore_index=True)
+            m = log2bf.set_index(['Feature ID', 'Modality'])['$\log_2 K$']
+            modalities = modalities.join(m, on=['Feature ID',
+                                                'Assigned Modality'])
+
 
         simulated_data = pd.concat(data_dfs, axis=1)
 
