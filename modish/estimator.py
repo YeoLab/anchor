@@ -178,28 +178,7 @@ class ModalityEstimator(object):
         self.assert_less_than_or_equal_1(data.values.flat)
         self.assert_non_negative(data.values.flat)
 
-        # Estimate Psi~0/Psi~1 first (only one parameter change with each
-        # paramterization)
-        logbf_one_param = self._fit_transform_one_step(data,
-                                                       self.one_param_models)
-
-        # Take everything that was below the threshold for included/excluded
-        # and estimate bimodal and middle (two parameters change in each
-        # parameterization
-        ind = (logbf_one_param < self.logbf_thresh).all()
-        multimodal_columns = ind[ind].index
-        data2 = data.ix[:, multimodal_columns]
-        logbf_two_param = self._fit_transform_one_step(data2,
-                                                       self.two_param_models)
-        log2_bayes_factors = pd.concat([logbf_one_param, logbf_two_param],
-                                       axis=0)
-
-        # Make sure the returned dataframe has the same number of columns
-        empty = data.count() == 0
-        empty_columns = empty[empty].index
-        empty_df = pd.DataFrame(np.nan, index=log2_bayes_factors.index,
-                                columns=empty_columns)
-        log2_bayes_factors = pd.concat([log2_bayes_factors, empty_df], axis=1)
+        log2_bayes_factors = data.apply(self.single_feature_fit_transform)
         return log2_bayes_factors
 
     def single_feature_logliks(self, feature):
@@ -243,12 +222,14 @@ class ModalityEstimator(object):
         return logliks.groupby('Modality')[r'$\log$ Likelihood'].apply(
             logsumexp)
 
-    def single_feature_fit_transform(self, x):
-        logbf_one_param = pd.Series({k: v.logsumexp_logliks(x)
+    def single_feature_fit_transform(self, feature):
+        logbf_one_param = pd.Series({k: v.logsumexp_logliks(feature)
              for k, v in self.one_param_models.items()})
+
+        # Check if none of the previous features fit
         if (logbf_one_param <= self.logbf_thresh).all():
             logbf_two_param = pd.Series(
-                {k: v.logsumexp_logliks(x)
+                {k: v.logsumexp_logliks(feature)
                  for k, v in self.two_param_models.items()})
             series = pd.concat([logbf_one_param, logbf_two_param])
             series['multimodal'] = self.logbf_thresh
@@ -261,6 +242,7 @@ class ModalityEstimator(object):
     def plot_single_feature_calculation(self, feature, renamed=''):
         logliks = self.single_feature_logliks(feature)
         logsumexps = self.logliks_to_logsumexp(logliks)
+        logsumexps['multimodal'] = self.logbf_thresh
 
         plotter = _ModelLoglikPlotter()
         return plotter.plot(feature, logliks, logsumexps, self.logbf_thresh,
