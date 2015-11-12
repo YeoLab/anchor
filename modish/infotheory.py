@@ -42,7 +42,7 @@ def _check_prob_dist(x):
                              'probability distributions that **sum to 1**')
 
 
-def binify(df, bins):
+def binify(data, bins):
     """Makes a histogram of each column the provided binsize
 
     Parameters
@@ -62,7 +62,12 @@ def binify(df, bins):
     """
     if bins is None:
         raise ValueError('Must specify "bins"')
-    binned = df.apply(lambda x: pd.Series(np.histogram(x, bins=bins)[0]))
+    if len(data.shape) == 2:
+        binned = data.apply(lambda x: pd.Series(np.histogram(x, bins=bins)[0]))
+    elif len(data.shape) == 1:
+        binned = pd.Series(np.histogram(data, bins=bins)[0])
+    else:
+        raise ValueError('`data` must be either a 1d vector or 2d matrix')
     binned.index = bin_range_strings(bins)
 
     # Normalize so each column sums to 1
