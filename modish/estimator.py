@@ -4,6 +4,7 @@ import pandas as pd
 from scipy.misc import logsumexp
 import seaborn as sns
 
+from .infotheory import binify, bin_range_strings, jsd
 from .model import ModalityModel
 from .visualize import MODALITY_TO_CMAP, violinplot, _ModelLoglikPlotter
 
@@ -17,6 +18,30 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
                                'betas': CHANGING_PARAMETERS},
                         '~1': {'alphas': CHANGING_PARAMETERS,
                                'betas': 1}}
+
+class ModalityPredictor(object):
+
+    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1):
+        self.bins = bins
+        self.jsd_thresh = jsd_thresh
+
+        bin_ranges = bin_range_strings(self.bins)
+        self.desired_distributions = pd.DataFrame(
+            np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [0.5, 0, 0.5]]).T,
+            index=bin_ranges, columns=['~0', 'middle', '~1', 'bimodal'])
+
+    def fit(self, data):
+        binned = binify(data, bins=self.bins)
+        fitted = binned.apply(lambda x: self.desired_distributions.apply(
+            lambda y: jsd(x, y)))
+        fitted.loc['multimodal'] = self.jsd_thresh
+        return fitted
+
+    def predict(self, fitted):
+        return fitted.idxmax()
+
+    def fit_predict(self, data):
+        return self.predict(self.fit(data))
 
 
 class ModalityEstimator(object):
