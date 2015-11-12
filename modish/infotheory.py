@@ -62,9 +62,9 @@ def binify(data, bins):
     """
     if bins is None:
         raise ValueError('Must specify "bins"')
-    if len(data.shape) == 2:
+    if isinstance(data, pd.DataFrame):
         binned = data.apply(lambda x: pd.Series(np.histogram(x, bins=bins)[0]))
-    elif len(data.shape) == 1:
+    elif isinstance(data, pd.Series):
         binned = pd.Series(np.histogram(data, bins=bins)[0])
     else:
         raise ValueError('`data` must be either a 1d vector or 2d matrix')

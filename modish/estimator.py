@@ -32,9 +32,13 @@ class ModalityPredictor(object):
 
     def fit(self, data):
         binned = binify(data, bins=self.bins)
-        fitted = binned.apply(lambda x: self.desired_distributions.apply(
-            lambda y: jsd(x, y)))
-        fitted.loc['multimodal'] = self.jsd_thresh
+        if isinstance(binned, pd.DataFrame):
+            fitted = binned.apply(lambda x: self.desired_distributions.apply(
+                lambda y: jsd(x, y)))
+            fitted.loc['multimodal'] = self.jsd_thresh
+        else:
+            fitted = self.desired_distributions.apply(lambda x: jsd(x, binned))
+            fitted['multimodal'] = self.jsd_thresh
         return fitted
 
     def predict(self, fitted):
