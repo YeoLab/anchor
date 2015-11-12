@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .model import ModalityModel
-from .estimator import ModalityEstimator
+from .estimator import ModalityEstimator, ModalityPredictor
 from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\
     MODALITY_TO_CMAP, ModalitiesViz, violinplot, barplot
 
@@ -11,7 +11,7 @@ __version__ = '0.1.0'
 
 __all__ = ['ModalityModel', 'ModalityEstimator', 'MODALITY_ORDER',
            'MODALITY_PALETTE', 'MODALITY_TO_COLOR', 'ModalitiesViz',
-           'violinplot', 'MODALITY_TO_CMAP']
+           'violinplot', 'MODALITY_TO_CMAP', 'ModalityPredictor']
 
 class ModishTestResult(object):
     
