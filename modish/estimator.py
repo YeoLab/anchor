@@ -21,14 +21,16 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
 
 class ModalityPredictor(object):
 
-    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1):
+    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1,
+                 desired_distribution=np.array([[1, 0, 0], [0, 1, 0],
+                                                [0, 0, 1], [0.5, 0, 0.5]]).T,
+                 desired_column_names=['~0', 'middle', '~1', 'bimodal']):
         self.bins = bins
         self.jsd_thresh = jsd_thresh
 
-        bin_ranges = bin_range_strings(self.bins)
-        self.desired_distributions = pd.DataFrame(
-            np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [0.5, 0, 0.5]]).T,
-            index=bin_ranges, columns=['~0', 'middle', '~1', 'bimodal'])
+        self.bin_ranges = bin_range_strings(self.bins)
+        self.desired_distributions = pd.DataFrame(desired_distribution,
+            index=self.bin_ranges, columns=desired_column_names)
 
     def fit(self, data):
         binned = binify(data, bins=self.bins)
@@ -42,6 +44,9 @@ class ModalityPredictor(object):
         return fitted
 
     def predict(self, fitted):
+        if self.fitted.shape[0] != len(self.bin_ranges):
+            raise ValueError("This data doesn't look like it was previously "
+                             "discretized to {} bins".format(self.bin_ranges))
         return fitted.idxmax()
 
     def fit_predict(self, data):
