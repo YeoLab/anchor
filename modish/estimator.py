@@ -23,7 +23,7 @@ class ModalityPredictor(object):
 
     modalities = MODALITY_ORDER
 
-    def __init__(self, bins=(0, 0.2, 0.8, 1)):
+    def __init__(self, bins=(0, 0.3, 0.7, 1)):
         self.bins = bins
 
         self.bin_ranges = bin_range_strings(self.bins)
