@@ -23,9 +23,8 @@ class ModalityPredictor(object):
 
     modalities = MODALITY_ORDER
 
-    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1):
+    def __init__(self, bins=(0, 0.2, 0.8, 1)):
         self.bins = bins
-        self.jsd_thresh = jsd_thresh
 
         self.bin_ranges = bin_range_strings(self.bins)
         self.desired_distributions = pd.DataFrame(
@@ -38,10 +37,8 @@ class ModalityPredictor(object):
         if isinstance(binned, pd.DataFrame):
             fitted = binned.apply(lambda x: self.desired_distributions.apply(
                 lambda y: jsd(x, y)))
-            # fitted.loc['multimodal'] = self.jsd_thresh
         else:
             fitted = self.desired_distributions.apply(lambda x: jsd(x, binned))
-            # fitted['multimodal'] = self.jsd_thresh
         return fitted
 
     def predict(self, fitted):
