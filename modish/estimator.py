@@ -23,7 +23,6 @@ class ModalityPredictor(object):
 
     modalities = MODALITY_ORDER
 
-
     def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1):
         self.bins = bins
         self.jsd_thresh = jsd_thresh
@@ -31,25 +30,25 @@ class ModalityPredictor(object):
         self.bin_ranges = bin_range_strings(self.bins)
         self.desired_distributions = pd.DataFrame(
             np.array([[1, 0, 0], [0, 1, 0],
-                      [0, 0, 1], [0.5, 0, 0.5]]).T,
-            index=self.bin_ranges, columns=self.modalities[:-1])
+                      [0, 0, 1], [0.5, 0, 0.5], [1./3, 1./3, 1./3]]).T,
+            index=self.bin_ranges, columns=self.modalities)
 
     def fit(self, data):
         binned = binify(data, bins=self.bins)
         if isinstance(binned, pd.DataFrame):
             fitted = binned.apply(lambda x: self.desired_distributions.apply(
                 lambda y: jsd(x, y)))
-            fitted.loc['multimodal'] = self.jsd_thresh
+            # fitted.loc['multimodal'] = self.jsd_thresh
         else:
             fitted = self.desired_distributions.apply(lambda x: jsd(x, binned))
-            fitted['multimodal'] = self.jsd_thresh
+            # fitted['multimodal'] = self.jsd_thresh
         return fitted
 
     def predict(self, fitted):
         if fitted.shape[0] != len(self.modalities):
-            raise ValueError("This data doesn't look like it was previously "
-                             "discretized to {} bins".format(self.bin_ranges))
-        return fitted.idxmax()
+            raise ValueError("This data doesn't look like it had the distance "
+                             "between it and the five modalities calculated")
+        return fitted.idxmin()
 
     def fit_predict(self, data):
         return self.predict(self.fit(data))
