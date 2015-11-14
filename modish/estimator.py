@@ -6,7 +6,7 @@ import seaborn as sns
 
 from .infotheory import binify, bin_range_strings, jsd
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP, violinplot, _ModelLoglikPlotter
+from .visualize import MODALITY_TO_CMAP, MODALITY_ORDER, violinplot, _ModelLoglikPlotter
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
@@ -21,16 +21,18 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
 
 class ModalityPredictor(object):
 
-    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1,
-                 desired_distribution=np.array([[1, 0, 0], [0, 1, 0],
-                                                [0, 0, 1], [0.5, 0, 0.5]]).T,
-                 desired_column_names=['~0', 'middle', '~1', 'bimodal']):
+    modalities = MODALITY_ORDER
+
+
+    def __init__(self, bins=(0, 0.2, 0.8, 1), jsd_thresh=0.1):
         self.bins = bins
         self.jsd_thresh = jsd_thresh
 
         self.bin_ranges = bin_range_strings(self.bins)
-        self.desired_distributions = pd.DataFrame(desired_distribution,
-            index=self.bin_ranges, columns=desired_column_names)
+        self.desired_distributions = pd.DataFrame(
+            np.array([[1, 0, 0], [0, 1, 0],
+                      [0, 0, 1], [0.5, 0, 0.5]]).T,
+            index=self.bin_ranges, columns=self.modalities[:-1])
 
     def fit(self, data):
         binned = binify(data, bins=self.bins)
@@ -44,7 +46,7 @@ class ModalityPredictor(object):
         return fitted
 
     def predict(self, fitted):
-        if self.fitted.shape[0] != len(self.bin_ranges):
+        if fitted.shape[0] != len(self.modalities):
             raise ValueError("This data doesn't look like it was previously "
                              "discretized to {} bins".format(self.bin_ranges))
         return fitted.idxmax()
