@@ -2,11 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy.misc import logsumexp
-import seaborn as sns
 
-from .infotheory import binify, bin_range_strings, jsd
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP, MODALITY_ORDER, violinplot, _ModelLoglikPlotter
+from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
@@ -18,37 +16,6 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
                                'betas': CHANGING_PARAMETERS},
                         '~1': {'alphas': CHANGING_PARAMETERS,
                                'betas': 1}}
-
-class ModalityPredictor(object):
-
-    modalities = MODALITY_ORDER
-
-    def __init__(self, bins=(0, 0.3, 0.7, 1)):
-        self.bins = bins
-
-        self.bin_ranges = bin_range_strings(self.bins)
-        self.desired_distributions = pd.DataFrame(
-            np.array([[1, 0, 0], [0, 1, 0],
-                      [0, 0, 1], [0.5, 0, 0.5], [1./3, 1./3, 1./3]]).T,
-            index=self.bin_ranges, columns=self.modalities)
-
-    def fit(self, data):
-        binned = binify(data, bins=self.bins)
-        if isinstance(binned, pd.DataFrame):
-            fitted = binned.apply(lambda x: self.desired_distributions.apply(
-                lambda y: jsd(x, y)))
-        else:
-            fitted = self.desired_distributions.apply(lambda x: jsd(x, binned))
-        return fitted
-
-    def predict(self, fitted):
-        if fitted.shape[0] != len(self.modalities):
-            raise ValueError("This data doesn't look like it had the distance "
-                             "between it and the five modalities calculated")
-        return fitted.idxmin()
-
-    def fit_predict(self, data):
-        return self.predict(self.fit(data))
 
 
 class ModalityEstimator(object):
@@ -311,61 +278,3 @@ class ModalityEstimator(object):
             ax.set(title=model_name, xlabel='')
         fig.tight_layout()
 
-    @staticmethod
-    def add_noise(data, iteration_per_noise=100,
-                  noise_percentages=np.arange(0, 101, step=10), plot=True,
-                  violinplot_kws=None, figure_prefix='modish_simulation'):
-        data_dfs = []
-
-        violinplot_kws = {} if violinplot_kws is None else violinplot_kws
-
-        width = len(data.columns) * 0.75
-        alpha = max(0.05, 1. / iteration_per_noise)
-
-        for noise_percentage in noise_percentages:
-            if plot:
-                fig, ax = plt.subplots(figsize=(width, 3))
-            for iteration in range(iteration_per_noise):
-                if iteration > 0 and noise_percentage == 0:
-                    continue
-                noisy_data = data.copy()
-                shape = (noisy_data.shape[0] * noise_percentage / 100,
-                         noisy_data.shape[1])
-                size = np.product(shape)
-                noise_ind = np.random.choice(noisy_data.index,
-                                             size=noise_percentage,
-                                             replace=False)
-                noisy_data.loc[noise_ind] = np.random.uniform(
-                    low=0., high=1., size=size).reshape(shape)
-
-                renamer = dict(
-                    (col, '{}_noise{}_iter{}'.format(
-                        col, noise_percentage, iteration))
-                    for col in noisy_data.columns)
-
-                renamed = noisy_data.rename(columns=renamer)
-                data_dfs.append(renamed)
-                if plot:
-                    noisy_data_tidy = noisy_data.unstack()
-                    noisy_data_tidy = noisy_data_tidy.reset_index()
-                    noisy_data_tidy = noisy_data_tidy.rename(
-                        columns={'level_0': 'Feature ID',
-                                 'level_1': 'Sample ID',
-                                 0: '$\Psi$'})
-                    violinplot(x='Feature ID', y='$\Psi$',
-                               data=noisy_data_tidy, ax=ax,
-                               **violinplot_kws)
-
-            if plot:
-                if noise_percentage > 0:
-                    for c in ax.collections:
-                        c.set_alpha(alpha)
-                ax.set(ylim=(0, 1), title='{}% Uniform Noise'.format(
-                    noise_percentage), yticks=(0, 0.5, 1), ylabel='$\Psi$')
-                sns.despine()
-                fig.tight_layout()
-                fig.savefig('{}_noise_percentage_{}.pdf'.format(figure_prefix,
-                                                                noise_percentage))
-
-        all_noisy_data = pd.concat(data_dfs, axis=1)
-        return all_noisy_data
