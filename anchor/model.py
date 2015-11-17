@@ -13,7 +13,7 @@ import seaborn as sns
 
 from .visualize import violinplot
 
-VERY_SMALL_NUMBER = np.finfo(float).eps
+VERY_SMALL_NUMBER = 0.001
 SINGLE_FEATURE_COLUMNS = [r'$\log$ Likelihood', r'$\alpha$', r'$\beta$']
 
 

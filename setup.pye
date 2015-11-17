@@ -23,23 +23,23 @@ test_requirements = [
 ]
 
 setup(
-    name='anchor',
+    name='modish',
     version='0.1.0',
     description="Modish is a python package to estimate modality of splicing, percent methylated, any data that is normalized between 0 and 1",
     long_description=readme + '\n\n' + history,
     author="Olga Botvinnik",
     author_email='olga.botvinnik@gmail.com',
-    url='https://github.com/olgabot/anchor',
+    url='https://github.com/olgabot/modish',
     packages=[
-        'anchor',
+        'modish',
     ],
-    package_dir={'anchor':
-                 'anchor'},
+    package_dir={'modish':
+                 'modish'},
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
     zip_safe=False,
-    keywords='anchor',
+    keywords='modish',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

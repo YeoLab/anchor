@@ -1,0 +1,1299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ae767b79-00b8-4a29-9d64-b505570ba994" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/__init__.py" afterPath="$PROJECT_DIR$/anchor/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/estimator.py" afterPath="$PROJECT_DIR$/anchor/estimator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/infotheory.py" afterPath="$PROJECT_DIR$/anchor/infotheory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/model.py" afterPath="$PROJECT_DIR$/anchor/model.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/predict.py" afterPath="$PROJECT_DIR$/anchor/predict.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/simulate.py" afterPath="$PROJECT_DIR$/anchor/simulate.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/tests/__init__.py" afterPath="$PROJECT_DIR$/anchor/tests/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/tests/conftest.py" afterPath="$PROJECT_DIR$/anchor/tests/conftest.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/tests/test_estimator.py" afterPath="$PROJECT_DIR$/anchor/tests/test_estimator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/tests/test_model.py" afterPath="$PROJECT_DIR$/anchor/tests/test_model.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modish/visualize.py" afterPath="$PROJECT_DIR$/anchor/visualize.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rst" afterPath="$PROJECT_DIR$/README.rst" />
+    </list>
+    <ignored path="modish.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="modish" />
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.5688889">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="estimator.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/estimator.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-7.2222223">
+                  <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#1166#1543#1" expanded="false" />
+                    <element signature="e#2072#2781#0" expanded="false" />
+                    <element signature="e#2072#2411#1" expanded="false" />
+                    <element signature="e#2841#3132#0" expanded="false" />
+                    <element signature="e#2841#3086#1" expanded="false" />
+                    <element signature="e#3200#3489#0" expanded="false" />
+                    <element signature="e#3200#3443#1" expanded="false" />
+                    <element signature="e#3524#4361#0" expanded="false" />
+                    <element signature="e#3524#4151#1" expanded="false" />
+                    <element signature="e#6080#6650#1" expanded="false" />
+                    <element signature="e#7320#7406#0" expanded="false" />
+                    <element signature="e#7459#8105#0" expanded="false" />
+                    <element signature="e#8183#8501#0" expanded="false" />
+                    <element signature="e#8569#9629#0" expanded="false" />
+                    <element signature="e#8569#9032#1" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="README.rst" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/README.rst">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/README.md">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.12875536">
+                  <caret line="6" column="173" selection-start-line="6" selection-start-column="173" selection-end-line="6" selection-end-column="173" />
+                  <folding />
+                </state>
+              </provider>
+              <provider editor-type-id="MarkdownPreviewEditor">
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="predict.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/predict.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="infotheory.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/infotheory.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_model.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/tests/test_model.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#32#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="conda_requirements.txt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/conda_requirements.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/__init__.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+                  <folding>
+                    <element signature="e#24#56#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="simulate.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/simulate.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="conftest.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/tests/conftest.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="visualize.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/anchor/visualize.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="95" column="11" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
+                  <folding>
+                    <element signature="e#89#102#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/anchor/model.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.30906594">
+                  <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+                  <folding>
+                    <element signature="e#53#85#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/modish/tests/conftest.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/modish/modish.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/conda_requirements.txt" />
+        <option value="$PROJECT_DIR$/modish/tests/test_model.py" />
+        <option value="$PROJECT_DIR$/Makefile" />
+        <option value="$PROJECT_DIR$/modish/tests/test_estimator.py" />
+        <option value="$PROJECT_DIR$/modish/visualize.py" />
+        <option value="$PROJECT_DIR$/../modish_bonvoyage_paper/test_modish.py" />
+        <option value="$PROJECT_DIR$/modish/infotheory.py" />
+        <option value="$PROJECT_DIR$/modish/simulations.py" />
+        <option value="$PROJECT_DIR$/modish/predict.py" />
+        <option value="$PROJECT_DIR$/modish/__init__.py" />
+        <option value="$PROJECT_DIR$/modish/model.py" />
+        <option value="$PROJECT_DIR$/modish/estimator.py" />
+        <option value="$PROJECT_DIR$/README.rst" />
+        <option value="$PROJECT_DIR$/README.md" />
+      </list>
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1440" />
+    <option name="height" value="874" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="anchor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="anchor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="anchor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="anchor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../modish_bonvoyage_paper" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/testing" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modish" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ae767b79-00b8-4a29-9d64-b505570ba994" name="Default" comment="" />
+      <created>1436395243922</created>
+      <option name="number" value="Default" />
+      <updated>1436395243922</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Missing comma">
+      <created>1445894313417</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1445894313417</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Missing comma">
+      <created>1445894584767</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1445894584767</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Show parameters as integers or fractions if less than 0, rather than floats">
+      <created>1446141360838</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1446141360838</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Make parameter violinplots narrower, and add titles">
+      <created>1446141415599</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1446141415599</updated>
+    </task>
+    <task id="LOCAL-00043" summary="use cmaps for each modality when plotting parameters">
+      <created>1446142557079</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1446142557079</updated>
+    </task>
+    <task id="LOCAL-00044" summary="initial commit of addning noise and assinging modality to test estimator">
+      <created>1446151231815</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1446151231815</updated>
+    </task>
+    <task id="LOCAL-00045" summary="use provided modality_to_cmap instead of global var">
+      <created>1446151398550</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1446151398550</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Don't check for whether original modality is the same based off of the name of the feature">
+      <created>1446212735223</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1446212735223</updated>
+    </task>
+    <task id="LOCAL-00047" summary="wider figure size, use captials with spaces for feature ID name">
+      <created>1446215589100</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1446215589100</updated>
+    </task>
+    <task id="LOCAL-00048" summary="add new feature id for noisy simulated data">
+      <created>1446218415433</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1446218415433</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Change column name in log2bf from &quot;Assigned Modality&quot; to &quot;Modality&quot; because no assignment has been performed yet">
+      <created>1446484531784</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1446484531784</updated>
+    </task>
+    <task id="LOCAL-00050" summary="pep8">
+      <created>1446484562777</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1446484562778</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Add docstring">
+      <created>1446486167833</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1446486167833</updated>
+    </task>
+    <task id="LOCAL-00052" summary="initial commit of a single feature's loglikelihood">
+      <created>1446488045140</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1446488045140</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Use raw strings for latex alpha and beta">
+      <created>1446488183744</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1446488183744</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add initial plotting of one feature">
+      <created>1446489091579</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1446489091579</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Got single feature estimation plotting working">
+      <created>1446489978492</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1446489978492</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Add sinlge feature fit transform with both sets of models">
+      <created>1446836967454</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1446836967454</updated>
+    </task>
+    <task id="LOCAL-00057" summary="change parameters by one">
+      <created>1446848264019</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1446848264019</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Fix up modality barplot visualization">
+      <created>1447088282573</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1447088282573</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Use 1/n_iter to get alphas">
+      <created>1447091551784</created>
+      <option name="number" value="00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1447091551784</updated>
+    </task>
+    <task id="LOCAL-00060" summary="add multimodal if did two parameters">
+      <created>1447091701738</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1447091701738</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Lowercase for multimodal">
+      <created>1447091800189</created>
+      <option name="number" value="00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1447091800189</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Use global MODALTY_TO_CMAP">
+      <created>1447092016265</created>
+      <option name="number" value="00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1447092016265</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Refactor names from group to x and y">
+      <created>1447094226774</created>
+      <option name="number" value="00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1447094226774</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Use variable instead of string for percentage of features to avoid typo bugs">
+      <created>1447094563553</created>
+      <option name="number" value="00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1447094563554</updated>
+    </task>
+    <task id="LOCAL-00065" summary="trying to make barplot flexible to use any factorplot kw">
+      <created>1447094898566</created>
+      <option name="number" value="00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1447094898566</updated>
+    </task>
+    <task id="LOCAL-00066" summary="add missing colon">
+      <created>1447095188105</created>
+      <option name="number" value="00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1447095188105</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Use count col instead of n_events">
+      <created>1447095266943</created>
+      <option name="number" value="00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1447095266943</updated>
+    </task>
+    <task id="LOCAL-00068" summary="make groupby without hue for normalizing to get number of feautres&#10;">
+      <created>1447102886933</created>
+      <option name="number" value="00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1447102886933</updated>
+    </task>
+    <task id="LOCAL-00069" summary="fix modality coounts to use y instead of x">
+      <created>1447177168963</created>
+      <option name="number" value="00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1447177168963</updated>
+    </task>
+    <task id="LOCAL-00070" summary="remove modish import and move locale import to top">
+      <created>1447178203396</created>
+      <option name="number" value="00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1447178203396</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Use loc instead of iloc since using index name">
+      <created>1447179758846</created>
+      <option name="number" value="00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1447179758846</updated>
+    </task>
+    <task id="LOCAL-00072" summary="change modalities_barplot to just barplot since the modalities are implied">
+      <created>1447179780083</created>
+      <option name="number" value="00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1447179780083</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Don't assume input test data has 100 rows">
+      <created>1447179852777</created>
+      <option name="number" value="00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1447179852777</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Return the log2 bayesian fit of the assigned modality too">
+      <created>1447182561772</created>
+      <option name="number" value="00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1447182561772</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Add object for saving modish test results">
+      <created>1447182571419</created>
+      <option name="number" value="00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1447182571419</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Use single_feature_fit_transform and apply it to whole dataframe">
+      <created>1447279426372</created>
+      <option name="number" value="00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1447279426372</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Add ModalityPredictor using infortheory">
+      <created>1447354203045</created>
+      <option name="number" value="00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1447354203054</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Add modality predictor to output">
+      <created>1447354697052</created>
+      <option name="number" value="00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1447354697052</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Add if/else for single feature vector">
+      <created>1447356685339</created>
+      <option name="number" value="00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1447356685340</updated>
+    </task>
+    <task id="LOCAL-00080" summary="modalitypredictor.fit can be used on just vectors">
+      <created>1447356934025</created>
+      <option name="number" value="00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1447356934025</updated>
+    </task>
+    <task id="LOCAL-00081" summary="move desired distributions into init">
+      <created>1447377178857</created>
+      <option name="number" value="00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1447377178857</updated>
+    </task>
+    <task id="LOCAL-00082" summary="remove desired distribution and names from init parameters">
+      <created>1447462243063</created>
+      <option name="number" value="00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1447462243063</updated>
+    </task>
+    <task id="LOCAL-00083" summary="idxmin for distance, not max!!">
+      <created>1447463037715</created>
+      <option name="number" value="00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1447463037715</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Replace add_noise_and_assign_modality with just add_noise">
+      <created>1447468561515</created>
+      <option name="number" value="00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1447468561515</updated>
+    </task>
+    <task id="LOCAL-00085" summary="don't use JSD threshold">
+      <created>1447469850627</created>
+      <option name="number" value="00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1447469850627</updated>
+    </task>
+    <task id="LOCAL-00086" summary="make end bins larger to get more bimodals">
+      <created>1447471113955</created>
+      <option name="number" value="00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1447471113955</updated>
+    </task>
+    <task id="LOCAL-00087" summary="reorganize for predictor and add_noise to be in their own files">
+      <created>1447691036733</created>
+      <option name="number" value="00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1447691036733</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20718816" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1540" y="-281" width="1000" height="1720" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
+    <MESSAGE value="Refactor names from group to x and y" />
+    <MESSAGE value="Use variable instead of string for percentage of features to avoid typo bugs" />
+    <MESSAGE value="trying to make barplot flexible to use any factorplot kw" />
+    <MESSAGE value="add missing colon" />
+    <MESSAGE value="Use count col instead of n_events" />
+    <MESSAGE value="make groupby without hue for normalizing to get number of feautres&#10;" />
+    <MESSAGE value="fix modality coounts to use y instead of x" />
+    <MESSAGE value="remove modish import and move locale import to top" />
+    <MESSAGE value="Use loc instead of iloc since using index name" />
+    <MESSAGE value="change modalities_barplot to just barplot since the modalities are implied" />
+    <MESSAGE value="Don't assume input test data has 100 rows" />
+    <MESSAGE value="Return the log2 bayesian fit of the assigned modality too" />
+    <MESSAGE value="Add object for saving modish test results" />
+    <MESSAGE value="Use single_feature_fit_transform and apply it to whole dataframe" />
+    <MESSAGE value="Add ModalityPredictor using infortheory" />
+    <MESSAGE value="Add modality predictor to output" />
+    <MESSAGE value="Add if/else for single feature vector" />
+    <MESSAGE value="modalitypredictor.fit can be used on just vectors" />
+    <MESSAGE value="move desired distributions into init" />
+    <MESSAGE value="remove desired distribution and names from init parameters" />
+    <MESSAGE value="idxmin for distance, not max!!" />
+    <MESSAGE value="Replace add_noise_and_assign_modality with just add_noise" />
+    <MESSAGE value="don't use JSD threshold" />
+    <MESSAGE value="make end bins larger to get more bimodals" />
+    <MESSAGE value="reorganize for predictor and add_noise to be in their own files" />
+    <option name="LAST_COMMIT_MESSAGE" value="reorganize for predictor and add_noise to be in their own files" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/anchor/visualize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
+          <folding>
+            <element signature="e#89#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/test_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conda_requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="41" selection-start-line="97" selection-start-column="41" selection-end-line="97" selection-end-column="41" />
+          <folding>
+            <element signature="e#1166#1543#1" expanded="false" />
+            <element signature="e#2072#2781#0" expanded="false" />
+            <element signature="e#2072#2411#1" expanded="false" />
+            <element signature="e#2841#3132#0" expanded="false" />
+            <element signature="e#2841#3086#1" expanded="false" />
+            <element signature="e#3200#3489#0" expanded="false" />
+            <element signature="e#3200#3443#1" expanded="false" />
+            <element signature="e#3524#4361#0" expanded="false" />
+            <element signature="e#3524#4151#1" expanded="false" />
+            <element signature="e#6080#6650#1" expanded="false" />
+            <element signature="e#7320#7406#0" expanded="false" />
+            <element signature="e#7459#8105#0" expanded="false" />
+            <element signature="e#8183#8501#0" expanded="false" />
+            <element signature="e#8569#9629#0" expanded="false" />
+            <element signature="e#8569#9032#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
+          <folding>
+            <element signature="e#53#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/visualize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#89#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/test_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conda_requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#1166#1543#1" expanded="false" />
+            <element signature="e#2072#2781#0" expanded="false" />
+            <element signature="e#2072#2411#1" expanded="false" />
+            <element signature="e#2841#3132#0" expanded="false" />
+            <element signature="e#2841#3086#1" expanded="false" />
+            <element signature="e#3200#3489#0" expanded="false" />
+            <element signature="e#3200#3443#1" expanded="false" />
+            <element signature="e#3524#4361#0" expanded="false" />
+            <element signature="e#3524#4151#1" expanded="false" />
+            <element signature="e#6080#6650#1" expanded="false" />
+            <element signature="e#7320#7406#0" expanded="false" />
+            <element signature="e#7459#8105#0" expanded="false" />
+            <element signature="e#8183#8501#0" expanded="false" />
+            <element signature="e#8569#9629#0" expanded="false" />
+            <element signature="e#8569#9032#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
+          <folding>
+            <element signature="e#53#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/visualize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#89#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/test_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conda_requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MANIFEST.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.777779">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5555556">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing/matplotlibrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/test_estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17582418">
+          <caret line="72" column="74" selection-start-line="72" selection-start-column="74" selection-end-line="72" selection-end-column="74" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../modish_bonvoyage_paper/test_modish.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53571427">
+          <caret line="26" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="124" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/test_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conda_requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/tests/conftest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/visualize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="11" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
+          <folding>
+            <element signature="e#89#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/simulate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/infotheory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30906594">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="e#53#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anchor/estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.2222223">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#1166#1543#1" expanded="false" />
+            <element signature="e#2072#2781#0" expanded="false" />
+            <element signature="e#2072#2411#1" expanded="false" />
+            <element signature="e#2841#3132#0" expanded="false" />
+            <element signature="e#2841#3086#1" expanded="false" />
+            <element signature="e#3200#3489#0" expanded="false" />
+            <element signature="e#3200#3443#1" expanded="false" />
+            <element signature="e#3524#4361#0" expanded="false" />
+            <element signature="e#3524#4151#1" expanded="false" />
+            <element signature="e#6080#6650#1" expanded="false" />
+            <element signature="e#7320#7406#0" expanded="false" />
+            <element signature="e#7459#8105#0" expanded="false" />
+            <element signature="e#8183#8501#0" expanded="false" />
+            <element signature="e#8569#9629#0" expanded="false" />
+            <element signature="e#8569#9032#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12875536">
+          <caret line="6" column="173" selection-start-line="6" selection-start-column="173" selection-end-line="6" selection-end-column="173" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+  </component>
+</project>

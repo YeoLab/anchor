@@ -1,6 +1,6 @@
 # anchor
 
-[![](https://img.shields.io/travis/olgabot/anchor.svg)](https://travis-ci.org/olgabot/anchor)[![](https://img.shields.io/pypi/v/anchor.svg)](https://pypi.python.org/pypi/anchor)[![Coverage Status](https://coveralls.io/repos/olgabot/anchor/badge.svg?branch=master&service=github)](https://coveralls.io/github/olgabot/anchor?branch=master)
+[![](https://img.shields.io/travis/olgabot/modish.svg)](https://travis-ci.org/olgabot/modish)[![](https://img.shields.io/pypi/v/modish.svg)](https://pypi.python.org/pypi/modish)[![Coverage Status](https://coveralls.io/repos/olgabot/modish/badge.svg?branch=master&service=github)](https://coveralls.io/github/olgabot/modish?branch=master)
 
 ## What is `anchor`?
 
@@ -14,7 +14,7 @@ Modish is a bioinformatics python package to estimate modality of any data that 
 To install this code, clone this github repository and use `pip` to install
 
     git clone git@github.com:olgabot/anchor
-    cd anchor
+    cd modish
     pip install .  # The "." means "install *this*, the folder where I am now"
 
 

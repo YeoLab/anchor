@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .model import ModalityModel
-from .estimator import ModalityEstimator
+from .estimator import BayesianModalities
 from .predict import ModalityPredictor
 from .simulate import add_noise
 from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\
@@ -11,7 +11,7 @@ __email__ = 'olga.botvinnik@gmail.com'
 __version__ = '0.1.0'
 
 
-__all__ = ['ModalityModel', 'ModalityEstimator', 'MODALITY_ORDER',
+__all__ = ['ModalityModel', 'BayesianModalities', 'MODALITY_ORDER',
            'MODALITY_PALETTE', 'MODALITY_TO_COLOR', 'ModalitiesViz',
            'violinplot', 'MODALITY_TO_CMAP', 'ModalityPredictor',
            'add_noise']

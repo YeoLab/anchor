@@ -10,8 +10,8 @@ test:
 
 coverage:
 	cp testing/matplotlibrc .
-	coverage run --source anchor --omit=tests --module py.test
+	coverage run --source modish --omit=tests --module py.test
 	rm matplotlibrc
 
 lint:
-	flake8 anchor
+	flake8 modish

@@ -21,11 +21,11 @@ class TestModalityEstimator(object):
 
     @pytest.fixture
     def estimator(self, logbf_thresh):
-        from modish.estimator import ModalityEstimator, ONE_PARAMETER_MODELS, \
+        from anchor.estimator import BayesianModalities, ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
-        from modish.visualize import MODALITY_TO_CMAP
+        from anchor.visualize import MODALITY_TO_CMAP
 
-        return ModalityEstimator(
+        return BayesianModalities(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
             logbf_thresh=logbf_thresh, model_palettes=MODALITY_TO_CMAP)
@@ -54,11 +54,11 @@ class TestModalityEstimator(object):
         return df
 
     def test_init(self, logbf_thresh):
-        from modish import ModalityEstimator, ModalityModel, MODALITY_TO_CMAP
-        from modish.estimator import ONE_PARAMETER_MODELS, \
+        from anchor import BayesianModalities, ModalityModel, MODALITY_TO_CMAP
+        from anchor.estimator import ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
 
-        estimator = ModalityEstimator(
+        estimator = BayesianModalities(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
             logbf_thresh=logbf_thresh, modality_to_cmap=MODALITY_TO_CMAP)
@@ -82,7 +82,7 @@ class TestModalityEstimator(object):
         ncols = 5
         data = pd.DataFrame(
             np.abs(np.random.randn(nrows, ncols).reshape(nrows, ncols))+10)
-        estimator.fit_transform(data)
+        estimator.fit(data)
 
     @pytest.mark.xfail
     def test_fit_transform_less_than1(self, estimator):
@@ -90,12 +90,12 @@ class TestModalityEstimator(object):
         ncols = 5
         data = pd.DataFrame(
             np.abs(np.random.randn(nrows, ncols).reshape(nrows, ncols))-10)
-        estimator.fit_transform(data)
+        estimator.fit(data)
 
     def test_positive_control(self, estimator, positive_control):
         """Make sure estimator correctly assigns modalities to known events"""
-        log2bf = estimator.fit_transform(positive_control)
-        test = estimator.assign_modalities(log2bf)
+        log2bf = estimator.fit(positive_control)
+        test = estimator.predict(log2bf)
 
         pdt.assert_almost_equal(test.values, test.index)
 

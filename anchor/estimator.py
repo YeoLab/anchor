@@ -18,7 +18,7 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
                                'betas': 1}}
 
 
-class ModalityEstimator(object):
+class BayesianModalities(object):
     """Use Bayesian methods to estimate modalities of splicing events"""
 
     # palette = dict(
@@ -49,53 +49,6 @@ class ModalityEstimator(object):
                                  for k, v in two_parameter_models.items()}
         self.models = self.one_param_models.copy()
         self.models.update(self.two_param_models)
-
-    def assign_modalities(self, log2_bayes_factors, reset_index=False):
-        """Guess the most likely modality for each event
-
-        For each event that has at least one non-NA value, if no modalilites
-        have logsumexp'd logliks greater than the log Bayes factor threshold,
-        then they are assigned the 'multimodal' modality, because we cannot
-        reject the null hypothesis that these did not come from the uniform
-        distribution.
-
-        Parameters
-        ----------
-        log2_bayes_factors : pandas.DataFrame
-            A (4, n_events) dataframe with bayes factors for the Psi~1, Psi~0,
-            bimodal, and middle modalities. If an event has no bayes factors
-            for any of those modalities, it is ignored
-        reset_index : bool
-            If True, remove the first level of the index from the dataframe.
-            Useful if you are using this function to apply to a grouped
-            dataframe where the first level is something other than the
-            modality, e.g. the celltype
-
-        Returns
-        -------
-        modalities : pandas.Series
-            A (n_events,) series with the most likely modality for each event
-
-        """
-        if reset_index:
-            x = log2_bayes_factors.reset_index(level=0, drop=True)
-        else:
-            x = log2_bayes_factors
-        not_na = (x.notnull() > 0).any()
-        not_na_columns = not_na[not_na].index
-        x.ix['multimodal', not_na_columns] = self.logbf_thresh
-        return x.idxmax()
-
-    def _fit_transform_one_step(self, data, models):
-        non_na = data.count() > 0
-        non_na_columns = non_na[non_na].index
-        data_non_na = data[non_na_columns]
-        if data_non_na.empty:
-            return pd.DataFrame()
-        else:
-            return data_non_na.apply(lambda x: pd.Series(
-                {k: v.logsumexp_logliks(x)
-                 for k, v in models.items()}), axis=0)
 
     def _single_feature_logliks_one_step(self, feature, models):
         """Get log-likelihood of models at each parameterization for given data
@@ -154,7 +107,7 @@ class ModalityEstimator(object):
         """
         assert np.all(x[np.isfinite(x)] <= 1)
 
-    def fit_transform(self, data):
+    def fit(self, data):
         """Get the modality assignments of each splicing event in the data
 
         Parameters
@@ -177,8 +130,48 @@ class ModalityEstimator(object):
         self.assert_less_than_or_equal_1(data.values.flat)
         self.assert_non_negative(data.values.flat)
 
-        log2_bayes_factors = data.apply(self.single_feature_fit_transform)
+        log2_bayes_factors = data.apply(self.single_feature_fit)
         return log2_bayes_factors
+
+    def predict(self, log2_bayes_factors, reset_index=False):
+        """Guess the most likely modality for each event
+
+        For each event that has at least one non-NA value, if no modalilites
+        have logsumexp'd logliks greater than the log Bayes factor threshold,
+        then they are assigned the 'multimodal' modality, because we cannot
+        reject the null hypothesis that these did not come from the uniform
+        distribution.
+
+        Parameters
+        ----------
+        log2_bayes_factors : pandas.DataFrame
+            A (4, n_events) dataframe with bayes factors for the Psi~1, Psi~0,
+            bimodal, and middle modalities. If an event has no bayes factors
+            for any of those modalities, it is ignored
+        reset_index : bool
+            If True, remove the first level of the index from the dataframe.
+            Useful if you are using this function to apply to a grouped
+            dataframe where the first level is something other than the
+            modality, e.g. the celltype
+
+        Returns
+        -------
+        modalities : pandas.Series
+            A (n_events,) series with the most likely modality for each event
+
+        """
+        if reset_index:
+            x = log2_bayes_factors.reset_index(level=0, drop=True)
+        else:
+            x = log2_bayes_factors
+        not_na = (x.notnull() > 0).any()
+        not_na_columns = not_na[not_na].index
+        x.ix['multimodal', not_na_columns] = self.logbf_thresh
+        return x.idxmax()
+
+    def fit_predict(self, data):
+        """Convenience function to assign modalities directly from data"""
+        return self.predict(self.fit(data))
 
     def single_feature_logliks(self, feature):
         """Calculate log-likelihoods of each modality for a single feature
@@ -221,7 +214,7 @@ class ModalityEstimator(object):
         return logliks.groupby('Modality')[r'$\log$ Likelihood'].apply(
             logsumexp)
 
-    def single_feature_fit_transform(self, feature):
+    def single_feature_fit(self, feature):
         logbf_one_param = pd.Series({k: v.logsumexp_logliks(feature)
              for k, v in self.one_param_models.items()})
 
