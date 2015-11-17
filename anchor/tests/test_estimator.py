@@ -21,7 +21,7 @@ class TestModalityEstimator(object):
 
     @pytest.fixture
     def estimator(self, logbf_thresh):
-        from anchor.estimator import BayesianModalities, ONE_PARAMETER_MODELS, \
+        from anchor.bayesian import BayesianModalities, ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
         from anchor.visualize import MODALITY_TO_CMAP
 
@@ -55,7 +55,7 @@ class TestModalityEstimator(object):
 
     def test_init(self, logbf_thresh):
         from anchor import BayesianModalities, ModalityModel, MODALITY_TO_CMAP
-        from anchor.estimator import ONE_PARAMETER_MODELS, \
+        from anchor.bayesian import ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
 
         estimator = BayesianModalities(

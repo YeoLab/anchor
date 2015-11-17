@@ -4,11 +4,11 @@ import pandas as pd
 from .infotheory import binify, bin_range_strings, jsd
 from .visualize import MODALITY_ORDER
 
-class ModalityPredictor(object):
+class BinnedModalities(object):
 
     modalities = MODALITY_ORDER
 
-    def __init__(self, bins=(0, 0.3, 0.7, 1)):
+    def __init__(self, bins=(0, 1./3, 2./3, 1)):
         self.bins = bins
 
         self.bin_ranges = bin_range_strings(self.bins)
