@@ -4,7 +4,7 @@
 
 ## What is `anchor`?
 
-Modish is a bioinformatics python package to estimate modality of any data that is normalized between 0 and 1, for example alternative splicing or other percent-based units.
+Anchor is a python package to find unimodal, bimodal, and multimodal features in any data that is normalized between 0 and 1, for example alternative splicing or other percent-based units.
 
 * Free software: BSD license
 * Documentation: https://YeoLab.github.io/anchor
