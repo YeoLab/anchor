@@ -21,9 +21,7 @@ ONE_PARAMETER_MODELS = {'~0': {'alphas': 1,
 class BayesianModalities(object):
     """Use Bayesian methods to estimate modalities of splicing events"""
 
-    # palette = dict(
-    # zip(['excluded', 'middle', 'included', 'bimodal', 'uniform'],
-    #         sns.color_palette('deep', n_colors=5)))
+    score_name = '$\log_2 K$'
 
     def __init__(self, one_parameter_models=ONE_PARAMETER_MODELS,
                  two_parameter_models=TWO_PARAMETER_MODELS,
@@ -131,6 +129,7 @@ class BayesianModalities(object):
         self.assert_non_negative(data.values.flat)
 
         log2_bayes_factors = data.apply(self.single_feature_fit)
+        log2_bayes_factors.name = self.score_name
         return log2_bayes_factors
 
     def predict(self, log2_bayes_factors, reset_index=False):
@@ -228,7 +227,7 @@ class BayesianModalities(object):
         else:
             series = logbf_one_param
         series.index.name = 'Modality'
-        series.name = '$\log_2 K$'
+        series.name = self.score_name
         return series
 
     def plot_single_feature_calculation(self, feature, renamed=''):

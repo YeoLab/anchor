@@ -7,6 +7,7 @@ from .visualize import MODALITY_ORDER
 class BinnedModalities(object):
 
     modalities = MODALITY_ORDER
+    score_name = 'Jensen-Shannon Divergence'
 
     def __init__(self, bins=(0, 1./3, 2./3, 1)):
         self.bins = bins
@@ -24,6 +25,7 @@ class BinnedModalities(object):
                 lambda y: jsd(x, y)))
         else:
             fitted = self.desired_distributions.apply(lambda x: jsd(x, binned))
+        fitted.name = self.score_name
         return fitted
 
     def predict(self, fitted):
