@@ -154,8 +154,8 @@ def estimate_modality(data, n_iter=1000, plot=False):
     mean_beta = betas.mean()
 #     estimated_modality = _assign_modality_from_estimate(mean_alpha, mean_beta)
 
-    if plot:
-        _print_and_plot(mean_alpha, mean_beta, alphas, betas, n_iter, data)
+    # if plot:
+    #     _print_and_plot(mean_alpha, mean_beta, alphas, betas, n_iter, data)
 
 #     return pd.Series({'mean_alpha':mean_alpha, 'mean_beta':mean_beta, 'modality':estimated_modality})
     print counter
@@ -169,12 +169,15 @@ def estimate_modality(data, n_iter=1000, plot=False):
 
 
 def estimate_modality_latent(data, n_iter=1000,
-                             model_params = [(2,1), (1,2), (5,5), (1,1),
-                                             (.65,.65)]):
-    fig, ax = plt.subplots()
-    sns.distplot(data, ax=ax, bins=np.arange(0, 1, 0.05))
+                             model_params=[(2, 1), (2, 2), (1, 2),
+                                           (.5, .5), (1, 1)]):
+    data[data == 0] = 0.001
+    data[data == 1] = 0.999
+    # fig, ax = plt.subplots()
+    # sns.distplot(data, ax=ax, bins=np.arange(0, 1, 0.05))
 
-    assignment = pm.Categorical('assignment', [0.2]*5)
+    assignment = pm.Categorical('assignment',
+                                [1./len(model_params)]*len(model_params))
 
     alpha_var = pm.Lambda('alpha_var', lambda a=assignment: model_params[a][0])
     beta_var = pm.Lambda('beta_var', lambda a=assignment: model_params[a][1])
@@ -187,16 +190,91 @@ def estimate_modality_latent(data, n_iter=1000,
     mcmc.sample(n_iter)
 
     assignment_trace = mcmc.trace('assignment')[:]
-    print assignment_trace
+    # print assignment_trace
 
 #     plot(mcmc)
 #     sns.despine()
     counter = Counter(MODALITY_ORDER[i] for i in assignment_trace)
-    print counter
+    # print '\n', counter
+
     for modality in MODALITY_ORDER:
         if modality not in counter:
             counter[modality] = 0
     series = pd.Series(counter)
-    print series
+    # print series
 
     return series
+
+
+class MonteCarloModalities(object):
+
+    def __init__(self, n_iter=1000, model_params=((2, 1), (2, 2), (1, 2),
+                                                  (.5, .5), (1, 1))):
+        self.n_iter = n_iter
+
+        self.assignment = pm.Categorical('assignment',
+                                    [1. / len(model_params)] * len(
+                                        model_params))
+
+        self.alpha_var = pm.Lambda('alpha_var',
+                              lambda a=self.assignment: model_params[a][0])
+        self.beta_var = pm.Lambda('beta_var',
+                             lambda a=self.assignment: model_params[a][1])
+
+    def fit_single_feature(self, feature, near_0=0.001, near_1=0.999):
+        """Estimate the beta parameters of a single feature
+
+        Parameters
+        ----------
+        feature : pandas.Series
+            A (n_samples,) shaped vector of observed values of a feature which
+            you desire to predict the beta distribution parameters
+        near_0 : float
+            The Beta distribution is not defined at exactly 0, and we must
+            replace all values equal to 0 with a small number that is near
+            zero, which is this number
+        near_1 : float
+            The Beta distribution is not defined at exactly 1, and we must
+            replace all values equal to 1 with 1 minus a small number, which
+            is this number
+        """
+        feature[feature == 0] = near_0
+        feature[feature == 1] = near_1
+
+        observations = pm.Beta('observations', self.alpha_var, self.beta_var,
+                               value=feature, observed=True)
+
+        model = pm.Model([self.assignment, observations])
+        mcmc = pm.MCMC(model)
+        mcmc.sample(self.n_iter)
+
+        assignment_trace = mcmc.trace('assignment')[:]
+        counter = Counter(MODALITY_ORDER[i] for i in assignment_trace)
+
+        for modality in MODALITY_ORDER:
+            if modality not in counter:
+                counter[modality] = 0
+        series = pd.Series(counter)
+
+        return series
+
+    def fit(self, data, near_0=0.001, near_1=0.999):
+        """Estimate the beta parameters of many features
+
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            A (n_samples, n_features) shaped matrix of observed values of a
+            feature which you desire to predict the beta distribution
+            parameters of each column (feature)
+        near_0 : float
+            The Beta distribution is not defined at exactly 0, and we must
+            replace all values equal to 0 with a small number that is near
+            zero, which is this number
+        near_1 : float
+            The Beta distribution is not defined at exactly 1, and we must
+            replace all values equal to 1 with 1 minus a small number, which
+            is this number
+        """
+        return data.apply(self.estimate_modality_latent, near_0=near_0,
+                          near_1=near_1)
