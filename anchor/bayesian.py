@@ -128,7 +128,10 @@ class BayesianModalities(object):
         self.assert_less_than_or_equal_1(data.values.flat)
         self.assert_non_negative(data.values.flat)
 
-        log2_bayes_factors = data.apply(self.single_feature_fit)
+        if isinstance(data, pd.DataFrame):
+            log2_bayes_factors = data.apply(self.single_feature_fit)
+        elif isinstance(data, pd.Series):
+            log2_bayes_factors = self.single_feature_fit(data)
         log2_bayes_factors.name = self.score_name
         return log2_bayes_factors
 
@@ -163,9 +166,12 @@ class BayesianModalities(object):
             x = log2_bayes_factors.reset_index(level=0, drop=True)
         else:
             x = log2_bayes_factors
-        not_na = (x.notnull() > 0).any()
-        not_na_columns = not_na[not_na].index
-        x.ix['multimodal', not_na_columns] = self.logbf_thresh
+        if isinstance(x, pd.DataFrame):
+            not_na = (x.notnull() > 0).any()
+            not_na_columns = not_na[not_na].index
+            x.ix['multimodal', not_na_columns] = self.logbf_thresh
+        elif isinstance(x, pd.Series):
+            x['multimodal'] = self.logbf_thresh
         return x.idxmax()
 
     def fit_predict(self, data):
