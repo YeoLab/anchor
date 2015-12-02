@@ -208,8 +208,8 @@ def estimate_modality_latent(data, n_iter=1000,
 
 class MonteCarloModalities(object):
 
-    def __init__(self, n_iter=1000, model_params=((2, 1), (2, 2), (1, 2),
-                                                  (.5, .5), (1, 1))):
+    def __init__(self, n_iter=1000,
+                 model_params=((5, 1), (5, 5), (1, 5), (.1, .1), (1, 1))):
         self.n_iter = n_iter
 
         self.assignment = pm.Categorical('assignment',
@@ -276,5 +276,11 @@ class MonteCarloModalities(object):
             replace all values equal to 1 with 1 minus a small number, which
             is this number
         """
-        return data.apply(self.estimate_modality_latent, near_0=near_0,
+        return data.apply(self.fit_single_feature, near_0=near_0,
                           near_1=near_1)
+
+    def transform(self, fitted):
+        return fitted.idxmax()
+
+    def fit_transform(self, data, near_0=0.001, near_1=0.999):
+        return self.transform(self.fit(data, near_0=near_0, near_1=near_1))

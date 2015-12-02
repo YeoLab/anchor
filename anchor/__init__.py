@@ -2,6 +2,7 @@
 from .model import ModalityModel
 from .bayesian import BayesianModalities
 from .binning import BinnedModalities
+from .monte_carlo import MonteCarloModalities
 from .simulate import add_noise
 from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\
     MODALITY_TO_CMAP, ModalitiesViz, violinplot, barplot
