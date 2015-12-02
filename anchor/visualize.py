@@ -233,7 +233,7 @@ def barplot(modalities_tidy, x=None, y='Percentage of Features',
         modality_counts[y] = 100*modality_counts['Features']\
             /modality_counts['Features'].sum()
     if x_order is not None:
-        modality_counts[y] = pd.Categorical(
+        modality_counts[x] = pd.Categorical(
             modality_counts[x], categories=x_order,
             ordered=True)
     # else:
