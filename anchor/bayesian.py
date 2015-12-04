@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.misc import logsumexp
 
 from .model import ModalityModel
-from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter
+from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter, MODALITY_ORDER
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
@@ -179,7 +179,7 @@ class BayesianModalities(object):
         return self.predict(self.fit(data))
 
     def single_feature_logliks(self, feature):
-        """Calculate log-likelihoods of each modality for a single feature
+        """Calculate log-likelihoods of each modality's parameterization
 
         Used for plotting the estimates of a single feature
 
@@ -220,23 +220,29 @@ class BayesianModalities(object):
             logsumexp)
 
     def single_feature_fit(self, feature):
-        logbf_one_param = pd.Series({k: v.logsumexp_logliks(feature)
-             for k, v in self.one_param_models.items()})
-
-        # Check if none of the previous features fit
-        if (logbf_one_param <= self.logbf_thresh).all():
-            logbf_two_param = pd.Series(
-                {k: v.logsumexp_logliks(feature)
-                 for k, v in self.two_param_models.items()})
-            series = pd.concat([logbf_one_param, logbf_two_param])
-            series['multimodal'] = self.logbf_thresh
+        """Get the log2 bayes factor of the fit for each modality"""
+        if np.isfinite(feature).sum() == 0:
+            series = pd.Series(index=MODALITY_ORDER)
         else:
-            series = logbf_one_param
+            logbf_one_param = pd.Series({k: v.logsumexp_logliks(feature)
+                 for k, v in self.one_param_models.items()})
+
+            # Check if none of the previous features fit
+            if (logbf_one_param <= self.logbf_thresh).all():
+                logbf_two_param = pd.Series(
+                    {k: v.logsumexp_logliks(feature)
+                     for k, v in self.two_param_models.items()})
+                series = pd.concat([logbf_one_param, logbf_two_param])
+                series['multimodal'] = self.logbf_thresh
+            else:
+                series = logbf_one_param
         series.index.name = 'Modality'
         series.name = self.score_name
         return series
 
     def plot_single_feature_calculation(self, feature, renamed=''):
+        if np.isfinite(feature).sum() == 0:
+            raise ValueError('The feature has no finite values')
         logliks = self.single_feature_logliks(feature)
         logsumexps = self.logliks_to_logsumexp(logliks)
         logsumexps['multimodal'] = self.logbf_thresh
