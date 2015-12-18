@@ -204,6 +204,9 @@ def barplot(modalities_tidy, x=None, y='Percentage of Features',
                         **factorplot_kws):
     factorplot_kws.setdefault('hue_order', MODALITY_ORDER)
     factorplot_kws.setdefault('palette', MODALITY_PALETTE)
+    factorplot_kws.setdefault('size', 3)
+    factorplot_kws.setdefault('aspect', 3)
+    factorplot_kws.setdefault('linewidth', 1)
 
     if x_order is not None and x is None:
         raise ValueError('If specifying "x_order", "x" must also '
@@ -252,8 +255,7 @@ def barplot(modalities_tidy, x=None, y='Percentage of Features',
 
     g = sns.factorplot(y=y, x=x,
                        hue=hue, kind='bar', data=modality_counts,
-                       aspect=3, legend=False, linewidth=1,
-                       size=3, **factorplot_kws)
+                       legend=False, **factorplot_kws)
 
     # Hacky workaround to add numeric annotations to the plot
     g.map_dataframe(annotate_bars, x, group_col=x,
