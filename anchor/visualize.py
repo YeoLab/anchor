@@ -11,19 +11,21 @@ import seaborn as sns
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
-
+from .bayesian import NEAR_ZERO, NEAR_HALF, NEAR_ONE, \
+    BOTH_ONE_ZERO, NULL_MODEL
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
-MODALITY_ORDER = ['~0', 'middle', '~1', 'bimodal', 'multimodal']
-MODALITY_TO_COLOR = {'~0': lightblue, 'middle': yellow, '~1': red,
-                     'bimodal': purple, 'multimodal': 'lightgrey'}
+MODALITY_ORDER = [NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL]
+MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: yellow, NEAR_ONE: red,
+                     BOTH_ONE_ZERO: purple, NULL_MODEL: 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
-MODALITY_TO_CMAP = {'~0': sns.light_palette(lightblue, as_cmap=True),
-                    'middle': sns.light_palette(yellow, as_cmap=True),
-                    '~1': sns.light_palette(red, as_cmap=True),
-                    'bimodal': sns.light_palette(purple, as_cmap=True),
-                    'multimodal': mpl.cm.Greys}
-MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER, palette=MODALITY_PALETTE)
+MODALITY_TO_CMAP = {NEAR_ZERO: sns.light_palette(lightblue, as_cmap=True),
+                    NEAR_HALF: sns.light_palette(yellow, as_cmap=True),
+                    NEAR_ONE: sns.light_palette(red, as_cmap=True),
+                    BOTH_ONE_ZERO: sns.light_palette(purple, as_cmap=True),
+                    NULL_MODEL: mpl.cm.Greys}
+MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER,
+                               palette=MODALITY_PALETTE)
 
 def violinplot(x=None, y=None, data=None, bw=0.2, scale='width',
                inner=None, ax=None, **kwargs):
