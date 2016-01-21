@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .model import ModalityModel
-from .bayesian import BayesianModalities
+from .bayesian import BayesianModalities, NEAR_ZERO, NEAR_HALF, NEAR_ONE, \
+    BOTH_ONE_ZERO, NULL_MODEL
 from .binning import BinnedModalities
 from .simulate import add_noise
 from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\
