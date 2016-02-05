@@ -15,7 +15,7 @@ from .bayesian import NEAR_ZERO, NEAR_HALF, NEAR_ONE, \
     BOTH_ONE_ZERO, NULL_MODEL
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
-MODALITY_ORDER = [NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL]
+MODALITY_ORDER = [NEAR_ZERO, BOTH_ONE_ZERO, NEAR_ONE, NEAR_HALF, NULL_MODEL]
 
 MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: purple, NEAR_ONE: red,
                      BOTH_ONE_ZERO: yellow, NULL_MODEL: 'lightgrey'}
