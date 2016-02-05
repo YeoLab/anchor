@@ -16,13 +16,23 @@ from .bayesian import NEAR_ZERO, NEAR_HALF, NEAR_ONE, \
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = [NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL]
-MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: yellow, NEAR_ONE: red,
-                     BOTH_ONE_ZERO: purple, NULL_MODEL: 'lightgrey'}
+
+MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: purple, NEAR_ONE: red,
+                     BOTH_ONE_ZERO: yellow, NULL_MODEL: 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
-MODALITY_TO_CMAP = {NEAR_ZERO: sns.light_palette(lightblue, as_cmap=True),
-                    NEAR_HALF: sns.light_palette(yellow, as_cmap=True),
-                    NEAR_ONE: sns.light_palette(red, as_cmap=True),
-                    BOTH_ONE_ZERO: sns.light_palette(purple, as_cmap=True),
+
+MODALITY_TO_CMAP = {NEAR_ZERO:
+                        sns.light_palette(MODALITY_TO_COLOR[NEAR_ZERO],
+                                          as_cmap=True),
+                    NEAR_HALF:
+                        sns.light_palette(MODALITY_TO_COLOR[NEAR_HALF],
+                                          as_cmap=True),
+                    NEAR_ONE:
+                        sns.light_palette(MODALITY_TO_COLOR[NEAR_ONE],
+                                          as_cmap=True),
+                    BOTH_ONE_ZERO:
+                        sns.light_palette(MODALITY_TO_COLOR[BOTH_ONE_ZERO],
+                                          as_cmap=True),
                     NULL_MODEL: mpl.cm.Greys}
 MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER,
                                palette=MODALITY_PALETTE)
