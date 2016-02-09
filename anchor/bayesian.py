@@ -15,7 +15,7 @@ CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 NEAR_ZERO = '~0'
 
 # Old "middle" modality - most of the density is at 0.5
-NEAR_HALF = 'co-incident'
+NEAR_HALF = 'concurrent'
 
 # Most of the density is at 1
 NEAR_ONE = '~1'
