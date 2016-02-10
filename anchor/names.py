@@ -19,4 +19,4 @@ BOTH_ONE_ZERO = 'bimodal'
 
 # Cannot decide on one of the above models (the null model fits better) so use
 # this model instead
-NULL_MODEL = 'mixed'
+NULL_MODEL = 'ambivalent'
