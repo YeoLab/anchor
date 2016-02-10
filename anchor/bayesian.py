@@ -3,34 +3,17 @@ import numpy as np
 import pandas as pd
 from scipy.misc import logsumexp
 
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO
 from .model import ModalityModel
 from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter, MODALITY_ORDER
 
 CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
-# Set constants of the names of the models so they can always be referenced
-# as variables rather than strings
-
-# Most of the density is at 0
-NEAR_ZERO = '~0'
-
-# Old "middle" modality - most of the density is at 0.5
-NEAR_HALF = 'concurrent'
-
-# Most of the density is at 1
-NEAR_ONE = '~1'
-
-# The density is split between 0 and 1
-BOTH_ONE_ZERO = 'bimodal'
-
-# Cannot decide on one of the above models (the null model fits better) so use
-# this model isntead
-NULL_MODEL = 'mixed'
 
 
 TWO_PARAMETER_MODELS = {BOTH_ONE_ZERO: {'alphas': 1./(CHANGING_PARAMETERS+10),
                                     'betas': 1./(CHANGING_PARAMETERS+10)},
-                        NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
+    NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
                                    'betas': CHANGING_PARAMETERS}}
 ONE_PARAMETER_MODELS = {NEAR_ZERO: {'alphas': 1,
                                'betas': CHANGING_PARAMETERS},

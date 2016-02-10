@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, \
+    NULL_MODEL
+
 
 locale.setlocale(locale.LC_ALL, 'en_US')
-
-from .bayesian import NEAR_ZERO, NEAR_HALF, NEAR_ONE, \
-    BOTH_ONE_ZERO, NULL_MODEL
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = [NEAR_ZERO, BOTH_ONE_ZERO, NEAR_ONE, NEAR_HALF, NULL_MODEL]
