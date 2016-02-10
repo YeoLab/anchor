@@ -6,13 +6,13 @@ Names of the modalities
 # as variables rather than strings
 
 # Most of the density is at 0
-NEAR_ZERO = '~0'
+NEAR_ZERO = 'excluded'
 
 # Old "middle" modality - most of the density is at 0.5
 NEAR_HALF = 'concurrent'
 
 # Most of the density is at 1
-NEAR_ONE = '~1'
+NEAR_ONE = 'included'
 
 # The density is split between 0 and 1
 BOTH_ONE_ZERO = 'bimodal'
