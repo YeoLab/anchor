@@ -10,6 +10,7 @@ from scipy.stats import beta
 import seaborn as sns
 
 from .visualize import MODALITY_ORDER
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL
 
 def _assign_modality_from_estimate(mean_alpha, mean_beta):
     """
@@ -22,22 +23,22 @@ def _assign_modality_from_estimate(mean_alpha, mean_beta):
     if (mean_alpha > mean_beta) and (mean_beta > 1):
         # if alpha is greater than beta, then the probability is skewed
         # higher towards 1
-        return '~1'
+        return NEAR_ONE
     elif (mean_beta > mean_alpha) and (mean_alpha > 1):
         # If alpha is less than beta, then the probability is skewed
         # higher towards 0
-        return '~0'
+        return NEAR_ZERO
     elif (mean_alpha < 1) and (mean_beta < 1):
         # if they're both under 1, then there's a valley in the middle,
         # and higher probability at the extremes of 0 and 1
-        return 'bimodal'
+        return BOTH_ONE_ZERO
     elif mean_alpha >= 1.5 and mean_beta >= 1.5:
         # if they're both fairly big, then there's a hump in the middle, and
         # low probability near the extremes of 0 and  1
-        return 'middle'
+        return NEAR_HALF
     else:
         # maybe should check if both mean_alpha and mean_beta are near 1?
-        return 'multimodal'
+        return NULL_MODEL
 #         elif abs(mean_alpha - 1) < 0.25 and abs(mean_beta - 1) < 0.25:
 #             return 'uniform'
 #         else:
@@ -90,11 +91,11 @@ rv_middle = beta(5, 5)
 rv_uniform = beta(1, 1)
 rv_bimodal = beta(.65, .65)
 
-models = {'included': rv_included,
-          'excluded': rv_excluded,
-          'middle': rv_middle,
-          'uniform': rv_uniform,
-          'bimodal': rv_bimodal}
+models = {NEAR_ONE: rv_included,
+          NEAR_ZERO: rv_excluded,
+          NEAR_HALF: rv_middle,
+          NULL_MODEL: rv_uniform,
+          BOTH_ONE_ZERO: rv_bimodal}
 # model_args = pd.DataFrame.from_dict(dict((name, np.array(model.args).astype(float)) for name, model in models.iteritems()))
 # model_names = models.keys()
 

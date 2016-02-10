@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy.misc import logsumexp
 
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL
 from .model import ModalityModel
 from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter, MODALITY_ORDER
 
@@ -171,9 +171,9 @@ class BayesianModalities(object):
         if isinstance(x, pd.DataFrame):
             not_na = (x.notnull() > 0).any()
             not_na_columns = not_na[not_na].index
-            x.ix[NULL_MODEL_NAME, not_na_columns] = self.logbf_thresh
+            x.ix[NULL_MODEL, not_na_columns] = self.logbf_thresh
         elif isinstance(x, pd.Series):
-            x[NULL_MODEL_NAME] = self.logbf_thresh
+            x[NULL_MODEL] = self.logbf_thresh
         return x.idxmax()
 
     def fit_predict(self, data):
@@ -235,7 +235,7 @@ class BayesianModalities(object):
                     {k: v.logsumexp_logliks(feature)
                      for k, v in self.two_param_models.items()})
                 series = pd.concat([logbf_one_param, logbf_two_param])
-                series[NULL_MODEL_NAME] = self.logbf_thresh
+                series[NULL_MODEL] = self.logbf_thresh
             else:
                 series = logbf_one_param
         series.index.name = 'Modality'
@@ -247,7 +247,7 @@ class BayesianModalities(object):
             raise ValueError('The feature has no finite values')
         logliks = self.single_feature_logliks(feature)
         logsumexps = self.logliks_to_logsumexp(logliks)
-        logsumexps[NULL_MODEL_NAME] = self.logbf_thresh
+        logsumexps[NULL_MODEL] = self.logbf_thresh
 
         plotter = _ModelLoglikPlotter()
         return plotter.plot(feature, logliks, logsumexps, self.logbf_thresh,
