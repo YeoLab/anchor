@@ -17,8 +17,8 @@ locale.setlocale(locale.LC_ALL, 'en_US')
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = [NEAR_ZERO, BOTH_ONE_ZERO, NEAR_ONE, NEAR_HALF, NULL_MODEL]
 
-MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: purple, NEAR_ONE: red,
-                     BOTH_ONE_ZERO: yellow, NULL_MODEL: 'lightgrey'}
+MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: yellow, NEAR_ONE: red,
+                     BOTH_ONE_ZERO: purple, NULL_MODEL: 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
 
 MODALITY_TO_CMAP = {NEAR_ZERO:
