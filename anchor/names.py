@@ -15,7 +15,7 @@ NEAR_HALF = 'middle'
 NEAR_ONE = 'included'
 
 # The density is split between 0 and 1
-BOTH_ONE_ZERO = 'bimodal'
+BIMODAL = 'bimodal'
 
 # Cannot decide on one of the above models (the null model fits better) so use
 # this model instead

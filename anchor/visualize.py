@@ -8,17 +8,17 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, \
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, \
     NULL_MODEL
 
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
-MODALITY_ORDER = [NEAR_ZERO, BOTH_ONE_ZERO, NEAR_ONE, NEAR_HALF, NULL_MODEL]
+MODALITY_ORDER = [NEAR_ZERO, BIMODAL, NEAR_ONE, NEAR_HALF, NULL_MODEL]
 
 MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: yellow, NEAR_ONE: red,
-                     BOTH_ONE_ZERO: purple, NULL_MODEL: 'lightgrey'}
+                     BIMODAL: purple, NULL_MODEL: 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
 
 MODALITY_TO_CMAP = {NEAR_ZERO:
@@ -30,8 +30,8 @@ MODALITY_TO_CMAP = {NEAR_ZERO:
                     NEAR_ONE:
                         sns.light_palette(MODALITY_TO_COLOR[NEAR_ONE],
                                           as_cmap=True),
-                    BOTH_ONE_ZERO:
-                        sns.light_palette(MODALITY_TO_COLOR[BOTH_ONE_ZERO],
+                    BIMODAL:
+                        sns.light_palette(MODALITY_TO_COLOR[BIMODAL],
                                           as_cmap=True),
                     NULL_MODEL: mpl.cm.Greys}
 MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER,

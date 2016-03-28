@@ -2,7 +2,7 @@
 from .bayesian import BayesianModalities
 from .binning import BinnedModalities
 from .model import ModalityModel
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, \
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, \
     NULL_MODEL
 from .simulate import add_noise
 from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\

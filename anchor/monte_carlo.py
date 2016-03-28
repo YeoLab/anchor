@@ -10,7 +10,7 @@ from scipy.stats import beta
 import seaborn as sns
 
 from .visualize import MODALITY_ORDER
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, NULL_MODEL
 
 def _assign_modality_from_estimate(mean_alpha, mean_beta):
     """
@@ -31,7 +31,7 @@ def _assign_modality_from_estimate(mean_alpha, mean_beta):
     elif (mean_alpha < 1) and (mean_beta < 1):
         # if they're both under 1, then there's a valley in the middle,
         # and higher probability at the extremes of 0 and 1
-        return BOTH_ONE_ZERO
+        return BIMODAL
     elif mean_alpha >= 1.5 and mean_beta >= 1.5:
         # if they're both fairly big, then there's a hump in the middle, and
         # low probability near the extremes of 0 and  1
@@ -95,7 +95,7 @@ models = {NEAR_ONE: rv_included,
           NEAR_ZERO: rv_excluded,
           NEAR_HALF: rv_middle,
           NULL_MODEL: rv_uniform,
-          BOTH_ONE_ZERO: rv_bimodal}
+          BIMODAL: rv_bimodal}
 # model_args = pd.DataFrame.from_dict(dict((name, np.array(model.args).astype(float)) for name, model in models.iteritems()))
 # model_names = models.keys()
 

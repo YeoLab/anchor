@@ -12,7 +12,7 @@ from scipy.misc import logsumexp
 import seaborn as sns
 
 from .visualize import violinplot
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, \
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, \
     NULL_MODEL
 
 VERY_SMALL_NUMBER = 0.001

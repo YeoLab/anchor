@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy.misc import logsumexp
 
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BOTH_ONE_ZERO, NULL_MODEL
+from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, NULL_MODEL
 from .model import ModalityModel
 from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter, MODALITY_ORDER
 
@@ -11,9 +11,9 @@ CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
 
 
-TWO_PARAMETER_MODELS = {BOTH_ONE_ZERO: {'alphas': 1./(CHANGING_PARAMETERS+10),
+TWO_PARAMETER_MODELS = {BIMODAL: {'alphas': 1. / (CHANGING_PARAMETERS + 10),
                                     'betas': 1./(CHANGING_PARAMETERS+10)},
-    NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
+                        NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
                                    'betas': CHANGING_PARAMETERS}}
 ONE_PARAMETER_MODELS = {NEAR_ZERO: {'alphas': 1,
                                'betas': CHANGING_PARAMETERS},
