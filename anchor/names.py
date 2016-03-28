@@ -9,7 +9,7 @@ Names of the modalities
 NEAR_ZERO = 'excluded'
 
 # Old "middle" modality - most of the density is at 0.5
-NEAR_HALF = 'concurrent'
+NEAR_HALF = 'middle'
 
 # Most of the density is at 1
 NEAR_ONE = 'included'
@@ -19,4 +19,4 @@ BOTH_ONE_ZERO = 'bimodal'
 
 # Cannot decide on one of the above models (the null model fits better) so use
 # this model instead
-NULL_MODEL = 'ambivalent'
+NULL_MODEL = 'uncategorized'
