@@ -277,10 +277,14 @@ class BayesianModalities(object):
             figsize = width, height
         fig, axes = plt.subplots(nrows=nrows, figsize=figsize)
 
-        for ax, (model_name, model) in zip(axes, self.models.items()):
-            cmap = MODALITY_TO_CMAP[model_name]
-            palette = cmap(np.linspace(0, 1, len(model.rvs)))
-            model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
-            ax.set(title=model_name, xlabel='')
+        for ax, model_name in zip(axes, MODALITY_ORDER):
+            try:
+                model = self.models[model_name]
+                cmap = MODALITY_TO_CMAP[model_name]
+                palette = cmap(np.linspace(0, 1, len(model.rvs)))
+                model.violinplot(n=n, ax=ax, palette=palette, **kwargs)
+                ax.set(title=model_name, xlabel='')
+            except KeyError:
+                continue
         fig.tight_layout()
 
