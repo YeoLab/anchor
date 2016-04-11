@@ -12,8 +12,7 @@ from scipy.misc import logsumexp
 import seaborn as sns
 
 from .visualize import violinplot
-from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, \
-    NULL_MODEL
+
 
 VERY_SMALL_NUMBER = 0.001
 SINGLE_FEATURE_COLUMNS = [r'$\log$ Likelihood', r'$\alpha$', r'$\beta$']
@@ -168,10 +167,3 @@ class ModalityModel(object):
                         ax=ax, **kwargs)
         sns.despine(ax=ax)
         return ax
-
-
-NEAR_ZERO = '~0'
-NEAR_HALF = 'concurrent'
-NEAR_ONE = '~1'
-BOTH_ONE_ZERO = 'bimodal'
-NULL_MODEL = 'mixed'

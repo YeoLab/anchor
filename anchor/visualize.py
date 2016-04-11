@@ -21,21 +21,16 @@ MODALITY_TO_COLOR = {NEAR_ZERO: lightblue, NEAR_HALF: yellow, NEAR_ONE: red,
                      BIMODAL: purple, NULL_MODEL: 'lightgrey'}
 MODALITY_PALETTE = [MODALITY_TO_COLOR[m] for m in MODALITY_ORDER]
 
-MODALITY_TO_CMAP = {NEAR_ZERO:
-                        sns.light_palette(MODALITY_TO_COLOR[NEAR_ZERO],
-                                          as_cmap=True),
-                    NEAR_HALF:
-                        sns.light_palette(MODALITY_TO_COLOR[NEAR_HALF],
-                                          as_cmap=True),
-                    NEAR_ONE:
-                        sns.light_palette(MODALITY_TO_COLOR[NEAR_ONE],
-                                          as_cmap=True),
-                    BIMODAL:
-                        sns.light_palette(MODALITY_TO_COLOR[BIMODAL],
-                                          as_cmap=True),
-                    NULL_MODEL: mpl.cm.Greys}
+MODALITY_TO_CMAP = {
+    NEAR_ZERO: sns.light_palette(MODALITY_TO_COLOR[NEAR_ZERO], as_cmap=True),
+    NEAR_HALF: sns.light_palette(MODALITY_TO_COLOR[NEAR_HALF], as_cmap=True),
+    NEAR_ONE: sns.light_palette(MODALITY_TO_COLOR[NEAR_ONE], as_cmap=True),
+    BIMODAL: sns.light_palette(MODALITY_TO_COLOR[BIMODAL], as_cmap=True),
+    NULL_MODEL: mpl.cm.Greys}
+
 MODALITY_FACTORPLOT_KWS = dict(hue_order=MODALITY_ORDER,
                                palette=MODALITY_PALETTE)
+
 
 def violinplot(x=None, y=None, data=None, bw=0.2, scale='width',
                inner=None, ax=None, **kwargs):
@@ -75,12 +70,9 @@ class _ModelLoglikPlotter(object):
         x['sample_id'] = feature.name
 
         violinplot(x='sample_id', y=feature.name, data=x, ax=self.ax_violin,
-                       color=MODALITY_TO_COLOR[modality])
+                   color=MODALITY_TO_COLOR[modality])
 
-        self.ax_violin.set(xticks=[], #xlabel=feature.name,
-                           ylabel='')
-        # self.ax_violin.set_xticks([])
-        # self.ax_violin.set_yticks([0, 0.5, 1])
+        self.ax_violin.set(xticks=[], ylabel='')
 
         for name, loglik in logliks.groupby('Modality')[r'$\log$ Likelihood']:
             # print name,
@@ -90,7 +82,6 @@ class _ModelLoglikPlotter(object):
         self.ax_loglik.set(ylabel=r'$\log$ Likelihood',
                            xlabel='Parameterizations',
                            title='Assignment: {}'.format(modality))
-        # self.ax_loglik.grid()
         self.ax_loglik.set_xlabel('phantom', color='white')
 
         for i, (name, height) in enumerate(logsumexps.iteritems()):
@@ -100,7 +91,6 @@ class _ModelLoglikPlotter(object):
         self.ax_bayesfactor.hlines(log2bf_thresh, xmin, xmax,
                                    linestyle='dashed')
         self.ax_bayesfactor.set(ylabel='$\log K$', xticks=[])
-        # self.ax_bayesfactor.grid()
         if renamed:
             text = '{} ({})'.format(feature.name, renamed)
         else:
@@ -180,9 +170,8 @@ class ModalitiesViz(object):
         return plotter
 
 
-
-
-def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwargs):
+def annotate_bars(x, group_col, percentage_col, modality_col, count_col,
+                  **kwargs):
     data = kwargs.pop('data')
     # print kwargs
     ax = plt.gca()
@@ -210,18 +199,16 @@ def annotate_bars(x, group_col, percentage_col, modality_col, count_col, **kwarg
         x_base += 1
 
 
-
-def barplot(modalities_tidy, x=None, y='Percentage of Features',
-                       x_order=None, hue='Assigned Modality',
-                        **factorplot_kws):
+def barplot(modalities_tidy, x=None, y='Percentage of Features', order=None,
+            hue='Assigned Modality', **factorplot_kws):
     factorplot_kws.setdefault('hue_order', MODALITY_ORDER)
     factorplot_kws.setdefault('palette', MODALITY_PALETTE)
     factorplot_kws.setdefault('size', 3)
     factorplot_kws.setdefault('aspect', 3)
     factorplot_kws.setdefault('linewidth', 1)
 
-    if x_order is not None and x is None:
-        raise ValueError('If specifying "x_order", "x" must also '
+    if order is not None and x is None:
+        raise ValueError('If specifying "order", "x" must also '
                          'be specified.')
     # y = 'Percentage of features'
     groupby = [hue]
@@ -245,15 +232,15 @@ def barplot(modalities_tidy, x=None, y='Percentage of Features',
             groupby_minus_hue)['Features'].apply(
             lambda x: 100 * x / x.astype(float).sum())
     else:
-        modality_counts[y] = 100*modality_counts['Features']\
-            /modality_counts['Features'].sum()
-    if x_order is not None:
+        modality_counts[y] = 100 * modality_counts['Features']\
+            / modality_counts['Features'].sum()
+    if order is not None:
         modality_counts[x] = pd.Categorical(
-            modality_counts[x], categories=x_order,
+            modality_counts[x], categories=order,
             ordered=True)
     # else:
     #     modality_counts[y] = pd.Categorical(
-    #         modality_counts[x], categories=x_order,
+    #         modality_counts[x], categories=order,
     #         ordered=True)
     # else:
     #     modality_counts = modalities_tidy.groupby(

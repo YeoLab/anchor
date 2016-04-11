@@ -71,8 +71,6 @@ def add_noise(data, iteration_per_noise=100,
     return all_noisy_data
 
 
-
-
 class ModalityEvaluator(object):
 
     def __init__(self, estimator, data, waypoints, fitted, predicted):
@@ -106,9 +104,9 @@ def evaluate_estimator(estimator, data, waypoints=None, figure_prefix=''):
 
     predicted_tidy = predicted.to_frame().reset_index()
     predicted_tidy = predicted_tidy.rename(columns={'index': 'Feature ID'})
-    predicted_tidy = predicted_tidy.merge(fitted_tidy,
-                         left_on=['Feature ID', 'Predicted Modality'],
-                         right_on=['Feature ID', 'Modality'])
+    predicted_tidy = predicted_tidy.merge(
+        fitted_tidy, left_on=['Feature ID', 'Predicted Modality'],
+        right_on=['Feature ID', 'Modality'])
 
     # Make categorical so they are plotted in the correct order
     predicted_tidy['Predicted Modality'] = \
@@ -123,7 +121,6 @@ def evaluate_estimator(estimator, data, waypoints=None, figure_prefix=''):
     size = 5
 
     fig, axes = plt.subplots(figsize=(size*0.75, 8), nrows=len(grouped))
-
 
     for ax, (modality, df) in zip(axes, grouped):
         random_ids = np.random.choice(df.columns, replace=False, size=size)
@@ -145,23 +142,10 @@ def evaluate_estimator(estimator, data, waypoints=None, figure_prefix=''):
     g = barplot(predicted_tidy, hue='Modality')
     g.savefig('{}_modalities_barplot.pdf'.format(figure_prefix))
 
-
     plot_best_worst_fits(predicted_tidy, data, modality_col='Modality',
                          score=estimator.score_name)
     fig = plt.gcf()
     fig.savefig('{}_best_worst_fit_violinplots.pdf'.format(figure_prefix))
-
-    # predicted.name = 'Predicted Modality'
-    # predicted_df = predicted.reset_index()
-    # predicted_df = predicted_df.rename(columns={'index': 'Feature ID', 0: 'Predicted Modality'})
-    # predicted_df['Original Modality'] = predicted_df['Feature ID'].str.split('_').str[0]
-    # predicted_df['Noise'] = predicted_df['Feature ID'].str.extract('noise(\d+)').astype(int)
-    # predicted_df['Predicted Original Modality'] = predicted_df['Predicted Modality'] == predicted_df['Original Modality']
-    # predicted_df.head()
-    # g = sns.factorplot(x='Noise', y='Predicted Original Modality', data=predicted_df, hue="Original Modality",
-    #                hue_order=MODALITY_ORDER[:-1], palette=MODALITY_PALETTE[:-1], aspect=1.5, dodge=True, size=3, scale=0.5)
-    # g.set(ylim=(0, 1.05))
-    # g.savefig('{}_correctness_predicted_original_modality_from_noise.pdf'.format(figure_prefix))
 
     fitted.to_csv('{}_fitted.csv'.format(figure_prefix))
     predicted.to_csv('{}_predicted.csv'.format(figure_prefix))
@@ -171,12 +155,14 @@ def evaluate_estimator(estimator, data, waypoints=None, figure_prefix=''):
     return result
 
 
-def plot_best_worst_fits(assignments_df, data, modality_col='Modality', score='$\log_2 K$'):
-    """Violinplots of the best fitting (highest K) and worst fitting (lowest K) of each modality"""
+def plot_best_worst_fits(assignments_df, data, modality_col='Modality',
+                         score='$\log_2 K$'):
+    """Violinplots of the highest and lowest scoring of each modality"""
     ncols = 2
     nrows = len(assignments_df.groupby(modality_col).groups.keys())
 
-    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(nrows*4, ncols*6))
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
+                             figsize=(nrows*4, ncols*6))
 
     axes_iter = axes.flat
 

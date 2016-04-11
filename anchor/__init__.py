@@ -16,4 +16,5 @@ __version__ = '0.1.0'
 __all__ = ['ModalityModel', 'BayesianModalities', 'MODALITY_ORDER',
            'MODALITY_PALETTE', 'MODALITY_TO_COLOR', 'ModalitiesViz',
            'violinplot', 'MODALITY_TO_CMAP', 'BinnedModalities',
-           'add_noise']
+           'add_noise', 'BIMODAL', 'NEAR_HALF', 'NEAR_ONE', 'NEAR_ZERO',
+           'barplot', 'NULL_MODEL']

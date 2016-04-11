@@ -10,15 +10,16 @@ from .visualize import MODALITY_TO_CMAP, _ModelLoglikPlotter, MODALITY_ORDER
 CHANGING_PARAMETERS = np.arange(2, 21, step=1)
 
 
+TWO_PARAMETER_MODELS = {
+    BIMODAL: {'alphas': 1. / (CHANGING_PARAMETERS + 10),
+              'betas': 1./(CHANGING_PARAMETERS+10)},
+    NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
+                'betas': CHANGING_PARAMETERS}}
+ONE_PARAMETER_MODELS = {
+    NEAR_ZERO: {'alphas': 1, 'betas': CHANGING_PARAMETERS},
+    NEAR_ONE: {'alphas': CHANGING_PARAMETERS, 'betas': 1}
+}
 
-TWO_PARAMETER_MODELS = {BIMODAL: {'alphas': 1. / (CHANGING_PARAMETERS + 10),
-                                    'betas': 1./(CHANGING_PARAMETERS+10)},
-                        NEAR_HALF: {'alphas': CHANGING_PARAMETERS,
-                                   'betas': CHANGING_PARAMETERS}}
-ONE_PARAMETER_MODELS = {NEAR_ZERO: {'alphas': 1,
-                               'betas': CHANGING_PARAMETERS},
-                        NEAR_ONE: {'alphas': CHANGING_PARAMETERS,
-                               'betas': 1}}
 
 class BayesianModalities(object):
     """Use Bayesian methods to estimate modalities of splicing events"""
@@ -226,8 +227,9 @@ class BayesianModalities(object):
         if np.isfinite(feature).sum() == 0:
             series = pd.Series(index=MODALITY_ORDER)
         else:
-            logbf_one_param = pd.Series({k: v.logsumexp_logliks(feature)
-                 for k, v in self.one_param_models.items()})
+            logbf_one_param = pd.Series(
+                {k: v.logsumexp_logliks(feature) for
+                 k, v in self.one_param_models.items()})
 
             # Check if none of the previous features fit
             if (logbf_one_param <= self.logbf_thresh).all():
@@ -287,4 +289,3 @@ class BayesianModalities(object):
             except KeyError:
                 continue
         fig.tight_layout()
-

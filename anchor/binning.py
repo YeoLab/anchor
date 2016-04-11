@@ -4,6 +4,7 @@ import pandas as pd
 from .infotheory import binify, bin_range_strings, jsd
 from .visualize import MODALITY_ORDER
 
+
 class BinnedModalities(object):
 
     modalities = MODALITY_ORDER
