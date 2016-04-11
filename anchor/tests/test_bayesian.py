@@ -23,12 +23,11 @@ class TestModalityEstimator(object):
     def estimator(self, logbf_thresh):
         from anchor.bayesian import BayesianModalities, ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
-        from anchor.visualize import MODALITY_TO_CMAP
 
         return BayesianModalities(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
-            logbf_thresh=logbf_thresh, model_palettes=MODALITY_TO_CMAP)
+            logbf_thresh=logbf_thresh)
 
     @pytest.fixture(params=['no_na', 'with_na'])
     def event(self, request):
@@ -54,14 +53,14 @@ class TestModalityEstimator(object):
         return df
 
     def test_init(self, logbf_thresh):
-        from anchor import BayesianModalities, ModalityModel, MODALITY_TO_CMAP
+        from anchor import BayesianModalities, ModalityModel
         from anchor.bayesian import ONE_PARAMETER_MODELS, \
             TWO_PARAMETER_MODELS
 
         estimator = BayesianModalities(
             one_parameter_models=ONE_PARAMETER_MODELS,
             two_parameter_models=TWO_PARAMETER_MODELS,
-            logbf_thresh=logbf_thresh, modality_to_cmap=MODALITY_TO_CMAP)
+            logbf_thresh=logbf_thresh)
 
         true_one_param_models = {k: ModalityModel(**v)
                                  for k, v in ONE_PARAMETER_MODELS.items()}
@@ -70,7 +69,6 @@ class TestModalityEstimator(object):
                                  for k, v in TWO_PARAMETER_MODELS.items()}
 
         npt.assert_equal(estimator.logbf_thresh, logbf_thresh)
-        pdt.assert_dict_equal(estimator.modality_to_cmap, MODALITY_TO_CMAP)
         pdt.assert_dict_equal(estimator.one_param_models,
                               true_one_param_models)
         pdt.assert_dict_equal(estimator.two_param_models,
