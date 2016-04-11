@@ -42,8 +42,8 @@ class TestModalityEstimator(object):
     def positive_control(self):
         """Randomly generated positive controls for modality estimation"""
         size = 20
-        psi0 = pd.Series(np.random.uniform(0, 0.1, size=size), name='~0')
-        psi1 = pd.Series(np.random.uniform(0.9, 1, size=size), name='~1')
+        psi0 = pd.Series(np.random.uniform(0, 0.1, size=size), name='excluded')
+        psi1 = pd.Series(np.random.uniform(0.9, 1, size=size), name='included')
         middle = pd.Series(np.random.uniform(0.45, 0.55, size=size),
                            name='middle')
         bimodal = pd.Series(np.concatenate([
