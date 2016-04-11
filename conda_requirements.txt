@@ -4,3 +4,4 @@ coverage
 pandas
 matplotlib
 seaborn>=0.6
+scikit-learn
