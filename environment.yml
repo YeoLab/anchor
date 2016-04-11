@@ -33,4 +33,9 @@ dependencies:
 - wheel=0.29.0=py35_0
 - xz=5.0.5=1
 - zlib=1.2.8=1
+- pip:
+  - python-coveralls==2.7.0
+  - pyyaml==3.11
+  - requests==2.9.1
+  - sh==1.11
 
