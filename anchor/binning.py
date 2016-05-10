@@ -20,8 +20,8 @@ class BinnedModalities(object):
                                  zip(bins, bins[1:])]
 
         self.desired_distributions = pd.DataFrame(
-            np.array([[1, 0, 0], [0, 1, 0],
-                      [0, 0, 1], [0.5, 0, 0.5], uniform_probabilities]).T,
+            np.array([[1, 0, 0], [0.5, 0, 0.5],
+                      [0, 0, 1], [0, 1, 0], uniform_probabilities]).T,
             index=self.bin_ranges, columns=self.modalities)
 
     def fit(self, data):
