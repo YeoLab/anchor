@@ -24,6 +24,7 @@ before_script:
 - git config --global user.name "YeoLab"
 - git config --global push.default simple
 - export REPO_URL_GITHUB="https://$GH_TOKEN@github.com/$GH_REPO.git"
+- export LC_ALL=C
 script:
 - make coverage
 - make lint
