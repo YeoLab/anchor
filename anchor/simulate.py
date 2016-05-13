@@ -184,6 +184,8 @@ def plot_best_worst_fits(assignments_df, data, modality_col='Modality',
                                                         'level_1':
                                                             'Feature ID',
                                                         0: '$\Psi$'})
+            if tidy_fit_psi.empty:
+                continue
             ax = six.next(axes_iter)
             violinplot(x='Feature ID', y='$\Psi$', data=tidy_fit_psi,
                        color=color, ax=ax)
