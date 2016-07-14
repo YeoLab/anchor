@@ -44,3 +44,7 @@ docs/_build
 
 # PyCharm
 .idea
+
+
+# Miniconda
+miniconda.sh
