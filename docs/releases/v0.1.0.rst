@@ -1,19 +1,22 @@
-v0.1.0 (...)
-------------------------
+v0.1.0 (July 14, 2016)
+-------------------------
 
-New features
-~~~~~~~~~~~~
+This is the first official release of ``anchor``! This is known as ``anchor-bio`` on PyPI
 
-Plotting functions
-~~~~~~~~~~~~~~~~~~
+Anchor is a program to classify alternative splicing events (or any values
+ranging from 0 to 1) into "modes", such as "unimodal", "bimodal"
 
-API changes
-~~~~~~~~~~~~~~~~~~
+Examples
+~~~~~~~~
 
+Given ``splicing`` is a ``pandas.DataFrame`` formatted where the rows are the
+samples and the columns are the features, so the shape is
+``(n_samples, n_features))``, the following code will calculate modalities on
+each column (splicing event):
 
-Bug fixes
-~~~~~~~~~
+.. code-block::
 
-Miscellaneous
-~~~~~~~~~~~~~
+    import anchor
 
+    bm = anchor.BayesianModalities()
+    modalities = bm.fit_transform(splicing)
