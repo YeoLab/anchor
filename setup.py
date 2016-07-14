@@ -14,16 +14,15 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
-    # TODO: put package requirements here
-]
+with open('requirements.txt') as requirements_file:
+    requirements = requirements_file.read()
 
 test_requirements = [
-    # TODO: put package test requirements here
+    'pytest'
 ]
 
 setup(
-    name='anchor',
+    name='anchor-bio',
     version='0.1.0',
     description="Anchor is a python package to estimate modality of splicing, percent methylated, any data that is normalized between 0 and 1",
     long_description=readme + '\n\n' + history,
@@ -33,7 +32,7 @@ setup(
     packages=[
         'anchor',
     ],
-    package_dir={'anchor':
+    package_dir={'anchor-bio':
                  'anchor'},
     include_package_data=True,
     install_requires=requirements,
