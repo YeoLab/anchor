@@ -9,6 +9,9 @@ ranging from 0 to 1) into "modes", such as "unimodal", "bimodal"
 Examples
 ~~~~~~~~
 
+Calcluating modality
+====================
+
 Given ``splicing`` is a ``pandas.DataFrame`` formatted where the rows are the
 samples and the columns are the features, so the shape is
 ``(n_samples, n_features))``, the following code will calculate modalities on
@@ -20,3 +23,24 @@ each column (splicing event):
 
     bm = anchor.BayesianModalities()
     modalities = bm.fit_transform(splicing)
+
+Which you can turn into a tidy dataframe:
+
+.. code-block::
+
+    modalities_tidy = modalities.unstack().reset_index()
+    modalities_tidy = modalities_tidy.rename(columns={'index':'event_id', 0:'modality'})
+    modalities_tidy = modalities_tidy.dropna()
+    print(modalities_tidy.shape)
+    modalities_tidy.head()
+
+Plotting colors
+===============
+
+Anchor provides helpful tools for plotting modalities using ``seaborn``-based
+functions.
+
+.. code-block::
+
+    from anchor import MODALITY_ORDER, MODALITY_PALETTE, MODALITY_TO_COLOR
+
