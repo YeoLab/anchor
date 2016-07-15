@@ -8,6 +8,7 @@ install:
 - export PATH=~/miniconda3/bin:$PATH
 - conda update --yes conda
 - make PYTHON_VERSION=$TRAVIS_PYTHON_VERSION install
+- source activate anchor_py$TRAVIS_PYTHON_VERSION
 before_script:
 - git config --global user.email "olga.botvinnik@gmail.com"
 - git config --global user.name "YeoLab"
