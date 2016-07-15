@@ -34,11 +34,11 @@ install:
 	conda create -n anchor_py${PYTHON_VERSION} --yes python=${PYTHON_VERSION} pip
 
 	# --- Activate environment
-	source activate anchor_py${PYTHON_VERSION}
-
-	# --- Install conda requirements first, then the rest by pip
-	conda install --yes --file conda_requirements.txt
-	pip install -r requirements.txt
+	source activate anchor_py${PYTHON_VERSION} \
+	\
+	# --- Install conda requirements first, then the rest by pip \
+	conda install --yes --file conda_requirements.txt \
+	pip install -r requirements.txt \
 
 	# --- Install anchor itself
 	pip install .
