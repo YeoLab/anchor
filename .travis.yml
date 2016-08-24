@@ -28,7 +28,6 @@ before_script:
 - locale-gen en_US.UTF-8
 - sudo dpkg-reconfigure locales
 script:
-- python -c "import anchor.tests"
 - make coverage
 - make lint
 after_script:

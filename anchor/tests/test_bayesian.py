@@ -92,10 +92,10 @@ class TestModalityEstimator(object):
 
     def test_positive_control(self, estimator, positive_control):
         """Make sure estimator correctly assigns modalities to known events"""
-        log2bf = estimator.fit(positive_control)
+        log2bf = estimator.fit(positive_control.copy())
         test = estimator.predict(log2bf)
 
-        pdt.assert_almost_equal(test.values, test.index)
+        pdt.assert_numpy_array_equal(test.values, test.index)
 
     def test_violinplot(self, estimator):
         estimator.violinplot(n=100)
