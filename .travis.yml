@@ -4,12 +4,19 @@ python:
 - '3.4'
 - '3.5'
 before_install:
-- make get_miniconda
+# http://conda.pydata.org/docs/travis.html#the-travis-yml-file
+- wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda info -a
 install:
-- export PATH=~/miniconda3/bin:$PATH
-- conda update --yes conda
-- make PYTHON_VERSION=$TRAVIS_PYTHON_VERSION install
-- source activate anchor_py$TRAVIS_PYTHON_VERSION
+- conda create -n testenv --yes python=$TRAVIS_PYTHON_VERSION pip
+- source activate testenv
+- conda install --file conda_requirements.txt
+- pip install -r requirements.txt
 before_script:
 - git config --global user.email "olga.botvinnik@gmail.com"
 - git config --global user.name "YeoLab"
