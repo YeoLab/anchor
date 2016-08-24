@@ -40,15 +40,14 @@ class TestModalityEstimator(object):
 
     @pytest.fixture
     def positive_control(self):
-        """Randomly generated positive controls for modality estimation"""
+        """Exact, known positive controls for modality estimation"""
         size = 20
-        psi0 = pd.Series(np.random.uniform(0, 0.1, size=size), name='excluded')
-        psi1 = pd.Series(np.random.uniform(0.9, 1, size=size), name='included')
-        middle = pd.Series(np.random.uniform(0.45, 0.55, size=size),
-                           name='middle')
-        bimodal = pd.Series(np.concatenate([
-            np.random.uniform(0, 0.05, size=size / 2),
-            np.random.uniform(0.95, 1, size=size / 2)]), name='bimodal')
+        psi0 = pd.Series(np.zeros(size), name='excluded')
+        psi1 = pd.Series(np.ones(size), name='included')
+        middle = pd.Series(0.5*np.ones(size), name='middle')
+        bimodal = pd.Series(np.concatenate([np.ones(size/2),
+                                            np.zeros(size/2)]),
+                            name='bimodal')
         df = pd.concat([psi0, psi1, middle, bimodal], axis=1)
         return df
 
