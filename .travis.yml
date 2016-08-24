@@ -30,8 +30,6 @@ before_script:
 script:
 - make coverage
 - make lint
-after_script:
-- coveralls
 deploy:
   provider: pypi
   user: obot
@@ -40,3 +38,5 @@ deploy:
   on:
     tags: true
     repo: YeoLab/anchor
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
