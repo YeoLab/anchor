@@ -1,5 +1,5 @@
 v0.1.0 (July 14, 2016)
--------------------------
+----------------------
 
 This is the first official release of ``anchor``! This is known as ``anchor-bio`` on PyPI
 
@@ -9,7 +9,7 @@ ranging from 0 to 1) into "modes", such as "unimodal", "bimodal"
 Examples
 ~~~~~~~~
 
-Calcluating modality
+Calculating modality
 ====================
 
 Given ``splicing`` is a ``pandas.DataFrame`` (pandas_ is a fantastic Python
