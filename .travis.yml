@@ -3,8 +3,9 @@ python:
 - '2.7'
 - '3.4'
 - '3.5'
-install:
+before_install:
 - make get_miniconda
+install:
 - export PATH=~/miniconda3/bin:$PATH
 - conda update --yes conda
 - make PYTHON_VERSION=$TRAVIS_PYTHON_VERSION install
