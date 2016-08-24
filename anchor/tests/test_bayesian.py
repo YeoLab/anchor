@@ -48,7 +48,9 @@ class TestModalityEstimator(object):
         bimodal = pd.Series(np.concatenate([np.ones(size/2),
                                             np.zeros(size/2)]),
                             name='bimodal')
-        df = pd.concat([psi0, psi1, middle, bimodal], axis=1)
+        uncategorized = pd.Series(np.linspace(0, 1, size),
+                                  name='uncategorized')
+        df = pd.concat([psi0, psi1, middle, bimodal, uncategorized], axis=1)
         return df
 
     def test_init(self, logbf_thresh):
