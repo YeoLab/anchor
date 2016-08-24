@@ -12,8 +12,6 @@ from .names import NEAR_ZERO, NEAR_HALF, NEAR_ONE, BIMODAL, \
     NULL_MODEL
 
 
-locale.setlocale(locale.LC_ALL, 'en_US')
-
 darkblue, green, red, purple, yellow, lightblue = sns.color_palette('deep')
 MODALITY_ORDER = [NEAR_ZERO, BIMODAL, NEAR_ONE, NEAR_HALF, NULL_MODEL]
 
