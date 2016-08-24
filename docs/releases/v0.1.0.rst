@@ -12,7 +12,8 @@ Examples
 Calcluating modality
 ====================
 
-Given ``splicing`` is a ``pandas.DataFrame`` formatted where the rows are the
+Given ``splicing`` is a ``pandas.DataFrame`` (pandas_ is a fantastic Python
+package for manipulating dataframes - highly recommended!!) formatted where the rows are the
 samples and the columns are the features, so the shape is
 ``(n_samples, n_features))``, the following code will calculate modalities on
 each column (splicing event):
@@ -24,23 +25,53 @@ each column (splicing event):
     bm = anchor.BayesianModalities()
     modalities = bm.fit_transform(splicing)
 
-Which you can turn into a tidy dataframe:
+Which you can turn into a "tidy_" dataframe:
 
 .. code-block::
 
     modalities_tidy = modalities.unstack().reset_index()
-    modalities_tidy = modalities_tidy.rename(columns={'index':'event_id', 0:'modality'})
+    modalities_tidy = modalities_tidy.rename(
+        columns={'index':'event_id', 0:'modality'})
     modalities_tidy = modalities_tidy.dropna()
     print(modalities_tidy.shape)
     modalities_tidy.head()
 
-Plotting colors
-===============
+Phenotypes
+++++++++++
+
+Alternatively, if you have a mapping of each sample id to a phenotype, e.g.
+a dictionary called ``sample_id_to_phenotype``, you can
+use ``groupby`` and calculate modalities for each phenotype separately.
+
+
+.. code-block::
+
+    import anchor
+
+    bm = anchor.BayesianModalities()
+    phenotype_modalities = splicing.groupby(sample_id_to_phenotype).apply(
+        bm.fit_transform)
+
+Then the tidying of your dataframe would look like:
+
+.. code-block::
+
+    modalities_tidy = modalities.unstack().reset_index()
+    modalities_tidy = modalities_tidy.rename(
+        columns={'level_0':'event_id', 'level_1': 'phenotype' 0:'modality'})
+    modalities_tidy = modalities_tidy.dropna()
+    print(modalities_tidy.shape)
+    modalities_tidy.head()
+
+Plotting
+========
 
 Anchor provides helpful tools for plotting modalities using ``seaborn``-based
-functions.
+functions, which makes plotting your "tidy" dataframe much easier.
 
 .. code-block::
 
     from anchor import MODALITY_ORDER, MODALITY_PALETTE, MODALITY_TO_COLOR
 
+.. _tidy: http://vita.had.co.nz/papers/tidy-data.pdf
+.. _pandas: http://pandas.pydata.org/
