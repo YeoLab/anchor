@@ -4,7 +4,7 @@ import pytest
 
 
 @pytest.fixture(params=['no_na', 'with_na'])
-def event(self, request):
+def event(request):
     x = np.arange(0, 1.1, .1)
     if request.param == 'no_na':
         return x
@@ -14,7 +14,7 @@ def event(self, request):
 
 
 @pytest.fixture
-def positive_control(self):
+def positive_control():
     """Exact, known positive controls for modality estimation"""
     size = 20
     psi0 = pd.Series(np.zeros(size), name='excluded')
