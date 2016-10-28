@@ -72,7 +72,7 @@ class TestModalityEstimator(object):
         log2bf = estimator.fit(positive_control.copy())
         test = estimator.predict(log2bf)
 
-        pdt.assert_numpy_array_equal(test.values, test.index)
+        pdt.assert_numpy_array_equal(test.values, test.index.values)
 
     def test_violinplot(self, estimator):
         estimator.violinplot(n=100)
