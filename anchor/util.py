@@ -2,6 +2,7 @@ from .visualize import MODALITY_ORDER
 
 n_events = 'Number of alternative events'
 
+
 def tidify_modalities(modality_assignments, name='event_id'):
     modalities_tidy = modality_assignments.stack().reset_index()
     modalities_tidy = modalities_tidy.rename(
