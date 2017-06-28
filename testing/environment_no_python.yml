@@ -25,7 +25,6 @@ dependencies:
 - pyparsing
 - pyqt
 - pytest
-- python
 - pytz
 - qt
 - readline
