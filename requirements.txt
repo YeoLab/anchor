@@ -4,3 +4,4 @@ pandas
 matplotlib
 seaborn
 pytest-cov
+scikit-learn
