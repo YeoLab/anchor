@@ -36,7 +36,7 @@ test:
 
 coverage: clean-pyc
 	cp testing/matplotlibrc .
-	py.test --cov=./ --omit="*/test*"
+	py.test --cov=./
 	rm matplotlibrc
 
 lint:
