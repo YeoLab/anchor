@@ -25,7 +25,8 @@ def bin_range_strings(bins):
     >>> bin_range_strings((0, 0.5, 1))
     ['0-0.5', '0.5-1']
     """
-    return ['{}-{}'.format(round(i, 5), round(j, 5)) for i, j in zip(bins, bins[1:])]
+    return ['{}-{}'.format(round(i, 5), round(j, 5))
+            for i, j in zip(bins, bins[1:])]
 
 
 def _check_prob_dist(x):
