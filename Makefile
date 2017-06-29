@@ -11,14 +11,33 @@ help:
 	@echo "    called 'anchor_py2.7', cowardly not overwriting any environment that"
 	@echo "    existed there before."
 
+clean-build:
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc:
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-test:
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr htmlcov/
+
 test:
 	cp testing/matplotlibrc .
 	py.test
 	rm matplotlibrc
 
-coverage:
+coverage: clean-pyc
 	cp testing/matplotlibrc .
-	coverage run --source anchor --omit=tests --module py.test
+	coverage run --source anchor --omit="*/test*" --module py.test
+	coverage report --show-missing
 	rm matplotlibrc
 
 lint:
