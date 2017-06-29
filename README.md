@@ -1,6 +1,6 @@
 ![Anchor logo](https://raw.githubusercontent.com/YeoLab/anchor/master/logo/v1/logo.png)
 
-[![](https://img.shields.io/travis/YeoLab/anchor.svg)](https://travis-ci.org/YeoLab/anchor)[![](https://img.shields.io/pypi/v/anchor.svg)](https://pypi.python.org/pypi/anchor)[![Coverage Status](https://coveralls.io/repos/YeoLab/anchor/badge.svg?branch=master&service=github)](https://coveralls.io/github/YeoLab/anchor?branch=master)
+[![](https://img.shields.io/travis/YeoLab/anchor.svg)](https://travis-ci.org/YeoLab/anchor)[![](https://img.shields.io/pypi/v/anchor.svg)](https://pypi.python.org/pypi/anchor)[![codecov](https://codecov.io/gh/YeoLab/anchor/branch/master/graph/badge.svg)](https://codecov.io/gh/YeoLab/anchor)
 
 ## What is `anchor`?
 
