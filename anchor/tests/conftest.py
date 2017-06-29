@@ -17,11 +17,12 @@ def event(request):
 def positive_control():
     """Exact, known positive controls for modality estimation"""
     size = 20
+    half = int(size/2)
     psi0 = pd.Series(np.zeros(size), name='excluded')
     psi1 = pd.Series(np.ones(size), name='included')
     middle = pd.Series(0.5 * np.ones(size), name='middle')
-    bimodal = pd.Series(np.concatenate([np.ones(size / 2),
-                                        np.zeros(size / 2)]),
+    bimodal = pd.Series(np.concatenate([np.ones(half),
+                                        np.zeros(half)]),
                         name='bimodal')
     uncategorized = pd.Series(np.linspace(0, 1, size),
                               name='uncategorized')
