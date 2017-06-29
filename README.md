@@ -71,6 +71,14 @@ bayes_factors = bm.fit(data)
 
 ## History
 
+### 1.1.1 (2017-06-29)
+
+- In `infotheory.binify`, round the decimal numbers before they are written as strings
+
+### 1.0.1 (2017-06-28)
+
+- Documentation and build fixes
+
 ### 1.0.0 (2017-06-28)
 
 * Updated to Python 3.5, 3.6
