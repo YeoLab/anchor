@@ -11,10 +11,11 @@ Anchor is a python package to find unimodal, bimodal, and multimodal features in
 
 ## Installation
 
-To install `anchor`, we recommend using the [Anaconda Python Distribution]
-(http://anaconda.org/) and creating an environment, so the `anchor` code and
-dependencies don't interfere with anything else. Here is the command to create an
-environment:
+To install `anchor`, we recommend using the
+[Anaconda Python Distribution](http://anaconda.org/) and creating an
+environment, so the `anchor` code and dependencies don't interfere with
+anything else. Here is the command to create an environment:
+
 
 ```
 conda create -n anchor-env pandas scipy numpy matplotlib seaborn
