@@ -23,7 +23,7 @@ test_requirements = [
 
 setup(
     name='anchor-bio',
-    version='1.0.1',
+    version='1.1.1',
     description="Anchor is a python package to estimate modality of splicing, percent methylated, any data that is normalized between 0 and 1",
     long_description=readme,
     author="Olga Botvinnik",

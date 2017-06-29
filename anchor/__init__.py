@@ -10,7 +10,7 @@ from .visualize import MODALITY_TO_COLOR, MODALITY_ORDER, MODALITY_PALETTE,\
 
 __author__ = 'Olga Botvinnik'
 __email__ = 'olga.botvinnik@gmail.com'
-__version__ = '1.0.1'
+__version__ = '1.1.1'
 
 
 __all__ = ['ModalityModel', 'BayesianModalities', 'MODALITY_ORDER',
