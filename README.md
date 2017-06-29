@@ -11,17 +11,14 @@ Anchor is a python package to find unimodal, bimodal, and multimodal features in
 
 ## Installation
 
-To install this code, clone this github repository and use `pip` to install
+To install `anchor`, we recommend using the [Anaconda Python Distribution]
+(http://anaconda.org/) and creating an environment, so the `anchor` code and
+dependencies don't interfere with anything else. Here is the command to create an
+environment:
 
-    git clone git@github.com:YeoLab/anchor
-    cd anchor
-    pip install .  # The "." means "install *this*, the folder where I am now"
-
-
-To install ``anchor``, we recommend using the `Anaconda Python
-Distribution <http://anaconda.org/>`__ and creating an environment.
-
-
+```
+conda create -n anchor-env pandas scipy numpy matplotlib seaborn
+```
 
 ### Stable (recommended)
 

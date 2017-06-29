@@ -1,7 +1,6 @@
 pytest
 flake8
-coverage
 pandas
 matplotlib
 seaborn>=0.6
-scikit-learn
+pytest-cov
