@@ -40,4 +40,5 @@ deploy:
     tags: true
     repo: YeoLab/anchor
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - pip install codecov
+  - codecov

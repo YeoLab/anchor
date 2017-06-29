@@ -4,4 +4,4 @@ coverage
 pandas
 matplotlib
 seaborn
-python-coveralls
+pytest-cov
