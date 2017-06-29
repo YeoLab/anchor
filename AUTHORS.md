@@ -1,11 +1,10 @@
-=======
 Credits
 =======
 
 Development Lead
 ----------------
 
-* Olga Botvinnik <olga.botvinnik@gmail.com>
+-   Olga Botvinnik &lt;<olga.botvinnik@gmail.com>&gt;
 
 Contributors
 ------------
