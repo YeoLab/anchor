@@ -9,7 +9,7 @@ from sklearn import cross_validation
 EPSILON = 100 * np.finfo(float).eps
 
 
-def bin_range_strings(bins):
+def bin_range_strings(bins, fmt=':g'):
     """Given a list of bins, make a list of strings of those bin ranges
 
     Parameters
@@ -25,7 +25,7 @@ def bin_range_strings(bins):
     >>> bin_range_strings((0, 0.5, 1))
     ['0-0.5', '0.5-1']
     """
-    return ['{}-{}'.format(round(i, 5), round(j, 5))
+    return [('{' + fmt + '}-{' + fmt + '}').format(i, j)
             for i, j in zip(bins, bins[1:])]
 
 
