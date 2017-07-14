@@ -17,6 +17,7 @@ def data(size):
     df.columns = df.columns.astype(str)
     return df
 
+
 @pytest.fixture
 def df1(data):
     return data
